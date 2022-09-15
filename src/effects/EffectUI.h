@@ -23,6 +23,7 @@
 #if defined(EXPERIMENTAL_EFFECTS_RACK)
 
 #include <vector>
+#include <chrono>
 
 #include <wx/defs.h>
 #include <wx/frame.h> // to inherit
@@ -70,7 +71,7 @@ private:
    TenacityProject &mProject;
 
    wxStaticText *mLatency;
-   int mLastLatency;
+   std::chrono::milliseconds mLastLatency;
 
    wxBitmap mPowerPushed;
    wxBitmap mPowerRaised;
