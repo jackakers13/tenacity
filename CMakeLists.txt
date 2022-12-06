@@ -816,15 +816,6 @@ if( PERFORM_CODESIGN )
    include( AudacityCodeSigning )
 endif()
 
-#
-# Packaging
-#
-
-option( PACKAGE_MANUAL
-        "Package the manual along with the DMG and InnoSetup targets"
-        Off
-)
-
 # Variables, that are common for all package targets
 
 if( CMAKE_SYSTEM_NAME MATCHES "Windows" )
