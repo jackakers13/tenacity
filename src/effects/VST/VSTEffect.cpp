@@ -964,7 +964,7 @@ intptr_t VSTEffect::AudioMaster(AEffect * effect,
          return (intptr_t) (AUDACITY_VERSION << 24 |
                             AUDACITY_RELEASE << 16 |
                             AUDACITY_REVISION << 8 |
-                            AUDACITY_MODLEVEL);
+                            0 /* Formerly AUDACITY_MODLEVEL*/);
 
       // Some (older) effects depend on an effIdle call when requested.  An
       // example is the Antress Modern plugins which uses the call to update

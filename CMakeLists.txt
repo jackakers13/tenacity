@@ -126,7 +126,6 @@ endif()
 set( AUDACITY_VERSION 1 )
 set( AUDACITY_RELEASE 3 )
 set( AUDACITY_REVISION 0 )
-set( AUDACITY_MODLEVEL 0 )
 
 if( AUDACITY_BUILD_LEVEL EQUAL 0 )
    set( AUDACITY_SUFFIX "-alpha" )
@@ -349,9 +348,6 @@ if( GIT_FOUND )
 endif()
 message( STATUS "  Current Commit: ${GIT_DESCRIBE}" )
 message( STATUS )
-
-# Not sure what this even does
-set( AUDACITY_MODLEVEL 0 )
 
 # Organize subdirectories/targets into folders for the IDEs
 set_property( GLOBAL PROPERTY USE_FOLDERS ON )
@@ -581,7 +577,6 @@ set( APP_ID "org.tenacityaudio.Tenacity" )
 
 # Create short and full version strings
 set( AUDACITY_DIST_VERSION ${AUDACITY_VERSION}.${AUDACITY_RELEASE}.${AUDACITY_REVISION} )
-set( AUDACITY_INFO_VERSION ${AUDACITY_VERSION}.${AUDACITY_RELEASE}.${AUDACITY_REVISION}.${AUDACITY_MODLEVEL} )
 
 # Python is used for the manual and (possibly) message catalogs
 find_package( Python3 )

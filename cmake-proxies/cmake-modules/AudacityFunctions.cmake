@@ -229,13 +229,12 @@ function( audacity_append_common_compiler_options var use_pch )
          -DAUDACITY_VERSION=${AUDACITY_VERSION}
          -DAUDACITY_RELEASE=${AUDACITY_RELEASE}
          -DAUDACITY_REVISION=${AUDACITY_REVISION}
-         -DAUDACITY_MODLEVEL=${AUDACITY_MODLEVEL}
 
          # Version string for visual display
          -DAUDACITY_VERSION_STRING=L"${AUDACITY_VERSION}.${AUDACITY_RELEASE}.${AUDACITY_REVISION}${GIT_VERSION_TAG}"
 
          # This value is used in the resource compiler for Windows
-         -DAUDACITY_FILE_VERSION=L"${AUDACITY_VERSION},${AUDACITY_RELEASE},${AUDACITY_REVISION},${AUDACITY_MODLEVEL}"
+         -DAUDACITY_FILE_VERSION=L"${AUDACITY_VERSION},${AUDACITY_RELEASE},${AUDACITY_REVISION},0"
 
          # Reviewed, certified, non-leaky uses of NEW that immediately entrust
 	      # their results to RAII objects.
