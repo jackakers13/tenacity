@@ -44,7 +44,7 @@ std::unique_ptr<TenacityFileConfig> TenacityFileConfig::Create(
 {
    // Private ctor means make_unique can't compile, so this verbosity:
    auto result = std::unique_ptr<TenacityFileConfig>{
-      safenew TenacityFileConfig{
+      new TenacityFileConfig{
          appName, vendorName, localFilename, globalFilename, style, conv } };
    result->Init();
    return result;

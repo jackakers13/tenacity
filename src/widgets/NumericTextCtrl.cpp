@@ -1399,7 +1399,7 @@ NumericTextCtrl::NumericTextCtrl(wxWindow *parent, wxWindowID id,
 #if wxUSE_ACCESSIBILITY
    SetLabel(wxT(""));
    SetName( {} );
-   SetAccessible(safenew NumericTextCtrlAx(this));
+   SetAccessible(new NumericTextCtrlAx(this));
 #endif
 
    if (options.hasInvalidValue)

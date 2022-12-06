@@ -990,7 +990,7 @@ void Exporter::CreateUserPane(wxWindow *parent)
          }
          S.EndSimplebook();
 
-         auto b = safenew wxBitmapButton(S.GetParent(), wxID_HELP, theTheme.Bitmap( bmpHelpIcon ));
+         auto b = new wxBitmapButton(S.GetParent(), wxID_HELP, theTheme.Bitmap( bmpHelpIcon ));
          b->SetToolTip( XO("Help").Translation() );
          b->SetLabel(XO("Help").Translation());       // for screen readers
          S.Position(wxALIGN_BOTTOM | wxRIGHT | wxBOTTOM).AddWindow(b);
@@ -1422,7 +1422,7 @@ ExportMixerDialog::ExportMixerDialog( const TrackList *tracks, bool selectedOnly
    {
       S.SetBorder( 5 );
 
-      auto mixerPanel = safenew ExportMixerPanel(
+      auto mixerPanel = new ExportMixerPanel(
          S.GetParent(), ID_MIXERPANEL, mMixerSpec.get(),
          mTrackNames, wxDefaultPosition, wxSize(400, -1));
       S.Prop(1)

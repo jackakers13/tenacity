@@ -465,11 +465,11 @@ PrefsDialog::PrefsDialog(
    {
       wxASSERT(factories.size() > 0);
       if (!uniquePage) {
-         mCategories = safenew wxTreebookExt(S.GetParent(), wxID_ANY, mTitlePrefix);
+         mCategories = new wxTreebookExt(S.GetParent(), wxID_ANY, mTitlePrefix);
 #if wxUSE_ACCESSIBILITY
          // so that name can be set on a standard control
          mCategories->GetTreeCtrl()->SetAccessible(
-            safenew TreeCtrlAx(mCategories->GetTreeCtrl()));
+            new TreeCtrlAx(mCategories->GetTreeCtrl()));
 #endif
          // RJH: Prevent NVDA from reading "treeCtrl"
          mCategories->GetTreeCtrl()->SetName(_("Category"));

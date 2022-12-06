@@ -241,7 +241,7 @@ void UndoManager::RemoveStates(size_t begin, size_t end)
    
    if (begin != end)
       // wxWidgets will own the event object
-      mProject.QueueEvent( safenew wxCommandEvent{ EVT_UNDO_PURGE } );
+      mProject.QueueEvent( new wxCommandEvent{ EVT_UNDO_PURGE } );
 
    // Check sanity
    wxASSERT_MSG(
@@ -305,7 +305,7 @@ void UndoManager::ModifyState(const TrackList * l,
 //   SonifyEndModifyState();
 
    // wxWidgets will own the event object
-   mProject.QueueEvent( safenew wxCommandEvent{ EVT_UNDO_MODIFIED } );
+   mProject.QueueEvent( new wxCommandEvent{ EVT_UNDO_MODIFIED } );
 }
 
 void UndoManager::RenameState( int state,
@@ -318,7 +318,7 @@ void UndoManager::RenameState( int state,
       theState.shortDescription = shortDescription;
 
       // wxWidgets will own the event object
-      mProject.QueueEvent( safenew wxCommandEvent{ EVT_UNDO_RENAMED } );
+      mProject.QueueEvent( new wxCommandEvent{ EVT_UNDO_RENAMED } );
    }
 }
 
@@ -367,7 +367,7 @@ void UndoManager::PushState(const TrackList * l,
    lastAction = longDescription;
 
    // wxWidgets will own the event object
-   mProject.QueueEvent( safenew wxCommandEvent{ EVT_UNDO_PUSHED } );
+   mProject.QueueEvent( new wxCommandEvent{ EVT_UNDO_PUSHED } );
 }
 
 void UndoManager::AbandonRedo()
@@ -390,7 +390,7 @@ void UndoManager::SetStateTo(unsigned int n, const Consumer &consumer)
    consumer( *stack[current] );
 
    // wxWidgets will own the event object
-   mProject.QueueEvent( safenew wxCommandEvent{ EVT_UNDO_RESET } );
+   mProject.QueueEvent( new wxCommandEvent{ EVT_UNDO_RESET } );
 }
 
 void UndoManager::Undo(const Consumer &consumer)
@@ -405,7 +405,7 @@ void UndoManager::Undo(const Consumer &consumer)
    consumer( *stack[current] );
 
    // wxWidgets will own the event object
-   mProject.QueueEvent( safenew wxCommandEvent{ EVT_UNDO_OR_REDO } );
+   mProject.QueueEvent( new wxCommandEvent{ EVT_UNDO_OR_REDO } );
 }
 
 void UndoManager::Redo(const Consumer &consumer)
@@ -433,7 +433,7 @@ void UndoManager::Redo(const Consumer &consumer)
    consumer( *stack[current] );
 
    // wxWidgets will own the event object
-   mProject.QueueEvent( safenew wxCommandEvent{ EVT_UNDO_OR_REDO } );
+   mProject.QueueEvent( new wxCommandEvent{ EVT_UNDO_OR_REDO } );
 }
 
 void UndoManager::VisitStates( const Consumer &consumer, bool newestFirst )

@@ -25,7 +25,7 @@
 #include <vector>
 
 // Tenacity libraries
-#include <lib-utility/MemoryX.h> // for safenew
+#include <lib-utility/MemoryX.h> // for new
 
 #include <wx/setup.h> // for wxUSE_* macros
 
@@ -196,7 +196,7 @@ bool EffectEqualization48x::AllocateBuffersWorkers(int nThreads)
 
    mScratchBufferSize=mWindowSize*3*sizeof(float)*mBufferCount; // 3 window size blocks of instruction size
    mSubBufferSize=mBlockSize*(mBufferCount*(mBlocksPerBuffer-1)); // we are going to do a full block overlap
-   mBigBuffer.reset( safenew (std::align_val_t(16)) float[(mSubBufferSize + mFilterSize + mScratchBufferSize) * mWorkerDataCount]);
+   mBigBuffer.reset( new (std::align_val_t(16)) float[(mSubBufferSize + mFilterSize + mScratchBufferSize) * mWorkerDataCount]);
    // fill the bufferInfo
    mBufferInfo.reinit(mWorkerDataCount);
    for(int i=0;i<mWorkerDataCount;i++) {

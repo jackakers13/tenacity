@@ -126,7 +126,7 @@ void SplashDialog::Populate( ShuttleGui & S )
    RescaledImage.Rescale( (int)(LOGOWITHNAME_WIDTH * fScale), (int)(LOGOWITHNAME_HEIGHT *fScale), wxIMAGE_QUALITY_HIGH );
    wxBitmap RescaledBitmap( RescaledImage );
    wxStaticBitmap *const icon =
-       safenew wxStaticBitmap(S.GetParent(), -1,
+       new wxStaticBitmap(S.GetParent(), -1,
                           //*m_pLogo, //v theTheme.Bitmap(bmpAudacityLogoWithName),
                           RescaledBitmap,
                           wxDefaultPosition,
@@ -138,7 +138,7 @@ void SplashDialog::Populate( ShuttleGui & S )
 #endif
       .AddWindow( icon );
 
-   mpHtml = safenew LinkingHtmlWindow(S.GetParent(), -1,
+   mpHtml = new LinkingHtmlWindow(S.GetParent(), -1,
                                          wxDefaultPosition,
                                          wxSize(506, 280),
                                          wxHW_SCROLLBAR_AUTO | wxSUNKEN_BORDER );
@@ -182,7 +182,7 @@ void SplashDialog::Show2( wxWindow * pParent )
    {
       // pParent owns it
       wxASSERT(pParent);
-      pSelf = safenew SplashDialog( pParent );
+      pSelf = new SplashDialog( pParent );
    }
    pSelf->mpHtml->SetPage(HelpText( wxT("welcome") ));
    pSelf->Show( true );

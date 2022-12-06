@@ -218,7 +218,7 @@ bool EffectLoudness::Process()
 
       if(mNormalizeTo == kLoudness)
       {
-         mLoudnessProcessor.reset(safenew EBUR128(mCurRate, range.size()));
+         mLoudnessProcessor.reset(new EBUR128(mCurRate, range.size()));
          mLoudnessProcessor->Initialize();
          if(!ProcessOne(range, true))
          {

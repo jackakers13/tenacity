@@ -157,7 +157,7 @@ void SelectionBar::Create(wxWindow * parent)
 AuStaticText * SelectionBar::AddTitle(
    const TranslatableString & Title, wxSizer * pSizer ){
    const auto translated = Title.Translation();
-   AuStaticText * pTitle = safenew AuStaticText(this, translated );
+   AuStaticText * pTitle = new AuStaticText(this, translated );
    pTitle->SetBackgroundColour( theTheme.Colour( clrMedium ));
    pTitle->SetForegroundColour( theTheme.Colour( clrTrackPanelText ) );
    pSizer->Add( pTitle, 0, wxEXPAND | wxALIGN_CENTER_VERTICAL | wxRIGHT, 5 );
@@ -170,7 +170,7 @@ NumericTextCtrl * SelectionBar::AddTime(
    const TranslatableString &Name, int id, wxSizer * pSizer ){
    auto formatName = mListener ? mListener->AS_GetSelectionFormat()
       : NumericFormatSymbol{};
-   auto pCtrl = safenew NumericTextCtrl(
+   auto pCtrl = new NumericTextCtrl(
       this, id, NumericConverter::TIME, formatName, 0.0, mRate);
    pCtrl->SetName( Name );
    pSizer->Add(pCtrl, 0, wxALIGN_TOP | wxRIGHT, 5);
@@ -178,7 +178,7 @@ NumericTextCtrl * SelectionBar::AddTime(
 }
 
 void SelectionBar::AddVLine(  wxSizer * pSizer ){
-   pSizer->Add(safenew wxStaticLine(this, -1, wxDefaultPosition,
+   pSizer->Add(new wxStaticLine(this, -1, wxDefaultPosition,
                                    wxSize(1, toolbarSingle-10),
                                    wxLI_VERTICAL),
                   0,  wxALIGN_CENTER_VERTICAL | wxRIGHT, 5);
@@ -194,7 +194,7 @@ void SelectionBar::Populate()
    // Inner sizers have space on right only.
    // This choice makes for a nice border and internal spacing and places clear responsibility
    // on each sizer as to what spacings it creates.
-   wxFlexGridSizer *mainSizer = safenew wxFlexGridSizer(SIZER_COLS, 1, 1);
+   wxFlexGridSizer *mainSizer = new wxFlexGridSizer(SIZER_COLS, 1, 1);
    Add(mainSizer, 0, wxALIGN_CENTER_VERTICAL | wxLEFT, 5);
 
    // Top row (mostly labels)
@@ -216,24 +216,24 @@ void SelectionBar::Populate()
          _("Length and End of Selection"),
          _("Length and Center of Selection"),
       };
-      mChoice = safenew wxChoice
+      mChoice = new wxChoice
          (this, ChoiceID, wxDefaultPosition, wxDefaultSize, 4, choices,
           0, wxDefaultValidator, _("Show"));
       mChoice->SetSelection(0);
 #if wxUSE_ACCESSIBILITY
       // so that name can be set on a standard control
-      mChoice->SetAccessible(safenew WindowAccessible(mChoice));
+      mChoice->SetAccessible(new WindowAccessible(mChoice));
 #endif
       mainSizer->Add(mChoice, 0, wxEXPAND | wxALIGN_TOP | wxRIGHT, 6);
    }
 
    // Bottom row, (mostly time controls)
-   mRateBox = safenew wxComboBox(this, RateID,
+   mRateBox = new wxComboBox(this, RateID,
                              wxT(""),
                              wxDefaultPosition, wxDefaultSize);
 #if wxUSE_ACCESSIBILITY
    // so that name can be set on a standard control
-   mRateBox->SetAccessible(safenew WindowAccessible(mRateBox));
+   mRateBox->SetAccessible(new WindowAccessible(mRateBox));
 #endif
    mRateBox->SetName(_("Project Rate (Hz)"));
    //mRateBox->SetForegroundColour( clrText2 );
@@ -273,7 +273,7 @@ void SelectionBar::Populate()
 
    AddVLine( mainSizer );
 
-   mSnapTo = safenew wxChoice(this, SnapToID,
+   mSnapTo = new wxChoice(this, SnapToID,
       wxDefaultPosition, wxDefaultSize,
       transform_container< wxArrayStringEx >(
          SnapManager::GetSnapLabels(),
@@ -281,7 +281,7 @@ void SelectionBar::Populate()
 
 #if wxUSE_ACCESSIBILITY
    // so that name can be set on a standard control
-   mSnapTo->SetAccessible(safenew WindowAccessible(mSnapTo));
+   mSnapTo->SetAccessible(new WindowAccessible(mSnapTo));
 #endif
    mSnapTo->SetName(_("Snap To"));
    //mSnapTo->SetForegroundColour( clrText2 );
@@ -813,7 +813,7 @@ void SelectionBar::OnSnapTo(wxCommandEvent & WXUNUSED(event))
 
 static RegisteredToolbarFactory factory{ SelectionBarID,
    []( TenacityProject &project ){
-      return ToolBar::Holder{ safenew SelectionBar{ project } }; }
+      return ToolBar::Holder{ new SelectionBar{ project } }; }
 };
 
 namespace {

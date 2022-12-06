@@ -1115,7 +1115,7 @@ void ProgressDialog::AddMessageAsColumn(wxBoxSizer * pSizer,
          { sText.Join( text, wxT("\n") ); });
 
    // Create a statictext object and add to the sizer
-   wxStaticText* oText = safenew wxStaticText(this,
+   wxStaticText* oText = new wxStaticText(this,
                                               wxID_ANY,
                                               sText.Translation(),
                                               wxDefaultPosition,
@@ -1211,7 +1211,7 @@ bool ProgressDialog::Create(const TranslatableString & title,
       auto vertSizer = std::make_unique<wxBoxSizer>(wxVERTICAL);
       vertSizer->Add(uColSizer.release(), 1, wxEXPAND | wxALL, 10);
 
-      mGauge = safenew wxGauge(this,
+      mGauge = new wxGauge(this,
                                wxID_ANY,
                                1000,
                                wxDefaultPosition,
@@ -1228,7 +1228,7 @@ bool ProgressDialog::Create(const TranslatableString & title,
          auto gridSizer = uGridSizer.get();
 
          if (m_bShowElapsedTime) {
-            window = safenew wxStaticText(this,
+            window = new wxStaticText(this,
                                           wxID_ANY,
                                           _("Elapsed Time:"),
                                           wxDefaultPosition,
@@ -1238,7 +1238,7 @@ bool ProgressDialog::Create(const TranslatableString & title,
             window->SetName(window->GetLabel()); // fix for bug 577 (NVDA/Narrator screen readers do not read static text in dialogs)
             gridSizer->Add(window, 0, wxALIGN_RIGHT);
 
-            mElapsed = safenew wxStaticText(this,
+            mElapsed = new wxStaticText(this,
                                             wxID_ANY,
                                             wxT("00:00:00"),
                                             wxDefaultPosition,
@@ -1255,7 +1255,7 @@ bool ProgressDialog::Create(const TranslatableString & title,
             sRemainingText = XO("Remaining Time:");
          }
 
-         window = safenew wxStaticText(this,
+         window = new wxStaticText(this,
                                        wxID_ANY,
                                        sRemainingText.Translation(),
                                        wxDefaultPosition,
@@ -1264,7 +1264,7 @@ bool ProgressDialog::Create(const TranslatableString & title,
          window->SetName(window->GetLabel()); // fix for bug 577 (NVDA/Narrator screen readers do not read static text in dialogs)
          gridSizer->Add(window, 0, wxALIGN_RIGHT);
 
-         mRemaining = safenew wxStaticText(this,
+         mRemaining = new wxStaticText(this,
                                            wxID_ANY,
                                            wxT("00:00:00"),
                                            wxDefaultPosition,
@@ -1281,11 +1281,11 @@ bool ProgressDialog::Create(const TranslatableString & title,
          auto buttonBarSizer = uButtonBar.get();
 
          if (!(flags & pdlgHideStopButton)) {
-            window = safenew wxButton(this, wxID_OK, _("Stop"));
+            window = new wxButton(this, wxID_OK, _("Stop"));
             buttonBarSizer->Add(window, 0, wxRIGHT, 10);
          }
          if (!(flags & pdlgHideCancelButton)) {
-            window = safenew wxButton(this, wxID_CANCEL, _("Cancel"));
+            window = new wxButton(this, wxID_CANCEL, _("Cancel"));
             buttonBarSizer->Add(window, 0, wxRIGHT, 10);
          }
          vertSizer->Add(uButtonBar.release(), 0, wxALIGN_RIGHT | wxRIGHT | wxBOTTOM, 10);

@@ -1230,7 +1230,7 @@ struct TrackListEvent : public wxCommandEvent
 
    wxEvent *Clone() const override {
       // wxWidgets will own the event object
-      return safenew TrackListEvent(*this); }
+      return new TrackListEvent(*this); }
 
    std::weak_ptr<Track> mpTrack;
    int mCode;

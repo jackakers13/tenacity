@@ -163,7 +163,7 @@ void ApplyMacroDialog::PopulateOrExchange(ShuttleGui &S)
          .AddButton(XXO("&Project"));
 #if wxUSE_ACCESSIBILITY
       // so that name can be set on a standard control
-      btn->SetAccessible(safenew WindowAccessible(btn));
+      btn->SetAccessible(new WindowAccessible(btn));
 #endif
 
       btn = S.Id(ApplyToFilesID)
@@ -171,7 +171,7 @@ void ApplyMacroDialog::PopulateOrExchange(ShuttleGui &S)
          .AddButton(XXO("&Files..."));
 #if wxUSE_ACCESSIBILITY
       // so that name can be set on a standard control
-      btn->SetAccessible(safenew WindowAccessible(btn));
+      btn->SetAccessible(new WindowAccessible(btn));
 #endif
    }
    S.EndHorizontalLay();
@@ -692,7 +692,7 @@ void MacrosWindow::PopulateOrExchange(ShuttleGui & S)
          .AddButton(XXO("&Project"));
 #if wxUSE_ACCESSIBILITY
       // so that name can be set on a standard control
-      btn->SetAccessible(safenew WindowAccessible(btn));
+      btn->SetAccessible(new WindowAccessible(btn));
 #endif
 
       btn = S.Id(ApplyToFilesID)
@@ -700,7 +700,7 @@ void MacrosWindow::PopulateOrExchange(ShuttleGui & S)
          .AddButton(XXO("&Files..."));
 #if wxUSE_ACCESSIBILITY
       // so that name can be set on a standard control
-      btn->SetAccessible(safenew WindowAccessible(btn));
+      btn->SetAccessible(new WindowAccessible(btn));
 #endif
       S.AddSpace( 10,10,1 );
       // Bug 2524 OK button does much the same as cancel, so remove it.

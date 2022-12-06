@@ -168,8 +168,8 @@ namespace{
 PrefsPanel::Registration sAttachment{ "Module",
    [](wxWindow *parent, wxWindowID winid, TenacityProject *)
    {
-      wxASSERT(parent); // to justify safenew
-      return safenew ModulePrefs(parent, winid);
+      wxASSERT(parent); // to justify new
+      return new ModulePrefs(parent, winid);
    },
    false,
    // Register with an explicit ordering hint because this one is

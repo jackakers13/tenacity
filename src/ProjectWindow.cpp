@@ -503,7 +503,7 @@ TenacityProject::AttachedWindows::RegisteredFactory sProjectWindowKey{
       bool bIconized = false;
       GetNextWindowPlacement(&wndRect, &bMaximized, &bIconized);
 
-      auto pWindow = safenew ProjectWindow(
+      auto pWindow = new ProjectWindow(
          nullptr, -1,
          wxDefaultPosition,
          wxSize(wndRect.width, wndRect.height),
@@ -584,7 +584,7 @@ ProjectWindow::ProjectWindow(wxWindow * parent, wxWindowID id,
    // Must create it with non-default width equal to the main window width,
    // or else the device toolbar doesn't make initial widths of the choice
    // controls correct.
-   mTopPanel = safenew wxPanelWrapper {
+   mTopPanel = new wxPanelWrapper {
       this, wxID_ANY, wxDefaultPosition,
       wxSize{ this->GetSize().GetWidth(), -1 }
    };
@@ -600,11 +600,11 @@ ProjectWindow::ProjectWindow(wxWindow * parent, wxWindowID id,
    // We place the track panel inside another panel keeping the notebook code
    // and normal code consistent and also paves the way for adding additional
    // windows inside the track panel.
-   mMainPanel = safenew wxPanelWrapper(this, -1,
+   mMainPanel = new wxPanelWrapper(this, -1,
       wxDefaultPosition,
       wxDefaultSize,
       wxNO_BORDER);
-   mMainPanel->SetSizer( safenew wxBoxSizer(wxVERTICAL) );
+   mMainPanel->SetSizer( new wxBoxSizer(wxVERTICAL) );
    mMainPanel->SetLabel("Main Panel");// Not localised.
    pPage = mMainPanel;
    // Set the colour here to the track panel background to avoid
@@ -632,12 +632,12 @@ ProjectWindow::ProjectWindow(wxWindow * parent, wxWindowID id,
    //      creating the scrollbars after the TrackPanel, we resolve
    //      several focus problems.
 
-   mHsbar = safenew ScrollBar(pPage, HSBarID, wxSB_HORIZONTAL);
-   mVsbar = safenew ScrollBar(pPage, VSBarID, wxSB_VERTICAL);
+   mHsbar = new ScrollBar(pPage, HSBarID, wxSB_HORIZONTAL);
+   mVsbar = new ScrollBar(pPage, VSBarID, wxSB_VERTICAL);
 #if wxUSE_ACCESSIBILITY
    // so that name can be set on a standard control
-   mHsbar->SetAccessible(safenew WindowAccessible(mHsbar));
-   mVsbar->SetAccessible(safenew WindowAccessible(mVsbar));
+   mHsbar->SetAccessible(new WindowAccessible(mHsbar));
+   mVsbar->SetAccessible(new WindowAccessible(mVsbar));
 #endif
    mHsbar->SetLayoutDirection(wxLayout_LeftToRight);
    mHsbar->SetName(_("Horizontal Scrollbar"));
@@ -1353,7 +1353,7 @@ void ProjectWindow::OnShow(wxShowEvent & event)
    // therefore isn't processed within the YieldFor(..) of the clipboard
    // operations (workaround for Debian bug #765341).
    // QueueEvent() will take ownership of the event
-   GetEventHandler()->QueueEvent(safenew wxSizeEvent(GetSize()));
+   GetEventHandler()->QueueEvent(new wxSizeEvent(GetSize()));
 
    // Further processing by default handlers
    event.Skip();

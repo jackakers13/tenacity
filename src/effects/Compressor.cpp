@@ -251,7 +251,7 @@ void EffectCompressor::PopulateOrExchange(ShuttleGui & S)
    S.StartHorizontalLay(wxEXPAND, true);
    {
       S.SetBorder(10);
-      mPanel = safenew EffectCompressorPanel(S.GetParent(), wxID_ANY,
+      mPanel = new EffectCompressorPanel(S.GetParent(), wxID_ANY,
                                          mThresholdDB,
                                          mNoiseFloorDB,
                                          mRatio);

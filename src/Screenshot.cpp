@@ -142,7 +142,7 @@ void OpenScreenshotTools( TenacityProject &project )
          return;
       }
       mFrame = ScreenshotBigDialogPtr{
-         safenew ScreenshotBigDialog(parent, -1, project) };
+         new ScreenshotBigDialog(parent, -1, project) };
    }
    mFrame->Show();
    mFrame->Raise();
@@ -371,13 +371,13 @@ void ScreenshotBigDialog::PopulateOrExchange(ShuttleGui & S)
          {
             S.Id(IdMainWindowSmall).AddButton(XXO("Resize Small"));
             S.Id(IdMainWindowLarge).AddButton(XXO("Resize Large"));
-            mBlue = safenew wxToggleButton(S.GetParent(),
+            mBlue = new wxToggleButton(S.GetParent(),
                                        IdToggleBackgroundBlue,
             /* i18n-hint: Bkgnd is short for background and appears on a small button
              * It is OK to just translate this item as if it said 'Blue' */
                                        _("Blue Bkgnd"));
             S.AddWindow(mBlue);
-            mWhite = safenew wxToggleButton(S.GetParent(),
+            mWhite = new wxToggleButton(S.GetParent(),
                                         IdToggleBackgroundWhite,
             /* i18n-hint: Bkgnd is short for background and appears on a small button
              * It is OK to just translate this item as if it said 'White' */

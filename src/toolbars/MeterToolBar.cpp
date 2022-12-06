@@ -114,12 +114,12 @@ void MeterToolBar::ReCreateButtons()
 void MeterToolBar::Populate()
 {
    SetBackgroundColour( theTheme.Colour( clrMedium  ) );
-   Add((mSizer = safenew wxGridBagSizer()), 1, wxEXPAND);
+   Add((mSizer = new wxGridBagSizer()), 1, wxEXPAND);
 
    if( mWhichMeters & kWithRecordMeter ){
       //JKC: Record on left, playback on right.  Left to right flow
       //(maybe we should do it differently for Arabic language :-)  )
-      mRecordMeter = safenew MeterPanel( &mProject,
+      mRecordMeter = new MeterPanel( &mProject,
                                 this,
                                 wxID_ANY,
                                 true,
@@ -135,7 +135,7 @@ void MeterToolBar::Populate()
    }
 
    if( mWhichMeters & kWithPlayMeter ){
-      mPlayMeter = safenew MeterPanel( &mProject,
+      mPlayMeter = new MeterPanel( &mProject,
                               this,
                               wxID_ANY,
                               false,
@@ -259,17 +259,17 @@ void MeterToolBar::SetDocked(ToolDock *dock, bool pushed) {
 static RegisteredToolbarFactory factory1{ RecordMeterBarID,
    []( TenacityProject &project ){
       return ToolBar::Holder{
-         safenew MeterToolBar{ project, RecordMeterBarID } }; }
+         new MeterToolBar{ project, RecordMeterBarID } }; }
 };
 static RegisteredToolbarFactory factory2{ PlayMeterBarID,
    []( TenacityProject &project ){
       return ToolBar::Holder{
-         safenew MeterToolBar{ project, PlayMeterBarID } }; }
+         new MeterToolBar{ project, PlayMeterBarID } }; }
 };
 static RegisteredToolbarFactory factory3{ MeterBarID,
    []( TenacityProject &project ){
       return ToolBar::Holder{
-         safenew MeterToolBar{ project, MeterBarID } }; }
+         new MeterToolBar{ project, MeterBarID } }; }
 };
 
 #include "ToolManager.h"

@@ -980,7 +980,7 @@ void StartMidiIOThread()
 
 void AudioIO::Init()
 {
-   ugAudioIO.reset(safenew AudioIO());
+   ugAudioIO.reset(new AudioIO());
 
    // Start the audio (and MIDI) IO threads
    std::thread audioThread(StartAudioIOThread);

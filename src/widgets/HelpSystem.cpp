@@ -132,12 +132,12 @@ void HelpSystem::ShowHtmlText(wxWindow *pParent,
 {
    LinkingHtmlWindow *html;
 
-   wxASSERT(pParent); // to justify safenew
+   wxASSERT(pParent); // to justify new
    // JKC: ANSWER-ME: Why do we create a fake 'frame' and then put a BrowserDialog
    // inside it, rather than have a variant of the BrowserDialog that is a
    // frame??
    // Bug 1412 seems to be related to the extra frame.
-   auto pFrame = safenew wxFrame {
+   auto pFrame = new wxFrame {
       pParent, wxID_ANY, Title.Translation(), wxDefaultPosition, wxDefaultSize,
 #if defined(__WXMAC__)
       // On OSX, the html frame can go behind the help dialog and if the help
@@ -152,9 +152,9 @@ void HelpSystem::ShowHtmlText(wxWindow *pParent,
 
    BrowserDialog * pWnd;
    if( bModal )
-      pWnd = safenew HtmlTextHelpDialog{ pFrame, Title };
+      pWnd = new HtmlTextHelpDialog{ pFrame, Title };
    else
-      pWnd = safenew BrowserDialog{ pFrame, Title };
+      pWnd = new BrowserDialog{ pFrame, Title };
 
    // Bug 1412 workaround for 'extra window'.  Hide the 'fake' window.
    pFrame->SetTransparent(0);
@@ -183,7 +183,7 @@ void HelpSystem::ShowHtmlText(wxWindow *pParent,
       }
       S.EndHorizontalLay();
 
-      html = safenew LinkingHtmlWindow(S.GetParent(), wxID_ANY,
+      html = new LinkingHtmlWindow(S.GetParent(), wxID_ANY,
                                    wxDefaultPosition,
                                    bIsFile ? wxSize(500, 400) : wxSize(480, 240),
                                    wxHW_SCROLLBAR_AUTO | wxSUNKEN_BORDER);
@@ -242,7 +242,7 @@ void HelpSystem::ShowHelp(wxWindow *parent,
                     bool bModal,
                     bool alwaysDefaultBrowser)
 {
-   wxASSERT(parent); // to justify safenew
+   wxASSERT(parent); // to justify new
    wxString HelpMode = wxT("Local");
 
    gPrefs->Read(wxT("/GUI/Help"), &HelpMode, wxT("Local") );
@@ -402,7 +402,7 @@ void HelpSystem::ShowHelp(wxWindow *parent,
    wxLogMessage(wxT("webHelpPage %s, localHelpPage %s"),
               webHelpPage, localHelpPage);
 
-   wxASSERT(parent); // to justify safenew
+   wxASSERT(parent); // to justify new
 
    HelpSystem::ShowHelp(
       parent, 

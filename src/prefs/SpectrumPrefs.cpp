@@ -598,8 +598,8 @@ SpectrumPrefsFactory( WaveTrack *wt )
 {
    return [=](wxWindow *parent, wxWindowID winid, TenacityProject *pProject)
    {
-      wxASSERT(parent); // to justify safenew
-      return safenew SpectrumPrefs(parent, winid, pProject, wt);
+      wxASSERT(parent); // to justify new
+      return new SpectrumPrefs(parent, winid, pProject, wt);
    };
 }
 

@@ -205,10 +205,10 @@ TenacityProject::AttachedWindows::RegisteredFactory sKey{
       auto &viewInfo = ViewInfo::Get( project );
       auto &window = ProjectWindow::Get( project );
       auto mainPage = window.GetMainPage();
-      wxASSERT( mainPage ); // to justify safenew
+      wxASSERT( mainPage ); // to justify new
 
       auto &tracks = TrackList::Get( project );
-      auto result = safenew TrackPanel(mainPage,
+      auto result = new TrackPanel(mainPage,
          window.NextWindowID(),
          wxDefaultPosition,
          wxDefaultSize,

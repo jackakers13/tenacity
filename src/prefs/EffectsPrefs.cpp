@@ -252,8 +252,8 @@ namespace{
 PrefsPanel::Registration sAttachment{ "Effects",
    [](wxWindow *parent, wxWindowID winid, TenacityProject *)
    {
-      wxASSERT(parent); // to justify safenew
-      return safenew EffectsPrefs(parent, winid);
+      wxASSERT(parent); // to justify new
+      return new EffectsPrefs(parent, winid);
    }
 };
 }

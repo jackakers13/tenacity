@@ -306,8 +306,8 @@ namespace{
 PrefsPanel::Registration sAttachment{ "MidiIO",
    [](wxWindow *parent, wxWindowID winid, TenacityProject *)
    {
-      wxASSERT(parent); // to justify safenew
-      return safenew MidiIOPrefs(parent, winid);
+      wxASSERT(parent); // to justify new
+      return new MidiIOPrefs(parent, winid);
    },
    false,
    // Register with an explicit ordering hint because this one is

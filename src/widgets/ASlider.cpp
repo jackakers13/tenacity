@@ -309,7 +309,7 @@ SliderDialog::SliderDialog(wxWindow * parent, wxWindowID id,
                prec, &mValue, trailing, mpOrigin->GetMinValue(), mpOrigin->GetMaxValue())
             .AddTextBox({}, wxEmptyString, 15);
       }
-      mSlider = safenew ASlider(S.GetParent(),
+      mSlider = new ASlider(S.GetParent(),
                             wxID_ANY,
                             title,
                             wxDefaultPosition,
@@ -872,12 +872,12 @@ void LWSlider::DrawToBitmap(wxDC & paintDC)
 
    dc.SelectObject(wxNullBitmap);
 
-   // safenew, because SetMask takes ownership
+   // new, because SetMask takes ownership
    // We always mask.  If we are HeavyWeight, the ASlider draws the
    // background.
    if( !mHW )
    {
-      mBitmap->SetMask(safenew wxMask(*mBitmap, dc.GetBackground().GetColour()));
+      mBitmap->SetMask(new wxMask(*mBitmap, dc.GetBackground().GetColour()));
    }
 }
 
@@ -1610,7 +1610,7 @@ ASlider::ASlider( wxWindow * parent,
    mTimer.SetOwner(this);
 
 #if wxUSE_ACCESSIBILITY
-   SetAccessible( safenew ASliderAx( this ) );
+   SetAccessible( new ASliderAx( this ) );
 #endif
 
    mLWSlider->SetScroll( options.line, options.page );

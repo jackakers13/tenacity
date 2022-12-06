@@ -75,9 +75,9 @@ ScoreAlignDialog::ScoreAlignDialog(ScoreAlignParams &params)
    gPrefs->Read(wxT("/Tracks/Synchronize/SmoothTime"), &p.mSmoothTime,
                 float(SA_DFT_SMOOTH_TIME));
 
-   //wxButton *ok = safenew wxButton(this, wxID_OK, _("OK"));
-   //wxButton *cancel = safenew wxButton(this, wxID_CANCEL, _("Cancel"));
-   //wxSlider *sl = safenew wxSliderWrapper(this, ID_SLIDER, 0, 0, 100,
+   //wxButton *ok = new wxButton(this, wxID_OK, _("OK"));
+   //wxButton *cancel = new wxButton(this, wxID_CANCEL, _("Cancel"));
+   //wxSlider *sl = new wxSliderWrapper(this, ID_SLIDER, 0, 0, 100,
    //                     wxDefaultPosition, wxSize(20, 124),
    //                     wxSL_HORIZONTAL);
 
@@ -192,7 +192,7 @@ ScoreAlignDialog::ScoreAlignDialog(ScoreAlignParams &params)
    S.EndMultiColumn();
    S.EndStatic();
 
-   mDefaultButton = safenew wxButton(this, ID_DEFAULT, _("Use Defaults"));
+   mDefaultButton = new wxButton(this, ID_DEFAULT, _("Use Defaults"));
    mDefaultButton->SetName(_("Restore Defaults"));
 
    S.AddStandardButtons(eOkButton | eCancelButton, mDefaultButton);

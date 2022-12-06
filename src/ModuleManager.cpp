@@ -397,7 +397,7 @@ ModuleManager & ModuleManager::Get()
 {
    if (!mInstance)
    {
-      mInstance.reset(safenew ModuleManager);
+      mInstance.reset(new ModuleManager);
    }
 
    return *mInstance;

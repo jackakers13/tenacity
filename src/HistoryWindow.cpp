@@ -139,7 +139,7 @@ void HistoryDialog::Populate(ShuttleGui & S)
             S.AddVariableText( {} )->Hide();
 
             S.AddPrompt(XXO("&Levels to discard"));
-            mLevels = safenew wxSpinCtrl(S.GetParent(),
+            mLevels = new wxSpinCtrl(S.GetParent(),
                                      ID_LEVELS,
                                      wxT("1"),
                                      wxDefaultPosition,
@@ -163,7 +163,7 @@ void HistoryDialog::Populate(ShuttleGui & S)
       }
       S.EndStatic();
 #if defined(ALLOW_DISCARD)
-      mCompact = safenew wxButton(this, ID_COMPACT, _("&Compact"));
+      mCompact = new wxButton(this, ID_COMPACT, _("&Compact"));
       S.AddStandardButtons(eOkButton | eHelpButton, mCompact);
 #else
       S.AddStandardButtons(eOkButton | eHelpButton);
@@ -415,7 +415,7 @@ namespace {
 TenacityProject::AttachedWindows::RegisteredFactory sHistoryWindowKey{
    []( TenacityProject &parent ) -> wxWeakRef< wxWindow > {
       auto &undoManager = UndoManager::Get( parent );
-      return safenew HistoryDialog( &parent, &undoManager );
+      return new HistoryDialog( &parent, &undoManager );
    }
 };
 

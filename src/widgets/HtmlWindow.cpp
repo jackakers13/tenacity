@@ -113,7 +113,7 @@ HtmlWindow::HtmlWindow(wxWindow *parent,
 : wxHtmlWindow(parent, id, pos, size, style, name)
 {
 #if wxUSE_ACCESSIBILITY
-   SetAccessible( safenew HtmlWindowAx( this ) );
+   SetAccessible( new HtmlWindowAx( this ) );
 #endif
 }
 

@@ -726,7 +726,7 @@ public:
    // Clone is required by wxwidgets; implemented via copy constructor
    wxGridCellEditor *Clone() const override
    {
-      return safenew ComboEditor{ m_choices, m_allowOthers };
+      return new ComboEditor{ m_choices, m_allowOthers };
    }
 
 private:
@@ -892,15 +892,15 @@ void TagsEditorDialog::PopulateOrExchange(ShuttleGui & S)
       S.EndHorizontalLay();
 
       if (mGrid == NULL) {
-         mGrid = safenew Grid(S.GetParent(),
+         mGrid = new Grid(S.GetParent(),
                           wxID_ANY,
                           wxDefaultPosition,
                           wxDefaultSize,
                           wxSUNKEN_BORDER);
 
          mGrid->RegisterDataType(wxT("Combo"),
-            (mStringRenderer = safenew wxGridCellStringRenderer),
-            (mComboEditor = safenew ComboEditor(wxArrayString(), true)));
+            (mStringRenderer = new wxGridCellStringRenderer),
+            (mComboEditor = new ComboEditor(wxArrayString(), true)));
 
          mGrid->SetColLabelSize(mGrid->GetDefaultRowSize());
 

@@ -2450,7 +2450,7 @@ int NyquistEffect::GetCallback(float *buffer, int ch,
 
       // C++20
       // mCurBuffer[ch] = std::make_unique_for_overwrite(mCurBufferLen[ch]);
-      mCurBuffer[ch] = Buffer{ safenew float[ mCurBufferLen[ch] ] };
+      mCurBuffer[ch] = Buffer{ new float[ mCurBufferLen[ch] ] };
       try {
          mCurTrack[ch]->GetFloats( mCurBuffer[ch].get(),
             mCurBufferStart[ch], mCurBufferLen[ch]);
@@ -2869,7 +2869,7 @@ void NyquistEffect::BuildEffectWindow(ShuttleGui & S)
                                           .MenuEnabled(true)
                                           .ReadOnly(false);
 
-                  NumericTextCtrl *time = safenew
+                  NumericTextCtrl *time = new
                      NumericTextCtrl(S.GetParent(), (ID_Time + i),
                                      NumericConverter::TIME,
                                      GetSelectionFormat(),

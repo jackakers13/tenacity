@@ -98,8 +98,8 @@ bool VSTControl::Create(wxWindow *parent, VSTEffectLink *link)
    [mVSTView init];
    [mVSTView retain];
 
-   // wxWidgets takes ownership so safenew
-   SetPeer(safenew VSTControlImpl(this, mVSTView));
+   // wxWidgets takes ownership so new
+   SetPeer(new VSTControlImpl(this, mVSTView));
 
    CreateCocoa();
 

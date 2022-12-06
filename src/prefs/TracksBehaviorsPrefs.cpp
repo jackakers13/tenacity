@@ -135,8 +135,8 @@ namespace{
 PrefsPanel::Registration sAttachment{ "TracksBehaviors",
    [](wxWindow *parent, wxWindowID winid, TenacityProject *)
    {
-      wxASSERT(parent); // to justify safenew
-      return safenew TracksBehaviorsPrefs(parent, winid);
+      wxASSERT(parent); // to justify new
+      return new TracksBehaviorsPrefs(parent, winid);
    },
    false,
    // Place it at a lower tree level

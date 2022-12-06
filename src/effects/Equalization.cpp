@@ -796,7 +796,7 @@ void EffectEqualization::PopulateOrExchange(ShuttleGui & S)
 
          S.StartVerticalLay(wxEXPAND, 1);
          {
-            mdBRuler = safenew RulerPanel(
+            mdBRuler = new RulerPanel(
                S.GetParent(), wxID_ANY, wxVERTICAL,
                wxSize{ 100, 100 }, // Ruler can't handle small sizes
                RulerPanel::Range{ 60.0, -120.0 },
@@ -816,7 +816,7 @@ void EffectEqualization::PopulateOrExchange(ShuttleGui & S)
          }
          S.EndVerticalLay();
 
-         mPanel = safenew EqualizationPanel(S.GetParent(), wxID_ANY, this);
+         mPanel = new EqualizationPanel(S.GetParent(), wxID_ANY, this);
          S.Prop(1)
             .Position(wxEXPAND)
             .MinSize( { wxDefaultCoord, wxDefaultCoord } )
@@ -831,7 +831,7 @@ void EffectEqualization::PopulateOrExchange(ShuttleGui & S)
                .Style(wxSL_VERTICAL | wxSL_INVERSE)
                .AddSlider( {}, 30, 60, 0);
 #if wxUSE_ACCESSIBILITY
-            mdBMaxSlider->SetAccessible(safenew SliderAx(mdBMaxSlider, XO("%d dB")));
+            mdBMaxSlider->SetAccessible(new SliderAx(mdBMaxSlider, XO("%d dB")));
 #endif
 
             mdBMinSlider = S.Id(ID_dBMin)
@@ -840,7 +840,7 @@ void EffectEqualization::PopulateOrExchange(ShuttleGui & S)
                .AddSlider( {}, -30, -10, -120);
             S.AddVariableText(XO("- dB"), false, wxCENTER);
 #if wxUSE_ACCESSIBILITY
-            mdBMinSlider->SetAccessible(safenew SliderAx(mdBMinSlider, XO("%d dB")));
+            mdBMinSlider->SetAccessible(new SliderAx(mdBMinSlider, XO("%d dB")));
 #endif
          }
          S.EndVerticalLay();
@@ -853,7 +853,7 @@ void EffectEqualization::PopulateOrExchange(ShuttleGui & S)
          // Column 1 is empty
          S.AddSpace(1, 1);
 
-         mFreqRuler  = safenew RulerPanel(
+         mFreqRuler  = new RulerPanel(
             S.GetParent(), wxID_ANY, wxHORIZONTAL,
             wxSize{ 100, 100 }, // Ruler can't handle small sizes
             RulerPanel::Range{ mLoFreq, mHiFreq },
@@ -909,11 +909,11 @@ void EffectEqualization::PopulateOrExchange(ShuttleGui & S)
             S.StartVerticalLay();
             {
                S.AddFixedText( fNum  );
-               mSliders[i] = safenew wxSliderWrapper(pParent, ID_Slider + i, 0, -20, +20,
+               mSliders[i] = new wxSliderWrapper(pParent, ID_Slider + i, 0, -20, +20,
                   wxDefaultPosition, wxSize(-1,50), wxSL_VERTICAL | wxSL_INVERSE);
 
 #if wxUSE_ACCESSIBILITY
-               mSliders[i]->SetAccessible(safenew SliderAx(mSliders[i], XO("%d dB")));
+               mSliders[i]->SetAccessible(new SliderAx(mSliders[i], XO("%d dB")));
 #endif
 
                mSlidersOld[i] = 0;
@@ -983,7 +983,7 @@ void EffectEqualization::PopulateOrExchange(ShuttleGui & S)
                      Msgids(kInterpStrings, nInterpolations), 0 );
 #if wxUSE_ACCESSIBILITY
                // so that name can be set on a standard control
-               mInterpChoice->SetAccessible(safenew WindowAccessible(mInterpChoice));
+               mInterpChoice->SetAccessible(new WindowAccessible(mInterpChoice));
 #endif
             }
             S.EndHorizontalLay();

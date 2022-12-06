@@ -123,7 +123,7 @@ void AccessibleLinksFormatter::Populate(ShuttleGui& S) const
 
             // Add hyperlink
 #ifndef __WXGTK__
-            wxHyperlinkCtrl* hyperlink = safenew wxHyperlinkCtrl(
+            wxHyperlinkCtrl* hyperlink = new wxHyperlinkCtrl(
                S.GetParent(), wxID_ANY, argument->Value.Translation(),
                argument->TargetURL);
 

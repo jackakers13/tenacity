@@ -453,8 +453,8 @@ namespace{
 PrefsPanel::Registration sAttachment{ "Tracks",
    [](wxWindow *parent, wxWindowID winid, TenacityProject *)
    {
-      wxASSERT(parent); // to justify safenew
-      return safenew TracksPrefs(parent, winid);
+      wxASSERT(parent); // to justify new
+      return new TracksPrefs(parent, winid);
    }
 };
 }

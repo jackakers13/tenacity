@@ -386,7 +386,7 @@ void EffectScienFilter::PopulateOrExchange(ShuttleGui & S)
 
       S.StartVerticalLay();
       {
-         mdBRuler = safenew RulerPanel(
+         mdBRuler = new RulerPanel(
             S.GetParent(), wxID_ANY, wxVERTICAL,
             wxSize{ 100, 100 }, // Ruler can't handle small sizes
             RulerPanel::Range{ 30.0, -120.0 },
@@ -405,7 +405,7 @@ void EffectScienFilter::PopulateOrExchange(ShuttleGui & S)
       }
       S.EndVerticalLay();
 
-      mPanel = safenew EffectScienFilterPanel(
+      mPanel = new EffectScienFilterPanel(
          S.GetParent(), wxID_ANY,
          this, mLoFreq, mNyquist
       );
@@ -424,14 +424,14 @@ void EffectScienFilter::PopulateOrExchange(ShuttleGui & S)
             .Style(wxSL_VERTICAL | wxSL_INVERSE)
             .AddSlider( {}, 10, 20, 0);
 #if wxUSE_ACCESSIBILITY
-         mdBMaxSlider->SetAccessible(safenew SliderAx(mdBMaxSlider, XO("%d dB")));
+         mdBMaxSlider->SetAccessible(new SliderAx(mdBMaxSlider, XO("%d dB")));
 #endif
          mdBMinSlider = S.Id(ID_dBMin)
             .Name(XO("Min dB"))
             .Style(wxSL_VERTICAL | wxSL_INVERSE)
             .AddSlider( {}, -10, -10, -120);
 #if wxUSE_ACCESSIBILITY
-         mdBMinSlider->SetAccessible(safenew SliderAx(mdBMinSlider, XO("%d dB")));
+         mdBMinSlider->SetAccessible(new SliderAx(mdBMinSlider, XO("%d dB")));
 #endif
 
          S.AddVariableText(XO("- dB"), false, wxCENTER);
@@ -444,7 +444,7 @@ void EffectScienFilter::PopulateOrExchange(ShuttleGui & S)
 
       S.AddSpace(1, 1);
 
-      mfreqRuler = safenew RulerPanel(
+      mfreqRuler = new RulerPanel(
          S.GetParent(), wxID_ANY, wxHORIZONTAL,
          wxSize{ 100, 100 }, // Ruler can't handle small sizes
          RulerPanel::Range{ mLoFreq, mNyquist },

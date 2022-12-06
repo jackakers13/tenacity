@@ -259,8 +259,8 @@ WaveformPrefsFactory(WaveTrack *wt)
 {
    return [=](wxWindow *parent, wxWindowID winid, TenacityProject *pProject)
    {
-      wxASSERT(parent); // to justify safenew
-      return safenew WaveformPrefs(parent, winid, pProject, wt);
+      wxASSERT(parent); // to justify new
+      return new WaveformPrefs(parent, winid, pProject, wt);
    };
 }
 #if 0

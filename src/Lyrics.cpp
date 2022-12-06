@@ -102,7 +102,7 @@ LyricsPanel::LyricsPanel(wxWindow* parent, wxWindowID id,
    this->SetBackgroundColour(*wxWHITE);
 
    mHighlightTextCtrl =
-      safenew HighlightTextCtrl(this, -1, // wxWindow* parent, wxWindowID id,
+      new HighlightTextCtrl(this, -1, // wxWindow* parent, wxWindowID id,
                               wxT(""), // const wxString& value = {},
                               wxPoint(0, 0), // const wxPoint& pos = wxDefaultPosition,
                               size); // const wxSize& size = wxDefaultSize

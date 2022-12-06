@@ -82,7 +82,7 @@ void TimeToolBar::Populate()
    auto format = settings.GetAudioTimeFormat();
 
    // Create the read-only time control
-   mAudioTime = safenew NumericTextCtrl(this, AudioPositionID, NumericConverter::TIME, format, 0.0, rate);
+   mAudioTime = new NumericTextCtrl(this, AudioPositionID, NumericConverter::TIME, format, 0.0, rate);
    mAudioTime->SetName(XO("Audio Position"));
    mAudioTime->SetReadOnly(true);
 
@@ -378,7 +378,7 @@ static RegisteredToolbarFactory factory
    TimeBarID,
    []( TenacityProject &project )
    {
-      return ToolBar::Holder{ safenew TimeToolBar{ project } };
+      return ToolBar::Holder{ new TimeToolBar{ project } };
    }
 };
 

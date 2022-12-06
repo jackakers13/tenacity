@@ -202,7 +202,7 @@ protected:
        // within the YieldFor(..) of the clipboard operations (workaround
        // for Debian bug #765341).
        // QueueEvent() will take ownership of the event
-       parent->GetEventHandler()->QueueEvent(safenew wxTimerEvent(*this));
+       parent->GetEventHandler()->QueueEvent(new wxTimerEvent(*this));
      }
      TrackPanel *parent;
    } mTimer;

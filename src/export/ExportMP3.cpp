@@ -2040,7 +2040,7 @@ ProgressResult ExportMP3::Export(TenacityProject *project,
 
 void ExportMP3::OptionsCreate(ShuttleGui &S, int format)
 {
-   S.AddWindow( safenew ExportMP3Options{ S.GetParent(), format } );
+   S.AddWindow( new ExportMP3Options{ S.GetParent(), format } );
 }
 
 int ExportMP3::AskResample(int bitrate, int rate, int lowrate, int highrate)

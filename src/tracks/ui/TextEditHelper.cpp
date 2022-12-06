@@ -598,7 +598,7 @@ bool TextEditHelper::CutSelectedText(TenacityProject& project)
     // copy data onto clipboard
     if (wxTheClipboard->Open()) {
         // Clipboard owns the data you give it
-        wxTheClipboard->SetData(safenew wxTextDataObject(data));
+        wxTheClipboard->SetData(new wxTextDataObject(data));
         wxTheClipboard->Close();
     }
 
@@ -629,7 +629,7 @@ bool TextEditHelper::CopySelectedText(TenacityProject& project)
     // copy the data on clipboard
     if (wxTheClipboard->Open()) {
         // Clipboard owns the data you give it
-        wxTheClipboard->SetData(safenew wxTextDataObject(data));
+        wxTheClipboard->SetData(new wxTextDataObject(data));
         wxTheClipboard->Close();
     }
 

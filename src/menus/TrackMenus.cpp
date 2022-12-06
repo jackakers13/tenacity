@@ -976,7 +976,7 @@ void OnScoreAlign(const CommandContext &context)
    ScoreAlignParams params;
 
    // safe because the class maintains a global resource pointer
-   safenew ScoreAlignDialog(params);
+   new ScoreAlignDialog(params);
 
    CloseScoreAlignDialog();
 

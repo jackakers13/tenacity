@@ -214,7 +214,7 @@ void TranscriptionToolBar::Populate()
 
    //Add a slider that controls the speed of playback.
    const int SliderWidth=100;
-   mPlaySpeedSlider = safenew ASlider(this,
+   mPlaySpeedSlider = new ASlider(this,
       TTB_PlaySpeedSlider,
       XO("Playback Speed"),
       wxDefaultPosition,
@@ -259,7 +259,7 @@ void TranscriptionToolBar::Populate()
    AddButton(this, bmpTnCalibrate, bmpTnCalibrateDisabled, TTB_Calibrate,
       YO("Calibrate voicekey"));
 
-   mSensitivitySlider = safenew ASlider(this,
+   mSensitivitySlider = new ASlider(this,
                                     TTB_SensitivitySlider,
                                     YO("Adjust Sensitivity"),
                                     wxDefaultPosition,
@@ -278,7 +278,7 @@ void TranscriptionToolBar::Populate()
       YO("Direction Changes (High Threshold)")
    };
 
-   mKeyTypeChoice = safenew wxChoice(this, TTB_KeyType,
+   mKeyTypeChoice = new wxChoice(this, TTB_KeyType,
       wxDefaultPosition,
       wxDefaultSize,
       transform_container<wxArrayStringEx>( choices,
@@ -1057,7 +1057,7 @@ void TranscriptionToolBar::AdjustPlaySpeed(float adj)
 
 static RegisteredToolbarFactory factory{ TranscriptionBarID,
    []( TenacityProject &project ){
-      return ToolBar::Holder{ safenew TranscriptionToolBar{ project } }; }
+      return ToolBar::Holder{ new TranscriptionToolBar{ project } }; }
 };
 
 namespace {

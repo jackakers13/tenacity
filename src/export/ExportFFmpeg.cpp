@@ -1353,37 +1353,37 @@ void ExportFFmpeg::OptionsCreate(ShuttleGui &S, int format)
    if (mSubFormat == FMT_M4A)
    {
       S.AddWindow(
-         safenew ExportFFmpegAACOptions{ S.GetParent(), format } );
+         new ExportFFmpegAACOptions{ S.GetParent(), format } );
       return;
    }
    else if (mSubFormat == FMT_AC3)
    {
       S.AddWindow(
-         safenew ExportFFmpegAC3Options{ S.GetParent(), format } );
+         new ExportFFmpegAC3Options{ S.GetParent(), format } );
       return;
    }
    else if (mSubFormat == FMT_AMRNB)
    {
       S.AddWindow(
-         safenew ExportFFmpegAMRNBOptions{ S.GetParent(), format } );
+         new ExportFFmpegAMRNBOptions{ S.GetParent(), format } );
       return;
    }
    else if (mSubFormat == FMT_OPUS)
    {
       S.AddWindow(
-         safenew ExportFFmpegOPUSOptions{ S.GetParent(), format });
+         new ExportFFmpegOPUSOptions{ S.GetParent(), format });
       return;
    }
    else if (mSubFormat == FMT_WMA2)
    {
       S.AddWindow(
-         safenew ExportFFmpegWMAOptions{ S.GetParent(), format } );
+         new ExportFFmpegWMAOptions{ S.GetParent(), format } );
       return;
    }
    else if (mSubFormat == FMT_OTHER)
    {
       S.AddWindow(
-         safenew ExportFFmpegCustomOptions{ S.GetParent(), format } );
+         new ExportFFmpegCustomOptions{ S.GetParent(), format } );
       return;
    }
 

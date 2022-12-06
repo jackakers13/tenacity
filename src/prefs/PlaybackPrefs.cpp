@@ -188,8 +188,8 @@ namespace{
 PrefsPanel::Registration sAttachment{ "Playback",
    [](wxWindow *parent, wxWindowID winid, TenacityProject *)
    {
-      wxASSERT(parent); // to justify safenew
-      return safenew PlaybackPrefs(parent, winid);
+      wxASSERT(parent); // to justify new
+      return new PlaybackPrefs(parent, winid);
    }
 };
 }

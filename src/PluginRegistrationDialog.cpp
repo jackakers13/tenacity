@@ -451,7 +451,7 @@ void PluginRegistrationDialog::PopulateOrExchange(ShuttleGui &S)
                   .AddRadioButton(XXO("&All"));
 #if wxUSE_ACCESSIBILITY
                // so that name can be set on a standard control
-               rb->SetAccessible(safenew WindowAccessible(rb));
+               rb->SetAccessible(new WindowAccessible(rb));
 #endif
 
                rb = S.Id(ID_ShowDisabled)
@@ -461,7 +461,7 @@ void PluginRegistrationDialog::PopulateOrExchange(ShuttleGui &S)
                   .AddRadioButtonToGroup(XXO("D&isabled"));
 #if wxUSE_ACCESSIBILITY
                // so that name can be set on a standard control
-               rb->SetAccessible(safenew WindowAccessible(rb));
+               rb->SetAccessible(new WindowAccessible(rb));
 #endif
 
                rb = S.Id(ID_ShowEnabled)
@@ -471,7 +471,7 @@ void PluginRegistrationDialog::PopulateOrExchange(ShuttleGui &S)
                   .AddRadioButtonToGroup(XXO("E&nabled"));
 #if wxUSE_ACCESSIBILITY
                // so that name can be set on a standard control
-               rb->SetAccessible(safenew WindowAccessible(rb));
+               rb->SetAccessible(new WindowAccessible(rb));
 #endif
 
                rb = S.Id(ID_ShowNew)
@@ -481,7 +481,7 @@ void PluginRegistrationDialog::PopulateOrExchange(ShuttleGui &S)
                   .AddRadioButtonToGroup(XXO("Ne&w"));
 #if wxUSE_ACCESSIBILITY
                // so that name can be set on a standard control
-               rb->SetAccessible(safenew WindowAccessible(rb));
+               rb->SetAccessible(new WindowAccessible(rb));
 #endif
             }
             S.EndHorizontalLay();
@@ -494,7 +494,7 @@ void PluginRegistrationDialog::PopulateOrExchange(ShuttleGui &S)
                       &PluginRegistrationDialog::OnListChar)
             .AddListControlReportMode({ XO("Name"), XO("State"), XO("Path") });
 #if wxUSE_ACCESSIBILITY
-         mEffects->SetAccessible(mAx = safenew CheckListAx(mEffects));
+         mEffects->SetAccessible(mAx = new CheckListAx(mEffects));
 #endif
 
          S.StartHorizontalLay(wxALIGN_LEFT | wxEXPAND, 0);

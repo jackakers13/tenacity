@@ -216,7 +216,7 @@ public:
       mProject = proj;
 
       // SetDataObject takes ownership
-      SetDataObject(safenew FileObject());
+      SetDataObject(new FileObject());
    }
 
    ~DropTarget()
@@ -366,7 +366,7 @@ void InitProjectWindow( ProjectWindow &window )
    auto statusBar = window.CreateStatusBar(4);
 #if wxUSE_ACCESSIBILITY
    // so that name can be set on a standard control
-   statusBar->SetAccessible(safenew WindowAccessible(statusBar));
+   statusBar->SetAccessible(new WindowAccessible(statusBar));
 #endif
    statusBar->SetName(wxT("status_line"));     // not localized
 
@@ -567,11 +567,11 @@ TenacityProject *ProjectManager::New()
    
 #if wxUSE_DRAG_AND_DROP
    // We can import now, so become a drag target
-   //   SetDropTarget(safenew AudacityDropTarget(this));
-   //   mTrackPanel->SetDropTarget(safenew AudacityDropTarget(this));
+   //   SetDropTarget(new AudacityDropTarget(this));
+   //   mTrackPanel->SetDropTarget(new AudacityDropTarget(this));
    
    // SetDropTarget takes ownership
-   TrackPanel::Get( project ).SetDropTarget( safenew DropTarget( &project ) );
+   TrackPanel::Get( project ).SetDropTarget( new DropTarget( &project ) );
 #endif
    
    //Set the NEW project as active:

@@ -116,7 +116,7 @@ void SetActiveProject(TenacityProject * project)
    if ( gActiveProject != project ) {
       gActiveProject = project;
       KeyboardCapture::Capture( nullptr );
-      wxTheApp->QueueEvent( safenew wxCommandEvent{ EVT_PROJECT_ACTIVATION } );
+      wxTheApp->QueueEvent( new wxCommandEvent{ EVT_PROJECT_ACTIVATION } );
    }
    wxTheApp->SetTopWindow( FindProjectFrame( project ) );
 }

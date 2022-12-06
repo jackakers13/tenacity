@@ -228,8 +228,8 @@ namespace{
 PrefsPanel::Registration sAttachment{ "Library",
    [](wxWindow *parent, wxWindowID winid, TenacityProject *)
    {
-      wxASSERT(parent); // to justify safenew
-      return safenew LibraryPrefs(parent, winid);
+      wxASSERT(parent); // to justify new
+      return new LibraryPrefs(parent, winid);
    },
    false,
    // Register with an explicit ordering hint because this one is

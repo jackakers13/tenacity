@@ -193,7 +193,7 @@ void ToolsToolBar::Populate()
 {
    SetBackgroundColour( theTheme.Colour( clrMedium  ) );
    MakeButtonBackgroundsSmall();
-   Add(mToolSizer = safenew wxGridSizer(2, 3, 1, 1));
+   Add(mToolSizer = new wxGridSizer(2, 3, 1, 1));
 
    /* Tools */
    using namespace ToolCodes;
@@ -295,7 +295,7 @@ void ToolsToolBar::Create(wxWindow * parent)
 
 static RegisteredToolbarFactory factory{ ToolsBarID,
    []( TenacityProject &project ){
-      return ToolBar::Holder{ safenew ToolsToolBar{ project } }; }
+      return ToolBar::Holder{ new ToolsToolBar{ project } }; }
 };
 
 namespace {

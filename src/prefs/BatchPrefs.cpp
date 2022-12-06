@@ -102,8 +102,8 @@ namespace{
 PrefsPanel::Registration sAttachment{ "Batch",
    [](wxWindow *parent, wxWindowID winid, TenacityProject *)
    {
-      wxASSERT(parent); // to justify safenew
-      return safenew BatchPrefs(parent, winid);
+      wxASSERT(parent); // to justify new
+      return new BatchPrefs(parent, winid);
    },
    false,
    // Register with an explicit ordering hint because this one is

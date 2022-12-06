@@ -162,7 +162,7 @@ KeyView::KeyView(wxWindow *parent,
 {
 #if wxUSE_ACCESSIBILITY
    // Create and set accessibility object
-   SetAccessible(mAx = safenew KeyViewAx(this));
+   SetAccessible(mAx = new KeyViewAx(this));
 #endif
 
    SetMinSize({-1, 150});

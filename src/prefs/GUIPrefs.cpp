@@ -292,8 +292,8 @@ namespace{
 PrefsPanel::Registration sAttachment{ "GUI",
    [](wxWindow *parent, wxWindowID winid, TenacityProject *)
    {
-      wxASSERT(parent); // to justify safenew
-      return safenew GUIPrefs(parent, winid);
+      wxASSERT(parent); // to justify new
+      return new GUIPrefs(parent, winid);
    }
 };
 }

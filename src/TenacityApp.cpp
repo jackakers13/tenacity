@@ -485,7 +485,7 @@ public:
       }
 
       // Trust wxWidgets framework to DELETE it
-      return safenew IPCConn();
+      return new IPCConn();
    };
 };
 
@@ -884,7 +884,7 @@ bool TenacityApp::OnInit()
    ::wxInitAllImageHandlers();
 
    // AddHandler takes ownership
-   wxFileSystem::AddHandler(safenew wxZipFSHandler);
+   wxFileSystem::AddHandler(new wxZipFSHandler);
 
    //
    // Paths: set search path and temp dir path
@@ -1774,7 +1774,7 @@ bool TenacityApp::CreateSingleInstanceChecker(const wxString& /* unused */)
    //
    // A wxSocketClient must not be deleted by us, but rather, let the
    // framework do appropriate delayed deletion after Destroy()
-   Destroy_ptr<wxSocketClient> sock { safenew wxSocketClient() };
+   Destroy_ptr<wxSocketClient> sock { new wxSocketClient() };
    sock->SetFlags(wxSOCKET_WAITALL);
 
    // Attempt to connect to an active Audacity.
@@ -2016,7 +2016,7 @@ void TenacityApp::OnMenuAbout(wxCommandEvent & /*event*/)
       instance->Raise();
    else
       // This dialog deletes itself when dismissed
-      (safenew AboutDialog{ nullptr })->Show(true);
+      (new AboutDialog{ nullptr })->Show(true);
 #else
       wxASSERT(false);
 #endif

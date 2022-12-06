@@ -45,7 +45,7 @@ AppCommandEvent::~AppCommandEvent()
 // Clone is required by wxwidgets; implemented via copy constructor
 wxEvent *AppCommandEvent::Clone() const
 {
-   return safenew AppCommandEvent(*this);
+   return new AppCommandEvent(*this);
 }
 
 /// Store a pointer to a command object

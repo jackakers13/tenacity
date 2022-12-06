@@ -179,7 +179,7 @@ void ShuttleGuiBase::Init(bool vertical, wxSize minSize)
    if( !mpSizer )
    {
       mpParent->SetSizer(
-         mpSizer = safenew wxBoxSizer(vertical ? wxVERTICAL : wxHORIZONTAL));
+         mpSizer = new wxBoxSizer(vertical ? wxVERTICAL : wxHORIZONTAL));
    }
    PushSizer();
    mpSizer->SetMinSize(minSize);
@@ -250,7 +250,7 @@ void ShuttleGuiBase::AddPrompt(const TranslatableString &Prompt, int wrapWidth)
       return;
    miProp=1;
    const auto translated = Prompt.Translation();
-   auto text = safenew wxStaticText(GetParent(), -1, translated, wxDefaultPosition, wxDefaultSize,
+   auto text = new wxStaticText(GetParent(), -1, translated, wxDefaultPosition, wxDefaultSize,
       GetStyle( wxALIGN_RIGHT ));
    mpWind = text;
    if (wrapWidth > 0)
@@ -268,7 +268,7 @@ void ShuttleGuiBase::AddUnits(const TranslatableString &Prompt, int wrapWidth)
       return;
    miProp = 1;
    const auto translated = Prompt.Translation();
-   auto text = safenew wxStaticText(GetParent(), -1, translated, wxDefaultPosition, wxDefaultSize,
+   auto text = new wxStaticText(GetParent(), -1, translated, wxDefaultPosition, wxDefaultSize,
       GetStyle( wxALIGN_LEFT ));
    mpWind = text;
    if (wrapWidth > 0)
@@ -285,7 +285,7 @@ void ShuttleGuiBase::AddTitle(const TranslatableString &Prompt, int wrapWidth)
    if( mShuttleMode != eIsCreating )
       return;
    const auto translated = Prompt.Translation();
-   auto text = safenew wxStaticText(GetParent(), -1, translated, wxDefaultPosition, wxDefaultSize,
+   auto text = new wxStaticText(GetParent(), -1, translated, wxDefaultPosition, wxDefaultSize,
       GetStyle( wxALIGN_CENTRE ));
    mpWind = text;
    if (wrapWidth > 0)
@@ -321,7 +321,7 @@ wxCheckBox * ShuttleGuiBase::AddCheckBox( const TranslatableString &Prompt, bool
       return wxDynamicCast(wxWindow::FindWindowById( miId, mpDlg), wxCheckBox);
    wxCheckBox * pCheckBox;
    miProp=0;
-   mpWind = pCheckBox = safenew wxCheckBox(GetParent(), miId, realPrompt, wxDefaultPosition, wxDefaultSize,
+   mpWind = pCheckBox = new wxCheckBox(GetParent(), miId, realPrompt, wxDefaultPosition, wxDefaultSize,
       GetStyle( 0 ));
    pCheckBox->SetValue(Selected);
    if (realPrompt.empty()) {
@@ -329,7 +329,7 @@ wxCheckBox * ShuttleGuiBase::AddCheckBox( const TranslatableString &Prompt, bool
       // an accessibility name which is empty. Bug 1980.
 #if wxUSE_ACCESSIBILITY
       // so that name can be set on a standard control
-      pCheckBox->SetAccessible(safenew WindowAccessible(pCheckBox));
+      pCheckBox->SetAccessible(new WindowAccessible(pCheckBox));
 #endif
       pCheckBox->SetName(wxT("\a"));      // non-empty string which screen readers do not read
    }
@@ -349,7 +349,7 @@ wxCheckBox * ShuttleGuiBase::AddCheckBoxOnRight( const TranslatableString &Promp
       return wxDynamicCast(wxWindow::FindWindowById( miId, mpDlg), wxCheckBox);
    wxCheckBox * pCheckBox;
    miProp=0;
-   mpWind = pCheckBox = safenew wxCheckBox(GetParent(), miId, wxT(""), wxDefaultPosition, wxDefaultSize,
+   mpWind = pCheckBox = new wxCheckBox(GetParent(), miId, wxT(""), wxDefaultPosition, wxDefaultSize,
       GetStyle( 0 ));
    pCheckBox->SetValue(Selected);
    pCheckBox->SetName(Prompt.Stripped().Translation());
@@ -365,7 +365,7 @@ wxButton * ShuttleGuiBase::AddButton(
       return wxDynamicCast(wxWindow::FindWindowById( miId, mpDlg), wxButton);
    wxButton * pBtn;
    const auto translated = Text.Translation();
-   mpWind = pBtn = safenew wxButton(GetParent(), miId,
+   mpWind = pBtn = new wxButton(GetParent(), miId,
       translated, wxDefaultPosition, wxDefaultSize,
       GetStyle( 0 ) );
    mpWind->SetName(wxStripMenuCodes(translated));
@@ -383,7 +383,7 @@ wxBitmapButton * ShuttleGuiBase::AddBitmapButton(
    if( mShuttleMode != eIsCreating )
       return wxDynamicCast(wxWindow::FindWindowById( miId, mpDlg), wxBitmapButton);
    wxBitmapButton * pBtn;
-   mpWind = pBtn = safenew wxBitmapButton(GetParent(), miId, Bitmap,
+   mpWind = pBtn = new wxBitmapButton(GetParent(), miId, Bitmap,
       wxDefaultPosition, wxDefaultSize, GetStyle( wxBU_AUTODRAW ) );
    pBtn->SetBackgroundColour(
       wxColour( 246,246,243));
@@ -406,7 +406,7 @@ wxChoice * ShuttleGuiBase::AddChoice( const TranslatableString &Prompt,
    wxChoice * pChoice;
    miProp=0;
 
-   mpWind = pChoice = safenew wxChoice(
+   mpWind = pChoice = new wxChoice(
       GetParent(),
       miId,
       wxDefaultPosition,
@@ -419,7 +419,7 @@ wxChoice * ShuttleGuiBase::AddChoice( const TranslatableString &Prompt,
 #ifdef __WXMAC__
 #if wxUSE_ACCESSIBILITY
    // so that name can be set on a standard control
-   mpWind->SetAccessible(safenew WindowAccessible(mpWind));
+   mpWind->SetAccessible(new WindowAccessible(mpWind));
 #endif
 #endif
    pChoice->SetName(Prompt.Stripped().Translation());
@@ -444,7 +444,7 @@ void ShuttleGuiBase::AddFixedText(
    UseUpId();
    if( mShuttleMode != eIsCreating )
       return;
-   auto text = safenew wxStaticText(GetParent(),
+   auto text = new wxStaticText(GetParent(),
       miId, translated, wxDefaultPosition, wxDefaultSize,
       GetStyle( wxALIGN_LEFT ));
    mpWind = text;
@@ -470,7 +470,7 @@ wxStaticText * ShuttleGuiBase::AddVariableText(
       return wxDynamicCast(wxWindow::FindWindowById( miId, mpDlg), wxStaticText);
 
    wxStaticText *pStatic;
-   auto text = pStatic = safenew wxStaticText(GetParent(), miId, translated,
+   auto text = pStatic = new wxStaticText(GetParent(), miId, translated,
       wxDefaultPosition, wxDefaultSize,
       GetStyle( wxALIGN_LEFT ));
    mpWind = text;
@@ -507,7 +507,7 @@ ReadOnlyText * ShuttleGuiBase::AddReadOnlyText(
    ReadOnlyText * pReadOnlyText;
    miProp=0;
 
-   mpWind = pReadOnlyText = safenew ReadOnlyText(GetParent(), miId, Value,
+   mpWind = pReadOnlyText = new ReadOnlyText(GetParent(), miId, Value,
       wxDefaultPosition, wxDefaultSize, GetStyle( style ));
    mpWind->SetName(wxStripMenuCodes(translated));
    UpdateSizers();
@@ -536,7 +536,7 @@ wxComboBox * ShuttleGuiBase::AddCombo(
       Choices[i] = choices[i];
    }
 
-   mpWind = pCombo = safenew wxComboBox(GetParent(), miId, Selected, wxDefaultPosition, wxDefaultSize,
+   mpWind = pCombo = new wxComboBox(GetParent(), miId, Selected, wxDefaultPosition, wxDefaultSize,
       n, Choices, GetStyle( 0 ));
    mpWind->SetName(wxStripMenuCodes(translated));
 
@@ -555,7 +555,7 @@ wxRadioButton * ShuttleGuiBase::DoAddRadioButton(
    if( mShuttleMode != eIsCreating )
       return wxDynamicCast(wxWindow::FindWindowById( miId, mpDlg), wxRadioButton);
    wxRadioButton * pRad;
-   mpWind = pRad = safenew wxRadioButton(GetParent(), miId, translated,
+   mpWind = pRad = new wxRadioButton(GetParent(), miId, translated,
       wxDefaultPosition, wxDefaultSize, GetStyle( style ) );
    mpWind->SetName(wxStripMenuCodes(translated));
    if ( style )
@@ -595,7 +595,7 @@ wxSlider * ShuttleGuiBase::AddSlider(
    if( mShuttleMode != eIsCreating )
       return wxDynamicCast(wxWindow::FindWindowById( miId, mpDlg), wxSlider);
    wxSlider * pSlider;
-   mpWind = pSlider = safenew wxSliderWrapper(GetParent(), miId,
+   mpWind = pSlider = new wxSliderWrapper(GetParent(), miId,
       pos, Min, Max,
       wxDefaultPosition,
       // Bug2289:  On Linux at least, sliders like to be constructed with the
@@ -605,7 +605,7 @@ wxSlider * ShuttleGuiBase::AddSlider(
       );
 #if wxUSE_ACCESSIBILITY
    // so that name can be set on a standard control
-   mpWind->SetAccessible(safenew WindowAccessible(mpWind));
+   mpWind->SetAccessible(new WindowAccessible(mpWind));
 #endif
    mpWind->SetName(wxStripMenuCodes(Prompt.Translation()));
    miProp=1;
@@ -623,14 +623,14 @@ SliderTextCtrl* ShuttleGuiBase::AddSliderTextCtrl(
    if( mShuttleMode != eIsCreating )
       return wxDynamicCast(wxWindow::FindWindowById( miId, mpDlg), SliderTextCtrl);
    SliderTextCtrl * pSlider;
-   mpWind = pSlider = safenew SliderTextCtrl(GetParent(), miId,
+   mpWind = pSlider = new SliderTextCtrl(GetParent(), miId,
       pos, Min, Max, precision, scale, offset, wxDefaultPosition, wxDefaultSize,
       GetStyle( SliderTextCtrl::HORIZONTAL ),
       value
    );
 #if wxUSE_ACCESSIBILITY
    // so that name can be set on a standard control
-   mpWind->SetAccessible(safenew WindowAccessible(mpWind));
+   mpWind->SetAccessible(new WindowAccessible(mpWind));
 #endif
    mpWind->SetName(wxStripMenuCodes(Prompt.Translation()));
    miProp=1;
@@ -648,7 +648,7 @@ wxSpinCtrl * ShuttleGuiBase::AddSpinCtrl(
    if( mShuttleMode != eIsCreating )
       return wxDynamicCast(wxWindow::FindWindowById( miId, mpDlg), wxSpinCtrl);
    wxSpinCtrl * pSpinCtrl;
-   mpWind = pSpinCtrl = safenew wxSpinCtrl(GetParent(), miId,
+   mpWind = pSpinCtrl = new wxSpinCtrl(GetParent(), miId,
       wxEmptyString,
       wxDefaultPosition, wxDefaultSize,
       GetStyle( wxSP_VERTICAL | wxSP_ARROW_KEYS ),
@@ -685,11 +685,11 @@ wxTextCtrl * ShuttleGuiBase::AddTextBox(
    long flags = wxTE_LEFT;
 #endif
 
-   mpWind = pTextCtrl = safenew wxTextCtrlWrapper(GetParent(), miId, Value,
+   mpWind = pTextCtrl = new wxTextCtrlWrapper(GetParent(), miId, Value,
       wxDefaultPosition, Size, GetStyle( flags ));
 #if wxUSE_ACCESSIBILITY
    // so that name can be set on a standard control
-   mpWind->SetAccessible(safenew WindowAccessible(mpWind));
+   mpWind->SetAccessible(new WindowAccessible(mpWind));
 #endif
    mpWind->SetName(wxStripMenuCodes(translated));
    UpdateSizers();
@@ -720,13 +720,13 @@ wxTextCtrl * ShuttleGuiBase::AddNumericTextBox(
 #endif
 
    wxTextValidator Validator(wxFILTER_NUMERIC);
-   mpWind = pTextCtrl = safenew wxTextCtrl(GetParent(), miId, Value,
+   mpWind = pTextCtrl = new wxTextCtrl(GetParent(), miId, Value,
       wxDefaultPosition, Size, GetStyle( flags ),
       Validator // It's OK to pass this.  It will be cloned.
       );
 #if wxUSE_ACCESSIBILITY
    // so that name can be set on a standard control
-   mpWind->SetAccessible(safenew WindowAccessible(mpWind));
+   mpWind->SetAccessible(new WindowAccessible(mpWind));
 #endif
    mpWind->SetName(wxStripMenuCodes(translated));
    UpdateSizers();
@@ -741,11 +741,11 @@ wxTextCtrl * ShuttleGuiBase::AddTextWindow(const wxString &Value)
       return wxDynamicCast(wxWindow::FindWindowById( miId, mpDlg), wxTextCtrl);
    wxTextCtrl * pTextCtrl;
    SetProportions( 1 );
-   mpWind = pTextCtrl = safenew wxTextCtrl(GetParent(), miId, Value,
+   mpWind = pTextCtrl = new wxTextCtrl(GetParent(), miId, Value,
       wxDefaultPosition, wxDefaultSize, GetStyle( wxTE_MULTILINE ));
 #if wxUSE_ACCESSIBILITY
    // so that name can be set on a standard control
-   mpWind->SetAccessible(safenew WindowAccessible(mpWind));
+   mpWind->SetAccessible(new WindowAccessible(mpWind));
 #endif
    UpdateSizers();
    // Start off at start of window...
@@ -768,7 +768,7 @@ void ShuttleGuiBase::AddConstTextBox(
    UpdateSizers();
    miProp=0;
    const auto translatedValue = Value.Translation();
-   mpWind = safenew wxStaticText(GetParent(), miId,
+   mpWind = new wxStaticText(GetParent(), miId,
       translatedValue, wxDefaultPosition, wxDefaultSize,
       GetStyle( 0 ));
    mpWind->SetName(translatedValue); // fix for bug 577 (NVDA/Narrator screen readers do not read static text in dialogs)
@@ -786,7 +786,7 @@ Plot* ShuttleGuiBase::AddPlot( const TranslatableString &Prompt,
    if( mShuttleMode != eIsCreating )
       return wxDynamicCast(wxWindow::FindWindowById(miId, mpDlg), Plot);
    Plot* pPlot;
-   mpWind = pPlot = safenew Plot(GetParent(), miId,
+   mpWind = pPlot = new Plot(GetParent(), miId,
       x_min, x_max, y_min, y_max, x_label, y_label,
       x_format, y_format, count,
       wxDefaultPosition, wxDefaultSize,
@@ -794,7 +794,7 @@ Plot* ShuttleGuiBase::AddPlot( const TranslatableString &Prompt,
    );
 #if wxUSE_ACCESSIBILITY
    // so that name can be set on a standard control
-   mpWind->SetAccessible(safenew WindowAccessible(mpWind));
+   mpWind->SetAccessible(new WindowAccessible(mpWind));
 #endif
    mpWind->SetName(wxStripMenuCodes(Prompt.Translation()));
    miProp=1;
@@ -809,7 +809,7 @@ wxListBox * ShuttleGuiBase::AddListBox(const wxArrayStringEx &choices)
       return wxDynamicCast(wxWindow::FindWindowById( miId, mpDlg), wxListBox);
    wxListBox * pListBox;
    SetProportions( 1 );
-   mpWind = pListBox = safenew wxListBox(GetParent(), miId,
+   mpWind = pListBox = new wxListBox(GetParent(), miId,
       wxDefaultPosition, wxDefaultSize, choices, GetStyle(0));
    pListBox->SetMinSize( wxSize( 120,150 ));
    UpdateSizers();
@@ -824,7 +824,7 @@ wxGrid * ShuttleGuiBase::AddGrid()
       return wxDynamicCast(wxWindow::FindWindowById( miId, mpDlg), wxGrid);
    wxGrid * pGrid;
    SetProportions( 1 );
-   mpWind = pGrid = safenew wxGrid(GetParent(), miId, wxDefaultPosition,
+   mpWind = pGrid = new wxGrid(GetParent(), miId, wxDefaultPosition,
       wxDefaultSize, GetStyle( wxWANTS_CHARS ));
    pGrid->SetMinSize( wxSize( 120, 150 ));
    UpdateSizers();
@@ -841,7 +841,7 @@ wxListCtrl * ShuttleGuiBase::AddListControl(
       return wxDynamicCast(wxWindow::FindWindowById( miId, mpDlg), wxListCtrl);
    wxListCtrl * pListCtrl;
    SetProportions( 1 );
-   mpWind = pListCtrl = safenew wxListCtrl(GetParent(), miId,
+   mpWind = pListCtrl = new wxListCtrl(GetParent(), miId,
       wxDefaultPosition, wxDefaultSize, GetStyle( wxLC_ICON ));
    pListCtrl->SetMinSize( wxSize( 120,150 ));
    UpdateSizers();
@@ -861,7 +861,7 @@ wxListCtrl * ShuttleGuiBase::AddListControlReportMode(
       return wxDynamicCast(wxWindow::FindWindowById( miId, mpDlg), wxListCtrl);
    wxListCtrl * pListCtrl;
    SetProportions( 1 );
-   mpWind = pListCtrl = safenew wxListCtrl(GetParent(), miId,
+   mpWind = pListCtrl = new wxListCtrl(GetParent(), miId,
       wxDefaultPosition, wxSize(230,120),//wxDefaultSize,
       GetStyle( wxLC_REPORT | wxLC_HRULES | wxLC_VRULES | wxSUNKEN_BORDER ));
 //   pListCtrl->SetMinSize( wxSize( 120,150 ));
@@ -910,7 +910,7 @@ wxTreeCtrl * ShuttleGuiBase::AddTree()
       return wxDynamicCast(wxWindow::FindWindowById( miId, mpDlg), wxTreeCtrl);
    wxTreeCtrl * pTreeCtrl;
    SetProportions( 1 );
-   mpWind = pTreeCtrl = safenew wxTreeCtrl(GetParent(), miId, wxDefaultPosition, wxDefaultSize,
+   mpWind = pTreeCtrl = new wxTreeCtrl(GetParent(), miId, wxDefaultPosition, wxDefaultSize,
       GetStyle( wxTR_HAS_BUTTONS ));
    pTreeCtrl->SetMinSize( wxSize( 120,650 ));
    UpdateSizers();
@@ -924,7 +924,7 @@ void ShuttleGuiBase::AddIcon(wxBitmap *pBmp)
 //      return wxDynamicCast(wxWindow::FindWindowById( miId, mpDlg), wx);
       return;
    wxBitmapButton * pBtn;
-   mpWind = pBtn = safenew wxBitmapButton(GetParent(), miId, *pBmp,
+   mpWind = pBtn = new wxBitmapButton(GetParent(), miId, *pBmp,
       wxDefaultPosition, wxDefaultSize, GetStyle( wxBU_AUTODRAW ) );
    pBtn->SetWindowStyle( wxBORDER_NONE  );
    pBtn->SetCanFocus(false);
@@ -948,7 +948,7 @@ wxStaticBox * ShuttleGuiBase::StartStatic(const TranslatableString &Str, int iPr
    if( mShuttleMode != eIsCreating )
       return NULL;
    auto translated = Str.Translation();
-   wxStaticBox * pBox = safenew wxStaticBoxWrapper(
+   wxStaticBox * pBox = new wxStaticBoxWrapper(
       GetParent(), miId, translated );
    pBox->SetLabel( translated );
    if (Str.empty()) {
@@ -956,7 +956,7 @@ wxStaticBox * ShuttleGuiBase::StartStatic(const TranslatableString &Str, int iPr
       // an accessibility name which is empty. Bug 2169.
 #if wxUSE_ACCESSIBILITY
       // so that name can be set on a standard control
-      pBox->SetAccessible(safenew WindowAccessible(pBox));
+      pBox->SetAccessible(new WindowAccessible(pBox));
 #endif
       pBox->SetName(wxT("\a"));      // non-empty string which screen readers do not read
    }
@@ -994,7 +994,7 @@ wxScrolledWindow * ShuttleGuiBase::StartScroller(int iStyle)
       return wxDynamicCast(wxWindow::FindWindowById( miId, mpDlg), wxScrolledWindow);
 
    wxScrolledWindow * pScroller;
-   mpWind = pScroller = safenew wxScrolledWindow(GetParent(), miId, wxDefaultPosition, wxDefaultSize,
+   mpWind = pScroller = new wxScrolledWindow(GetParent(), miId, wxDefaultPosition, wxDefaultSize,
       GetStyle( wxSUNKEN_BORDER ) );
    pScroller->SetScrollRate( 20,20 );
 
@@ -1015,7 +1015,7 @@ wxScrolledWindow * ShuttleGuiBase::StartScroller(int iStyle)
 
    // create a sizer within the window...
    mpParent = pScroller;
-   pScroller->SetSizer(mpSizer = safenew wxBoxSizer(wxVERTICAL));
+   pScroller->SetSizer(mpSizer = new wxBoxSizer(wxVERTICAL));
    PushSizer();
    return pScroller;
 }
@@ -1045,7 +1045,7 @@ wxPanel * ShuttleGuiBase::StartPanel(int iStyle)
    if( mShuttleMode != eIsCreating )
       return wxDynamicCast(wxWindow::FindWindowById( miId, mpDlg), wxPanel);
    wxPanel * pPanel;
-   mpWind = pPanel = safenew wxPanelWrapper( GetParent(), miId, wxDefaultPosition, wxDefaultSize,
+   mpWind = pPanel = new wxPanelWrapper( GetParent(), miId, wxDefaultPosition, wxDefaultSize,
       GetStyle( wxNO_BORDER ));
 
    if( iStyle != 0 )
@@ -1062,7 +1062,7 @@ wxPanel * ShuttleGuiBase::StartPanel(int iStyle)
 
    // create a sizer within the window...
    mpParent = pPanel;
-   pPanel->SetSizer(mpSizer = safenew wxBoxSizer(wxVERTICAL));
+   pPanel->SetSizer(mpSizer = new wxBoxSizer(wxVERTICAL));
    PushSizer();
    return pPanel;
 }
@@ -1081,7 +1081,7 @@ wxNotebook * ShuttleGuiBase::StartNotebook()
    if( mShuttleMode != eIsCreating )
       return wxDynamicCast(wxWindow::FindWindowById( miId, mpDlg), wxNotebook);
    wxNotebook * pNotebook;
-   mpWind = pNotebook = safenew wxNotebook(GetParent(),
+   mpWind = pNotebook = new wxNotebook(GetParent(),
       miId, wxDefaultPosition, wxDefaultSize, GetStyle( 0 ));
    SetProportions( 1 );
    UpdateSizers();
@@ -1102,7 +1102,7 @@ wxSimplebook * ShuttleGuiBase::StartSimplebook()
    if( mShuttleMode != eIsCreating )
       return wxDynamicCast(wxWindow::FindWindowById( miId, mpDlg), wxSimplebook);
    wxSimplebook * pNotebook;
-   mpWind = pNotebook = safenew wxSimplebook(GetParent(),
+   mpWind = pNotebook = new wxSimplebook(GetParent(),
       miId, wxDefaultPosition, wxDefaultSize, GetStyle( 0 ));
    SetProportions( 1 );
    UpdateSizers();
@@ -1124,7 +1124,7 @@ wxNotebookPage * ShuttleGuiBase::StartNotebookPage(
       return NULL;
 //      return wxDynamicCast(wxWindow::FindWindowById( miId, mpDlg), wx);
    auto pNotebook = static_cast< wxBookCtrlBase* >( mpParent );
-   wxNotebookPage * pPage = safenew wxPanelWrapper(GetParent());
+   wxNotebookPage * pPage = new wxPanelWrapper(GetParent());
    const auto translated = Name.Translation();
    pPage->SetName(translated);
 
@@ -1134,7 +1134,7 @@ wxNotebookPage * ShuttleGuiBase::StartNotebookPage(
 
    SetProportions( 1 );
    mpParent = pPage;
-   pPage->SetSizer(mpSizer = safenew wxBoxSizer(wxVERTICAL));
+   pPage->SetSizer(mpSizer = new wxBoxSizer(wxVERTICAL));
    PushSizer();
    //   UpdateSizers();
    return pPage;
@@ -1187,7 +1187,7 @@ wxPanel * ShuttleGuiBase::StartInvisiblePanel()
    if( mShuttleMode != eIsCreating )
       return wxDynamicCast(wxWindow::FindWindowById( miId, mpDlg), wxPanel);
    wxPanel * pPanel;
-   mpWind = pPanel = safenew wxPanelWrapper(GetParent(), miId, wxDefaultPosition, wxDefaultSize,
+   mpWind = pPanel = new wxPanelWrapper(GetParent(), miId, wxDefaultPosition, wxDefaultSize,
       wxNO_BORDER);
 
    mpWind->SetBackgroundColour(
@@ -1199,7 +1199,7 @@ wxPanel * ShuttleGuiBase::StartInvisiblePanel()
 
    // create a sizer within the window...
    mpParent = pPanel;
-   pPanel->SetSizer(mpSizer = safenew wxBoxSizer(wxVERTICAL));
+   pPanel->SetSizer(mpSizer = new wxBoxSizer(wxVERTICAL));
    PushSizer();
    return pPanel;
 }
@@ -1611,7 +1611,7 @@ wxRadioButton * ShuttleGuiBase::TieRadioButton()
       {
          const auto &Prompt = symbol.Translation();
 
-         mpWind = pRadioButton = safenew wxRadioButton(GetParent(), miId, Prompt,
+         mpWind = pRadioButton = new wxRadioButton(GetParent(), miId, Prompt,
             wxDefaultPosition, wxDefaultSize,
             (mRadioCount==1)?wxRB_GROUP:0);
 
@@ -2337,7 +2337,7 @@ ShuttleGui & ShuttleGui::Optional( bool &bVar ){
 
 std::unique_ptr<wxSizer> CreateStdButtonSizer(wxWindow *parent, long buttons, wxWindow *extra)
 {
-   wxASSERT(parent != NULL); // To justify safenew
+   wxASSERT(parent != NULL); // To justify new
 
    int margin;
    {
@@ -2359,7 +2359,7 @@ std::unique_ptr<wxSizer> CreateStdButtonSizer(wxWindow *parent, long buttons, wx
    
    const auto makeButton =
    [parent]( wxWindowID id, const wxString label = {} ) {
-      auto result = safenew wxButton( parent, id, label );
+      auto result = new wxButton( parent, id, label );
       result->SetName( result->GetLabel() );
       return result;
    };
@@ -2405,8 +2405,8 @@ std::unique_ptr<wxSizer> CreateStdButtonSizer(wxWindow *parent, long buttons, wx
    if( buttons & eHelpButton )
    {
       // Replace standard Help button with smaller icon button.
-      // bs->AddButton(safenew wxButton(parent, wxID_HELP));
-      b = safenew wxBitmapButton(parent, wxID_HELP, theTheme.Bitmap( bmpHelpIcon ));
+      // bs->AddButton(new wxButton(parent, wxID_HELP));
+      b = new wxBitmapButton(parent, wxID_HELP, theTheme.Bitmap( bmpHelpIcon ));
       b->SetToolTip( XO("Help").Translation() );
       b->SetLabel(XO("Help").Translation());       // for screen readers
       b->SetName( b->GetLabel() );
@@ -2476,8 +2476,8 @@ std::unique_ptr<wxSizer> CreateStdButtonSizer(wxWindow *parent, long buttons, wx
    if( buttons & eHelpButton )
    {
       // Replace standard Help button with smaller icon button.
-      // bs->AddButton(safenew wxButton(parent, wxID_HELP));
-      b = safenew wxBitmapButton(parent, wxID_HELP, theTheme.Bitmap( bmpHelpIcon ));
+      // bs->AddButton(new wxButton(parent, wxID_HELP));
+      b = new wxBitmapButton(parent, wxID_HELP, theTheme.Bitmap( bmpHelpIcon ));
       b->SetToolTip( XO("Help").Translation() );
       b->SetLabel(XO("Help").Translation());       // for screen readers
       b->SetName( b->GetLabel() );

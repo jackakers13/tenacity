@@ -353,3 +353,11 @@ When reverting a change, you should be *at least* **just as careful** as when
 committing a change. Make sure to use your own judgement, communicate
 transparently and coordinate with other contributors -- especially the ones
 that worked on the change itself.
+
+### Miscellaneous Coding Conventions
+
+* Wherever possible, **use smart poitners instead of `new` and the appropriate
+  version of `delete`**. For example, you may use them when using wxWidgets
+  classes where deallocation is automatically handled by the toolkit. You may
+  also use them in constructors of smart pointers (such as std::unique_ptr) or
+  alike.

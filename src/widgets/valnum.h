@@ -361,7 +361,7 @@ public:
     }
 
     // Clone is required by wxwidgets; implemented via copy constructor
-    wxObject *Clone() const override { return safenew IntegerValidator(*this); }
+    wxObject *Clone() const override { return new IntegerValidator(*this); }
 
 private:
     DECLARE_NO_ASSIGN_CLASS(IntegerValidator)
@@ -476,7 +476,7 @@ public:
     // Clone is required by wxwidgets; implemented via copy constructor
     wxObject *Clone() const override
     {
-        return safenew FloatingPointValidator(*this);
+        return new FloatingPointValidator(*this);
     }
 
 private:

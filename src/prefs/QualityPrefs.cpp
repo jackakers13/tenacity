@@ -219,8 +219,8 @@ namespace{
 PrefsPanel::Registration sAttachment{ "Quality",
    [](wxWindow *parent, wxWindowID winid, TenacityProject *)
    {
-      wxASSERT(parent); // to justify safenew
-      return safenew QualityPrefs(parent, winid);
+      wxASSERT(parent); // to justify new
+      return new QualityPrefs(parent, winid);
    }
 };
 }

@@ -113,7 +113,7 @@ std::shared_ptr<Track> TrackPanelAx::SetFocus( std::shared_ptr<Track> track )
 
    if ( mFocusedTrack.lock() != track ) {
       mFocusedTrack = track;
-      mProject.QueueEvent( safenew wxCommandEvent{ EVT_TRACK_FOCUS_CHANGE } );
+      mProject.QueueEvent( new wxCommandEvent{ EVT_TRACK_FOCUS_CHANGE } );
    }
    mNumFocusedTrack = TrackNum(track);
 

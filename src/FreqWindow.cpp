@@ -285,7 +285,7 @@ void FrequencyPlotDialog::Populate()
 
       S.StartVerticalLay(2);
       {
-         vRuler = safenew RulerPanel(
+         vRuler = new RulerPanel(
             S.GetParent(), wxID_ANY, wxVERTICAL,
             wxSize{ 100, 100 }, // Ruler can't handle small sizes
             RulerPanel::Range{ 0.0, -dBRange },
@@ -304,7 +304,7 @@ void FrequencyPlotDialog::Populate()
       }
       S.EndVerticalLay();
 
-      mFreqPlot = safenew FreqPlot(S.GetParent(), wxID_ANY);
+      mFreqPlot = new FreqPlot(S.GetParent(), wxID_ANY);
       S.Prop(1)
          .Position(wxEXPAND)
          .MinSize( { wxDefaultCoord, FREQ_WINDOW_HEIGHT } )
@@ -314,11 +314,11 @@ void FrequencyPlotDialog::Populate()
       {
          S.StartVerticalLay();
          {
-            mPanScroller = safenew wxScrollBar(S.GetParent(), FreqPanScrollerID,
+            mPanScroller = new wxScrollBar(S.GetParent(), FreqPanScrollerID,
                wxDefaultPosition, wxDefaultSize, wxSB_VERTICAL);
 #if wxUSE_ACCESSIBILITY
             // so that name can be set on a standard control
-            mPanScroller->SetAccessible(safenew WindowAccessible(mPanScroller));
+            mPanScroller->SetAccessible(new WindowAccessible(mPanScroller));
 #endif
             S.Prop(1);
             S
@@ -330,13 +330,13 @@ void FrequencyPlotDialog::Populate()
 
          S.StartVerticalLay();
          {
-            wxStaticBitmap *zi = safenew wxStaticBitmap(S.GetParent(), wxID_ANY, wxBitmap(ZoomIn));
+            wxStaticBitmap *zi = new wxStaticBitmap(S.GetParent(), wxID_ANY, wxBitmap(ZoomIn));
             S.Position(wxALIGN_CENTER)
                .AddWindow(zi);
 
             S.AddSpace(5);
 
-            mZoomSlider = safenew wxSliderWrapper(S.GetParent(), FreqZoomSliderID, 100, 1, 100,
+            mZoomSlider = new wxSliderWrapper(S.GetParent(), FreqZoomSliderID, 100, 1, 100,
                wxDefaultPosition, wxDefaultSize, wxSL_VERTICAL);
             S.Prop(1);
             S
@@ -345,12 +345,12 @@ void FrequencyPlotDialog::Populate()
                .AddWindow(mZoomSlider);
 #if wxUSE_ACCESSIBILITY
             // so that name can be set on a standard control
-            mZoomSlider->SetAccessible(safenew WindowAccessible(mZoomSlider));
+            mZoomSlider->SetAccessible(new WindowAccessible(mZoomSlider));
 #endif
 
             S.AddSpace(5);
 
-            wxStaticBitmap *zo = safenew wxStaticBitmap(S.GetParent(), wxID_ANY, wxBitmap(ZoomOut));
+            wxStaticBitmap *zo = new wxStaticBitmap(S.GetParent(), wxID_ANY, wxBitmap(ZoomOut));
             S.Position(wxALIGN_CENTER)
                .AddWindow(zo);
          }
@@ -368,7 +368,7 @@ void FrequencyPlotDialog::Populate()
 
       S.StartHorizontalLay(wxEXPAND, 0);
       {
-         hRuler  = safenew RulerPanel(
+         hRuler  = new RulerPanel(
             S.GetParent(), wxID_ANY, wxHORIZONTAL,
             wxSize{ 100, 100 }, // Ruler can't handle small sizes
             RulerPanel::Range{ 10, 20000 },
@@ -502,7 +502,7 @@ void FrequencyPlotDialog::Populate()
 
    S.AddSpace(5);
 
-   mProgress = safenew FreqGauge(S.GetParent(), wxID_ANY); //, wxST_SIZEGRIP);
+   mProgress = new FreqGauge(S.GetParent(), wxID_ANY); //, wxST_SIZEGRIP);
    S.Position(wxEXPAND)
       .AddWindow(mProgress);
 
@@ -1196,7 +1196,7 @@ namespace {
 TenacityProject::AttachedWindows::RegisteredFactory sFrequencyWindowKey{
    []( TenacityProject &parent ) -> wxWeakRef< wxWindow > {
       auto &window = ProjectWindow::Get( parent );
-      return safenew FrequencyPlotDialog(
+      return new FrequencyPlotDialog(
          &window, -1, parent, FrequencyAnalysisTitle,
          wxPoint{ 150, 150 }
       );

@@ -34,13 +34,13 @@ Plot::Plot(wxWindow *parent, wxWindowID winid,
    m_xmin(x_min), m_xmax(x_max), m_ymin(y_min), m_ymax(y_max),
    m_plots(count)
 {
-   m_xruler = std::unique_ptr<Ruler>(safenew Ruler);
+   m_xruler = std::unique_ptr<Ruler>(new Ruler);
    m_xruler->SetOrientation(wxHORIZONTAL);
    m_xruler->SetFormat(static_cast<Ruler::RulerFormat>(xformat));
    m_xruler->SetUnits(xlabel);
    m_xruler->SetFlip(true);
 
-   m_yruler = std::unique_ptr<Ruler>(safenew Ruler);
+   m_yruler = std::unique_ptr<Ruler>(new Ruler);
    m_yruler->SetOrientation(wxVERTICAL);
    m_yruler->SetFormat(static_cast<Ruler::RulerFormat>(yformat));
    m_yruler->SetUnits(ylabel);

@@ -140,7 +140,7 @@ DECLARE_MODULE_ENTRY(AudacityModule)
 {
    // Create our effects module and register
    // Trust the module manager not to leak this
-   return safenew VSTEffectsModule();
+   return new VSTEffectsModule();
 }
 
 // ============================================================================
@@ -2799,7 +2799,7 @@ void VSTEffect::BuildFancy()
    // Turn the power on...some effects need this when the editor is open
    PowerOn();
 
-   auto control = Destroy_ptr<VSTControl>{ safenew VSTControl };
+   auto control = Destroy_ptr<VSTControl>{ new VSTControl };
    if (!control)
    {
       return;
@@ -2834,8 +2834,8 @@ void VSTEffect::BuildFancy()
 
 void VSTEffect::BuildPlain()
 {
-   wxASSERT(mParent); // To justify safenew
-   wxScrolledWindow *const scroller = safenew wxScrolledWindow(mParent,
+   wxASSERT(mParent); // To justify new
+   wxScrolledWindow *const scroller = new wxScrolledWindow(mParent,
       wxID_ANY,
       wxDefaultPosition,
       wxDefaultSize,
@@ -2872,9 +2872,9 @@ void VSTEffect::BuildPlain()
          // Add the duration control for generators
          if (GetType() == EffectTypeGenerate)
          {
-            wxControl *item = safenew wxStaticText(scroller, 0, _("Duration:"));
+            wxControl *item = new wxStaticText(scroller, 0, _("Duration:"));
             gridSizer->Add(item, 0, wxALIGN_CENTER_VERTICAL | wxALIGN_RIGHT | wxALL, 5);
-            mDuration = safenew
+            mDuration = new
                NumericTextCtrl(scroller, ID_Duration,
                   NumericConverter::TIME,
                   mHost->GetDurationFormat(),
@@ -2912,7 +2912,7 @@ void VSTEffect::BuildPlain()
 
          for (int i = 0; i < mAEffect->numParams; i++)
          {
-            mNames[i] = safenew wxStaticText(scroller,
+            mNames[i] = new wxStaticText(scroller,
                wxID_ANY,
                wxEmptyString,
                wxDefaultPosition,
@@ -2920,7 +2920,7 @@ void VSTEffect::BuildPlain()
                wxALIGN_RIGHT | wxST_NO_AUTORESIZE);
             gridSizer->Add(mNames[i], 0, wxALIGN_CENTER_VERTICAL | wxALIGN_RIGHT | wxALL, 5);
 
-            mSliders[i] = safenew wxSliderWrapper(scroller,
+            mSliders[i] = new wxSliderWrapper(scroller,
                ID_Sliders + i,
                0,
                0,
@@ -2930,10 +2930,10 @@ void VSTEffect::BuildPlain()
             gridSizer->Add(mSliders[i], 0, wxALIGN_CENTER_VERTICAL | wxEXPAND | wxALL, 5);
 #if wxUSE_ACCESSIBILITY
             // so that name can be set on a standard control
-            mSliders[i]->SetAccessible(safenew WindowAccessible(mSliders[i]));
+            mSliders[i]->SetAccessible(new WindowAccessible(mSliders[i]));
 #endif
 
-            mDisplays[i] = safenew wxStaticText(scroller,
+            mDisplays[i] = new wxStaticText(scroller,
                wxID_ANY,
                wxEmptyString,
                wxDefaultPosition,
@@ -2941,7 +2941,7 @@ void VSTEffect::BuildPlain()
                wxALIGN_RIGHT | wxST_NO_AUTORESIZE);
             gridSizer->Add(mDisplays[i], 0, wxALIGN_CENTER_VERTICAL | wxALIGN_RIGHT | wxALL, 5);
 
-            mLabels[i] = safenew wxStaticText(scroller,
+            mLabels[i] = new wxStaticText(scroller,
                wxID_ANY,
                wxEmptyString,
                wxDefaultPosition,

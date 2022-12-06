@@ -96,7 +96,7 @@ MultiDialog::MultiDialog(wxWindow * pParent,
             S.SetBorder( 0 );
             wxBitmap bitmap = wxArtProvider::GetIcon(wxART_WARNING,
                wxART_MESSAGE_BOX);
-            auto icon = safenew wxStaticBitmap(S.GetParent(), -1, bitmap);
+            auto icon = new wxStaticBitmap(S.GetParent(), -1, bitmap);
             S
                .Position( wxCENTER )
                .AddWindow( icon );
@@ -115,7 +115,7 @@ MultiDialog::MultiDialog(wxWindow * pParent,
 
          S.SetBorder( 5 );
 
-         mRadioBox = safenew wxRadioBox(S.GetParent(), -1,
+         mRadioBox = new wxRadioBox(S.GetParent(), -1,
             boxStr,
             wxDefaultPosition, wxDefaultSize,
             count, count ? &buttonLabels[0] : nullptr,

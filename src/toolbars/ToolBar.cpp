@@ -540,11 +540,11 @@ void ToolBar::ReCreateButtons()
       auto ms = std::make_unique<wxBoxSizer>(wxHORIZONTAL);
 
       // Create the grabber and add it to the main sizer
-      mGrabber = safenew Grabber(this, mType);
+      mGrabber = new Grabber(this, mType);
       ms->Add(mGrabber, 0, wxEXPAND | wxALIGN_LEFT | wxALIGN_TOP | wxRIGHT, 1);
 
       // Use a box sizer for laying out controls
-      ms->Add((mHSizer = safenew wxBoxSizer(wxHORIZONTAL)), 1, wxEXPAND);
+      ms->Add((mHSizer = new wxBoxSizer(wxHORIZONTAL)), 1, wxEXPAND);
 
       // Go add all the rest of the gadgets
       Populate();
@@ -553,7 +553,7 @@ void ToolBar::ReCreateButtons()
       if (IsResizable())
       {
          // Create the resizer and add it to the main sizer
-         mResizer = safenew ToolBarResizer(this);
+         mResizer = new ToolBarResizer(this);
          ms->Add(mResizer, 0, wxEXPAND | wxALIGN_TOP | wxLEFT, 1);
          mResizer->SetToolTip(_("Click and drag to resize toolbar"));
       }
@@ -862,9 +862,9 @@ AButton * ToolBar::MakeButton(wxWindow *parent,
    wxImagePtr downHi2    (OverlayImage(eDownHi, eStandardDown, xoff + 1, yoff + 1));
    wxImagePtr disable2   (OverlayImage(eUp,     eDisabled, xoff, yoff));
 
-   wxASSERT(parent); // to justify safenew
+   wxASSERT(parent); // to justify new
    AButton * button =
-      safenew AButton(parent, id, placement, size, *up2, *hilite2, *down2, *downHi2,
+      new AButton(parent, id, placement, size, *up2, *hilite2, *down2, *downHi2,
             *disable2, processdownevents);
 
    return button;

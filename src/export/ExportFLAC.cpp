@@ -438,7 +438,7 @@ ProgressResult ExportFLAC::Export(TenacityProject *project,
 
 void ExportFLAC::OptionsCreate(ShuttleGui &S, int format)
 {
-   S.AddWindow( safenew ExportFLACOptions{ S.GetParent(), format } );
+   S.AddWindow( new ExportFLACOptions{ S.GetParent(), format } );
 }
 
 // LL:  There's a bug in libflac++ 1.1.2 that prevents us from using

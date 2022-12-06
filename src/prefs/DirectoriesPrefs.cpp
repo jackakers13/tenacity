@@ -55,7 +55,7 @@ public:
 
    virtual wxObject* Clone() const wxOVERRIDE
    {
-      return safenew FilesystemValidator(mMessage);
+      return new FilesystemValidator(mMessage);
    }
 
    virtual bool Validate(wxWindow* WXUNUSED(parent)) wxOVERRIDE
@@ -477,8 +477,8 @@ DirectoriesPrefsFactory()
 {
    return [](wxWindow *parent, wxWindowID winid, TenacityProject *)
    {
-      wxASSERT(parent); // to justify safenew
-      return safenew DirectoriesPrefs(parent, winid);
+      wxASSERT(parent); // to justify new
+      return new DirectoriesPrefs(parent, winid);
    };
 }
 

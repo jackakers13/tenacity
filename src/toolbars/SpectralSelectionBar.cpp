@@ -141,7 +141,7 @@ void SpectralSelectionBar::Populate()
       ? mListener->SSBL_GetBandwidthSelectionFormatName()
       : NumericFormatSymbol{};
 
-   wxFlexGridSizer *mainSizer = safenew wxFlexGridSizer(1, 1, 1);
+   wxFlexGridSizer *mainSizer = new wxFlexGridSizer(1, 1, 1);
    Add(mainSizer, 0, wxALIGN_CENTER_VERTICAL | wxLEFT, 5);
 
    //
@@ -152,13 +152,13 @@ void SpectralSelectionBar::Populate()
       _("Center frequency and Width"),
       _("Low and High Frequencies"),
    };
-   mChoice = safenew wxChoice
+   mChoice = new wxChoice
       (this, OnChoiceID, wxDefaultPosition, wxDefaultSize, 2, choices,
        0, wxDefaultValidator, _("Show"));
    mChoice->SetSelection(mbCenterAndWidth ? 0 : 1);
 #if wxUSE_ACCESSIBILITY
    // so that name can be set on a standard control
-   mChoice->SetAccessible(safenew WindowAccessible(mChoice));
+   mChoice->SetAccessible(new WindowAccessible(mChoice));
 #endif
    mChoice->SetMinSize(wxSize(mChoice->GetBestSize().x, toolbarSingle));
 
@@ -171,7 +171,7 @@ void SpectralSelectionBar::Populate()
    {
       auto subSizer = std::make_unique<wxBoxSizer>(wxHORIZONTAL);
 
-      mCenterCtrl = safenew NumericTextCtrl(
+      mCenterCtrl = new NumericTextCtrl(
          this, OnCenterID,
          NumericConverter::FREQUENCY, frequencyFormatName, 0.0, 44100.0,
          NumericTextCtrl::Options{}
@@ -180,7 +180,7 @@ void SpectralSelectionBar::Populate()
       mCenterCtrl->SetName( XO("Center Frequency") );
       subSizer->Add(mCenterCtrl, 0, wxALIGN_CENTER_VERTICAL | wxRIGHT, 5);
 
-      mWidthCtrl = safenew NumericTextCtrl(
+      mWidthCtrl = new NumericTextCtrl(
          this, OnWidthID,
          NumericConverter::BANDWIDTH, bandwidthFormatName, 0.0, 44100.0,
          NumericTextCtrl::Options{}
@@ -189,7 +189,7 @@ void SpectralSelectionBar::Populate()
       mWidthCtrl->SetName( XO("Bandwidth") );
       subSizer->Add(mWidthCtrl, 0, wxALIGN_CENTER_VERTICAL | wxRIGHT, 5);
 
-      mLowCtrl = safenew NumericTextCtrl(
+      mLowCtrl = new NumericTextCtrl(
          this, OnLowID,
          NumericConverter::FREQUENCY, frequencyFormatName, 0.0, 44100.0,
          NumericTextCtrl::Options{}
@@ -198,7 +198,7 @@ void SpectralSelectionBar::Populate()
       mLowCtrl->SetName( XO("Low Frequency") );
       subSizer->Add(mLowCtrl, 0, wxALIGN_CENTER_VERTICAL | wxRIGHT, 5);
 
-      mHighCtrl = safenew NumericTextCtrl(
+      mHighCtrl = new NumericTextCtrl(
          this, OnHighID,
          NumericConverter::FREQUENCY, frequencyFormatName, 0.0, 44100.0,
          NumericTextCtrl::Options{}
@@ -488,7 +488,7 @@ void SpectralSelectionBar::SetBandwidthSelectionFormatName(const NumericFormatSy
 
 static RegisteredToolbarFactory factory{ SpectralSelectionBarID,
    []( TenacityProject &project ){
-      return ToolBar::Holder{ safenew SpectralSelectionBar{ project } }; }
+      return ToolBar::Holder{ new SpectralSelectionBar{ project } }; }
 };
 
 namespace {

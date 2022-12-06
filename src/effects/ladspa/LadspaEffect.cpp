@@ -88,7 +88,7 @@ DECLARE_MODULE_ENTRY(AudacityModule)
 {
    // Create and register the importer
    // Trust the module manager not to leak this
-   return safenew LadspaEffectsModule();
+   return new LadspaEffectsModule();
 }
 
 // ============================================================================
@@ -1198,8 +1198,8 @@ bool LadspaEffect::PopulateUI(ShuttleGui &S)
    mLabels.reinit( mData->PortCount );
    mMeters.reinit( mData->PortCount );
 
-   wxASSERT(mParent); // To justify safenew
-   wxScrolledWindow *const w = safenew wxScrolledWindow(mParent,
+   wxASSERT(mParent); // To justify new
+   wxScrolledWindow *const w = new wxScrolledWindow(mParent,
       wxID_ANY,
       wxDefaultPosition,
       wxDefaultSize,
@@ -1234,9 +1234,9 @@ bool LadspaEffect::PopulateUI(ShuttleGui &S)
          // Add the duration control for generators
          if (GetType() == EffectTypeGenerate)
          {
-            item = safenew wxStaticText(w, 0, _("Duration:"));
+            item = new wxStaticText(w, 0, _("Duration:"));
             gridSizer->Add(item, 0, wxALIGN_CENTER_VERTICAL | wxALIGN_RIGHT | wxALL, 5);
-            mDuration = safenew
+            mDuration = new
                NumericTextCtrl(w, ID_Duration,
                   NumericConverter::TIME,
                   mHost->GetDurationFormat(),
@@ -1260,7 +1260,7 @@ bool LadspaEffect::PopulateUI(ShuttleGui &S)
             }
 
             wxString labelText = LAT1CTOWX(mData->PortNames[p]);
-            item = safenew wxStaticText(w, 0, wxString::Format(_("%s:"), labelText));
+            item = new wxStaticText(w, 0, wxString::Format(_("%s:"), labelText));
             gridSizer->Add(item, 0, wxALIGN_CENTER_VERTICAL | wxALIGN_RIGHT | wxALL, 5);
 
             wxString fieldText;
@@ -1268,7 +1268,7 @@ bool LadspaEffect::PopulateUI(ShuttleGui &S)
 
             if (LADSPA_IS_HINT_TOGGLED(hint.HintDescriptor))
             {
-               mToggles[p] = safenew wxCheckBox(w, ID_Toggles + p, wxT(""));
+               mToggles[p] = new wxCheckBox(w, ID_Toggles + p, wxT(""));
                mToggles[p]->SetName(labelText);
                mToggles[p]->SetValue(mInputControls[p] > 0);
                gridSizer->Add(mToggles[p], 0, wxALL, 5);
@@ -1323,7 +1323,7 @@ bool LadspaEffect::PopulateUI(ShuttleGui &S)
             // Don't specify a value at creation time.  This prevents unwanted events
             // being sent to the OnTextCtrl() handler before the associated slider
             // has been created.
-            mFields[p] = safenew wxTextCtrl(w, ID_Texts + p);
+            mFields[p] = new wxTextCtrl(w, ID_Texts + p);
             mFields[p]->SetName(labelText);
             gridSizer->Add(mFields[p], 0, wxALIGN_CENTER_VERTICAL | wxALL, 5);
 
@@ -1338,7 +1338,7 @@ bool LadspaEffect::PopulateUI(ShuttleGui &S)
                {
                   str = Internat::ToDisplayString(lower);
                }
-               item = safenew wxStaticText(w, 0, str);
+               item = new wxStaticText(w, 0, str);
                gridSizer->Add(item, 0, wxALIGN_CENTER_VERTICAL | wxALIGN_RIGHT | wxALL, 5);
             }
             else
@@ -1346,13 +1346,13 @@ bool LadspaEffect::PopulateUI(ShuttleGui &S)
                gridSizer->Add(1, 1, 0);
             }
 
-            mSliders[p] = safenew wxSliderWrapper(w, ID_Sliders + p,
+            mSliders[p] = new wxSliderWrapper(w, ID_Sliders + p,
                0, 0, 1000,
                wxDefaultPosition,
                wxSize(200, -1));
 #if wxUSE_ACCESSIBILITY
             // so that name can be set on a standard control
-            mSliders[p]->SetAccessible(safenew WindowAccessible(mSliders[p]));
+            mSliders[p]->SetAccessible(new WindowAccessible(mSliders[p]));
 #endif
             mSliders[p]->SetName(labelText);
             gridSizer->Add(mSliders[p], 0, wxALIGN_CENTER_VERTICAL | wxEXPAND | wxALL, 5);
@@ -1367,7 +1367,7 @@ bool LadspaEffect::PopulateUI(ShuttleGui &S)
                {
                   str = Internat::ToDisplayString(upper);
                }
-               item = safenew wxStaticText(w, 0, str);
+               item = new wxStaticText(w, 0, str);
                gridSizer->Add(item, 0, wxALIGN_CENTER_VERTICAL | wxALIGN_LEFT | wxALL, 5);
             }
             else
@@ -1436,7 +1436,7 @@ bool LadspaEffect::PopulateUI(ShuttleGui &S)
             }
 
             wxString labelText = LAT1CTOWX(mData->PortNames[p]);
-            item = safenew wxStaticText(w, 0, wxString::Format(_("%s:"), labelText));
+            item = new wxStaticText(w, 0, wxString::Format(_("%s:"), labelText));
             gridSizer->Add(item, 0, wxALIGN_CENTER_VERTICAL | wxALIGN_RIGHT | wxALL, 5);
 
             //LADSPA_PortRangeHint hint = mData->PortRangeHints[p];
@@ -1475,7 +1475,7 @@ bool LadspaEffect::PopulateUI(ShuttleGui &S)
             upper = floorf(upper * 1000000.0) / 1000000.0;
             mInputControls[p] = roundf(mInputControls[p] * 1000000.0) / 1000000.0;
 
-            mMeters[p] = safenew LadspaEffectMeter(w, mOutputControls[p], lower, upper);
+            mMeters[p] = new LadspaEffectMeter(w, mOutputControls[p], lower, upper);
             mMeters[p]->SetLabel(labelText);    // for screen readers
             gridSizer->Add(mMeters[p], 1, wxEXPAND | wxALIGN_CENTER_VERTICAL | wxALL, 5);
          }

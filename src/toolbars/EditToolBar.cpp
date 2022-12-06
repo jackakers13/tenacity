@@ -317,7 +317,7 @@ void EditToolBar::OnButton(wxCommandEvent &event)
 
 static RegisteredToolbarFactory factory{ EditBarID,
    []( TenacityProject &project ){
-      return ToolBar::Holder{ safenew EditToolBar{ project } }; }
+      return ToolBar::Holder{ new EditToolBar{ project } }; }
 };
 
 #include "ToolManager.h"

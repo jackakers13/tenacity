@@ -122,7 +122,7 @@ void ExtImportPrefs::PopulateOrExchange(ShuttleGui & S)
          bool fillRuleTable = false;
          if (RuleTable == NULL)
          {
-            RuleTable = safenew Grid(S.GetParent(),EIPRuleTable);
+            RuleTable = new Grid(S.GetParent(),EIPRuleTable);
 
             RuleTable->SetColLabelSize(RuleTable->GetDefaultRowSize());
 #if EXTIMPORT_MIME_SUPPORT
@@ -145,8 +145,8 @@ void ExtImportPrefs::PopulateOrExchange(ShuttleGui & S)
 
             ExtImportPrefsDropTarget *dragtarget1 {};
             RuleTable->SetDropTarget (
-               dragtarget1 = safenew ExtImportPrefsDropTarget(
-                  dragtext1 = safenew wxTextDataObject(wxT(""))
+               dragtarget1 = new ExtImportPrefsDropTarget(
+                  dragtext1 = new wxTextDataObject(wxT(""))
                )
             );
             dragtarget1->SetPrefs (this);
@@ -167,8 +167,8 @@ void ExtImportPrefs::PopulateOrExchange(ShuttleGui & S)
          {
             ExtImportPrefsDropTarget *dragtarget2 {};
             PluginList->SetDropTarget (
-               dragtarget2 = safenew ExtImportPrefsDropTarget(
-                  dragtext2 = safenew wxTextDataObject(wxT(""))
+               dragtarget2 = new ExtImportPrefsDropTarget(
+                  dragtext2 = new wxTextDataObject(wxT(""))
                )
             );
             dragtarget2->SetPrefs (this);
@@ -856,8 +856,8 @@ namespace{
 PrefsPanel::Registration sAttachment{ "ExtImport",
    [](wxWindow *parent, wxWindowID winid, TenacityProject *)
    {
-      wxASSERT(parent); // to justify safenew
-      return safenew ExtImportPrefs(parent, winid);
+      wxASSERT(parent); // to justify new
+      return new ExtImportPrefs(parent, winid);
    },
    false,
    // Place as a lower level of the tree of pages:

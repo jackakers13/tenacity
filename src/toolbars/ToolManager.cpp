@@ -409,7 +409,7 @@ ToolManager::ToolManager( TenacityProject *parent )
 
    // Create the indicator frame
    // parent is null but FramePtr ensures destruction
-   mIndicator = FramePtr{ safenew wxFrame( NULL,
+   mIndicator = FramePtr{ new wxFrame( NULL,
                              wxID_ANY,
                              wxEmptyString,
                              wxDefaultPosition,
@@ -455,8 +455,8 @@ void ToolManager::CreateWindows()
    wxWindow *topDockParent = getTopPanelHook()( window );
 
    // Create the top and bottom docks
-   mTopDock = safenew ToolDock( this, topDockParent, TopDockID );
-   mBotDock = safenew ToolDock( this, &window, BotDockID );
+   mTopDock = new ToolDock( this, topDockParent, TopDockID );
+   mBotDock = new ToolDock( this, &window, BotDockID );
 
    // Create all of the toolbars
    // All have the project as parent window
@@ -661,7 +661,7 @@ void ToolManager::Reset()
          // this happens if we have just been bounced out of a dock.
          if( floater == NULL ) {
             wxASSERT(mParent);
-            floater = safenew ToolFrame( mParent, this, bar, wxPoint(-1,-1) );
+            floater = new ToolFrame( mParent, this, bar, wxPoint(-1,-1) );
             bar->Reparent( floater );
          }
 
@@ -888,7 +888,7 @@ void ToolManager::ReadConfig()
 
          // Construct a NEW floater
          wxASSERT(mParent);
-         ToolFrame *f = safenew ToolFrame( mParent, this, bar, wxPoint( x, y ) );
+         ToolFrame *f = new ToolFrame( mParent, this, bar, wxPoint( x, y ) );
 
          // Set the width and height
          if( width[ ndx ] != -1 && height[ ndx ] != -1 )
@@ -1433,7 +1433,7 @@ void ToolManager::UndockBar( wxPoint mp )
 
    // Construct a NEW floater
    wxASSERT(mParent);
-   mDragWindow = safenew ToolFrame( mParent, this, mDragBar, mp );
+   mDragWindow = new ToolFrame( mParent, this, mDragBar, mp );
    mDragWindow->SetLayoutDirection(wxLayout_LeftToRight);
    // Make sure the ferry is visible
    mDragWindow->Show();

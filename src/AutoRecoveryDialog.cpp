@@ -101,7 +101,7 @@ void AutoRecoveryDialog::Populate(ShuttleGui &S)
 
       S.StartStatic(XO("Recoverable &projects"), 1);
       {
-         mFileList = safenew wxDataViewListCtrl(this, ID_FILE_LIST);
+         mFileList = new wxDataViewListCtrl(this, ID_FILE_LIST);
          mFileList->SetMinSize(wxSize(-1, 120));
          mFileList->AppendToggleColumn(
             /*i18n-hint: (verb).  It instruct the user to select items.*/

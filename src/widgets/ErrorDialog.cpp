@@ -76,7 +76,7 @@ ErrorDialog::ErrorDialog(
    {
       S.SetBorder(20);
       wxBitmap bitmap = wxArtProvider::GetBitmap(wxART_WARNING);
-      S.AddWindow(safenew wxStaticBitmap(S.GetParent(), -1, bitmap));
+      S.AddWindow(new wxStaticBitmap(S.GetParent(), -1, bitmap));
 
       S.SetBorder(20);
       S.AddFixedText(message, false, 500);
@@ -90,7 +90,7 @@ ErrorDialog::ErrorDialog(
       {
          S.SetBorder(5);
 
-         auto pane = safenew wxCollapsiblePane(S.GetParent(),
+         auto pane = new wxCollapsiblePane(S.GetParent(),
                                                wxID_ANY,
                                                XO("Show &Log...").Translation());
          S.Style(wxEXPAND | wxALIGN_LEFT);

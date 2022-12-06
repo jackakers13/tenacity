@@ -237,7 +237,7 @@ DECLARE_MODULE_ENTRY(AudacityModule)
 {
    // Create and register the importer
    // Trust the module manager not to leak this
-   return safenew AudioUnitEffectsModule();
+   return new AudioUnitEffectsModule();
 }
 
 // ============================================================================
@@ -1727,8 +1727,8 @@ bool AudioUnitEffect::PopulateUI(ShuttleGui &S)
    {
       auto mainSizer = std::make_unique<wxBoxSizer>(wxVERTICAL);
 
-      wxASSERT(mParent); // To justify safenew
-      container = safenew wxPanelWrapper(mParent, wxID_ANY);
+      wxASSERT(mParent); // To justify new
+      container = new wxPanelWrapper(mParent, wxID_ANY);
       mainSizer->Add(container, 1, wxEXPAND);
 
       mParent->SetSizer(mainSizer.release());
@@ -1745,7 +1745,7 @@ bool AudioUnitEffect::PopulateUI(ShuttleGui &S)
    else
 #endif
    {
-      auto pControl = Destroy_ptr<AUControl>(safenew AUControl);
+      auto pControl = Destroy_ptr<AUControl>(new AUControl);
       if (!pControl)
       {
          return false;

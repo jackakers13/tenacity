@@ -126,7 +126,7 @@ bool AudacityCommand::ShowInterface(wxWindow *parent, bool WXUNUSED(forceModal))
 
 wxDialog *AudacityCommand::CreateUI(wxWindow *parent, AudacityCommand * WXUNUSED(client))
 {
-   Destroy_ptr<AudacityCommandDialog> dlg { safenew AudacityCommandDialog{
+   Destroy_ptr<AudacityCommandDialog> dlg { new AudacityCommandDialog{
       parent, GetName(), this}};
 
    if (dlg->Init())

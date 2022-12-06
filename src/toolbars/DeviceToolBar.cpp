@@ -120,52 +120,52 @@ void DeviceToolBar::Populate()
    DeinitChildren();
 
    // Hosts
-   mHost = safenew wxChoice(this,
+   mHost = new wxChoice(this,
                             wxID_ANY,
                             wxDefaultPosition,
                             wxDefaultSize);
 #if wxUSE_ACCESSIBILITY
    // so that name can be set on a standard control
-   mHost->SetAccessible(safenew WindowAccessible(mHost));
+   mHost->SetAccessible(new WindowAccessible(mHost));
 #endif
    Add(mHost, 5, wxALIGN_CENTER_VERTICAL | wxLEFT | wxRIGHT, 1);
 
    // Input device
-   Add(safenew AStaticBitmap(this,
+   Add(new AStaticBitmap(this,
                              wxID_ANY,
                              theTheme.Bitmap(bmpMic)), 0, wxALIGN_CENTER_VERTICAL);
-   mInput = safenew wxChoice(this,
+   mInput = new wxChoice(this,
                              wxID_ANY,
                              wxDefaultPosition,
                              wxDefaultSize);
 #if wxUSE_ACCESSIBILITY
    // so that name can be set on a standard control
-   mInput->SetAccessible(safenew WindowAccessible(mInput));
+   mInput->SetAccessible(new WindowAccessible(mInput));
 #endif
    Add(mInput, 15, wxALIGN_CENTER_VERTICAL | wxLEFT | wxRIGHT, 1);
 
    // Input channels
-   mInputChannels = safenew wxChoice(this,
+   mInputChannels = new wxChoice(this,
                                      wxID_ANY,
                                      wxDefaultPosition,
                                      wxDefaultSize);
 #if wxUSE_ACCESSIBILITY
    // so that name can be set on a standard control
-   mInputChannels->SetAccessible(safenew WindowAccessible(mInputChannels));
+   mInputChannels->SetAccessible(new WindowAccessible(mInputChannels));
 #endif
    Add(mInputChannels, 10, wxALIGN_CENTER_VERTICAL | wxLEFT | wxRIGHT, 1);
 
    // Output device
-   Add(safenew AStaticBitmap(this,
+   Add(new AStaticBitmap(this,
                              wxID_ANY,
                              theTheme.Bitmap(bmpSpeaker)), 0, wxALIGN_CENTER_VERTICAL);
-   mOutput = safenew wxChoice(this,
+   mOutput = new wxChoice(this,
                               wxID_ANY,
                               wxDefaultPosition,
                               wxDefaultSize);
 #if wxUSE_ACCESSIBILITY
    // so that name can be set on a standard control
-   mOutput->SetAccessible(safenew WindowAccessible(mOutput));
+   mOutput->SetAccessible(new WindowAccessible(mOutput));
 #endif
    Add(mOutput, 10, wxALIGN_CENTER_VERTICAL | wxLEFT | wxRIGHT, 1);
 
@@ -713,7 +713,7 @@ void DeviceToolBar::ShowComboDialog(wxChoice *combo, const TranslatableString &t
 
 static RegisteredToolbarFactory factory{ DeviceBarID,
    []( TenacityProject &project ){
-      return ToolBar::Holder{ safenew DeviceToolBar{ project } }; }
+      return ToolBar::Holder{ new DeviceToolBar{ project } }; }
 };
 
 namespace {

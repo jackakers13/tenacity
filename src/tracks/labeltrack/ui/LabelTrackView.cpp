@@ -1095,7 +1095,7 @@ bool LabelTrackView::CutSelectedText( TenacityProject &project )
    // copy data onto clipboard
    if (wxTheClipboard->Open()) {
       // Clipboard owns the data you give it
-      wxTheClipboard->SetData(safenew wxTextDataObject(data));
+      wxTheClipboard->SetData(new wxTextDataObject(data));
       wxTheClipboard->Close();
    }
 
@@ -1132,7 +1132,7 @@ bool LabelTrackView::CopySelectedText( TenacityProject &project )
    // copy the data on clipboard
    if (wxTheClipboard->Open()) {
       // Clipboard owns the data you give it
-      wxTheClipboard->SetData(safenew wxTextDataObject(data));
+      wxTheClipboard->SetData(new wxTextDataObject(data));
       wxTheClipboard->Close();
    }
 
@@ -2255,7 +2255,7 @@ void LabelTrackView::CreateCustomGlyphs()
          mBoundaryGlyphs[index] = wxBitmap(XmpBmp);
          // Create the mask
          // SetMask takes ownership
-         mBoundaryGlyphs[index].SetMask(safenew wxMask(mBoundaryGlyphs[index], wxColour(192, 192, 192)));
+         mBoundaryGlyphs[index].SetMask(new wxMask(mBoundaryGlyphs[index], wxColour(192, 192, 192)));
       }
    }
 

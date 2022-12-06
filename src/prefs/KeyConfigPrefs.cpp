@@ -209,9 +209,9 @@ void KeyConfigPrefs::PopulateOrExchange(ShuttleGui & S)
                      .TieRadioButton();
 #if !defined(__WXMAC__) && wxUSE_ACCESSIBILITY
                   // so that name can be set on a standard control
-                  if (mViewByTree) mViewByTree->SetAccessible(safenew WindowAccessible(mViewByTree));
-                  if (mViewByName) mViewByName->SetAccessible(safenew WindowAccessible(mViewByName));
-                  if (mViewByKey) mViewByKey->SetAccessible(safenew WindowAccessible(mViewByKey));
+                  if (mViewByTree) mViewByTree->SetAccessible(new WindowAccessible(mViewByTree));
+                  if (mViewByName) mViewByName->SetAccessible(new WindowAccessible(mViewByName));
+                  if (mViewByKey) mViewByKey->SetAccessible(new WindowAccessible(mViewByKey));
 #endif
                }
                S.EndRadioButtonGroup();
@@ -227,7 +227,7 @@ void KeyConfigPrefs::PopulateOrExchange(ShuttleGui & S)
             mFilterLabel = S.Position(wxALIGN_CENTER_VERTICAL).AddVariableText(XO("Searc&h:"));
 
             if (!mFilter) {
-               mFilter = safenew wxTextCtrl(S.GetParent(),
+               mFilter = new wxTextCtrl(S.GetParent(),
                                         FilterID,
                                         wxT(""),
                                         wxDefaultPosition,
@@ -255,7 +255,7 @@ void KeyConfigPrefs::PopulateOrExchange(ShuttleGui & S)
       S.StartHorizontalLay(wxEXPAND, 1);
       {
          if (!mView) {
-            mView = safenew KeyView(S.GetParent(), CommandsListID);
+            mView = new KeyView(S.GetParent(), CommandsListID);
             mView->SetName(_("Bindings"));
          }
          S.Prop(true)
@@ -267,7 +267,7 @@ void KeyConfigPrefs::PopulateOrExchange(ShuttleGui & S)
       S.StartThreeColumn();
       {
          if (!mKey) {
-            mKey = safenew wxTextCtrl(S.GetParent(),
+            mKey = new wxTextCtrl(S.GetParent(),
                                   CurrentComboID,
                                   wxT(""),
                                   wxDefaultPosition,
@@ -279,7 +279,7 @@ void KeyConfigPrefs::PopulateOrExchange(ShuttleGui & S)
                                   wxTE_PROCESS_ENTER);
 #if !defined(__WXMAC__) && wxUSE_ACCESSIBILITY
             // so that name can be set on a standard control
-            mKey->SetAccessible(safenew WindowAccessible(mKey));
+            mKey->SetAccessible(new WindowAccessible(mKey));
 #endif
             mKey->SetName(_("Short cut"));
          }
@@ -940,8 +940,8 @@ KeyConfigPrefsFactory( const CommandID &name )
 {
    return [=](wxWindow *parent, wxWindowID winid, TenacityProject *pProject)
    {
-      wxASSERT(parent); // to justify safenew
-      auto result = safenew KeyConfigPrefs{ parent, winid, pProject, name };
+      wxASSERT(parent); // to justify new
+      auto result = new KeyConfigPrefs{ parent, winid, pProject, name };
       return result;
    };
 }

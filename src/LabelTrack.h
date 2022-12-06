@@ -198,7 +198,7 @@ struct LabelTrackEvent : TrackListEvent
    LabelTrackEvent( const LabelTrackEvent& ) = default;
    wxEvent *Clone() const override {
       // wxWidgets will own the event object
-      return safenew LabelTrackEvent(*this); }
+      return new LabelTrackEvent(*this); }
 
    // invalid for selection events
    wxString mTitle;

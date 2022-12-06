@@ -901,7 +901,7 @@ void EffectCompressor2::PopulateOrExchange(ShuttleGui & S)
 
       plot = mGainPlot->GetPlotData(0);
       plot->pen = std::unique_ptr<wxPen>(
-         safenew wxPen(AColor::WideEnvelopePen));
+         new wxPen(AColor::WideEnvelopePen));
       plot->xdata.resize(61);
       plot->ydata.resize(61);
       std::iota(plot->xdata.begin(), plot->xdata.end(), -60);
@@ -918,14 +918,14 @@ void EffectCompressor2::PopulateOrExchange(ShuttleGui & S)
 
       plot = mResponsePlot->GetPlotData(0);
       plot->pen = std::unique_ptr<wxPen>(
-         safenew wxPen(AColor::WideEnvelopePen));
+         new wxPen(AColor::WideEnvelopePen));
       plot->xdata = {0, RESPONSE_PLOT_STEP_START, RESPONSE_PLOT_STEP_START,
          RESPONSE_PLOT_STEP_STOP, RESPONSE_PLOT_STEP_STOP, 5};
       plot->ydata = {0.1, 0.1, 1, 1, 0.1, 0.1};
 
       plot = mResponsePlot->GetPlotData(1);
       plot->pen = std::unique_ptr<wxPen>(
-         safenew wxPen(AColor::WideEnvelopePen));
+         new wxPen(AColor::WideEnvelopePen));
       plot->pen->SetColour(wxColor( 230,80,80 )); // Same color as TrackArtist RMS red.
       plot->pen->SetWidth(2);
       plot->xdata.resize(RESPONSE_PLOT_SAMPLES+1);
@@ -1168,10 +1168,10 @@ std::unique_ptr<SamplePreprocessor> EffectCompressor2::InitPreprocessor(
 {
    size_t window_size = CalcWindowLength(rate);
    if(mCompressBy == kAmplitude)
-      return std::unique_ptr<SamplePreprocessor>(safenew
+      return std::unique_ptr<SamplePreprocessor>(new
          SlidingMaxPreprocessor(window_size));
    else
-      return std::unique_ptr<SamplePreprocessor>(safenew
+      return std::unique_ptr<SamplePreprocessor>(new
          SlidingRmsPreprocessor(window_size, preview ? 1.0 : 2.0));
 }
 
@@ -1179,10 +1179,10 @@ std::unique_ptr<EnvelopeDetector> EffectCompressor2::InitEnvelope(
    double rate, size_t blockSize, bool preview)
 {
    if(mAlgorithm == kExpFit)
-      return std::unique_ptr<EnvelopeDetector>(safenew
+      return std::unique_ptr<EnvelopeDetector>(new
          ExpFitEnvelopeDetector(rate, mAttackTime, mReleaseTime, blockSize));
    else
-      return std::unique_ptr<EnvelopeDetector>(safenew
+      return std::unique_ptr<EnvelopeDetector>(new
          Pt1EnvelopeDetector(rate, mAttackTime, mReleaseTime, blockSize,
             !preview && mCompressBy != kAmplitude));
 }

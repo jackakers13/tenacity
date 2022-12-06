@@ -801,7 +801,7 @@ void Scrubber::StartPolling()
    
 #ifdef USE_SCRUB_THREAD
    // Detached thread is self-deleting, after it receives the Delete() message
-   mpThread = safenew ScrubPollerThread{ *this };
+   mpThread = new ScrubPollerThread{ *this };
    mpThread->Create(4096);
    mpThread->Run();
 #endif

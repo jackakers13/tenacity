@@ -864,7 +864,7 @@ TenacityProject::AttachedWindows::RegisteredFactory sKey{
    auto &viewInfo = ViewInfo::Get( project );
    auto &window = ProjectWindow::Get( project );
 
-   return safenew AdornedRulerPanel( &project, window.GetTopPanel(),
+   return new AdornedRulerPanel( &project, window.GetTopPanel(),
       wxID_ANY,
       wxDefaultPosition,
       wxSize( -1, AdornedRulerPanel::GetRulerHeight(false) ),
@@ -1020,7 +1020,7 @@ void AdornedRulerPanel::ReCreateButtons()
 
    wxPoint position( 1, 0 );
 
-   Grabber * pGrabber = safenew Grabber(this, this->GetId());
+   Grabber * pGrabber = new Grabber(this, this->GetId());
    pGrabber->SetAsSpacer( true );
    //pGrabber->SetSize( 10, 27 ); // default is 10,27
    pGrabber->SetPosition( position );

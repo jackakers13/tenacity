@@ -41,7 +41,7 @@ namespace {
 TenacityProject::AttachedWindows::RegisteredFactory sMacrosWindowKey{
    []( TenacityProject &parent ) -> wxWeakRef< wxWindow > {
       auto &window = ProjectWindow::Get( parent );
-      return safenew MacrosWindow(
+      return new MacrosWindow(
          &window, parent, true
       );
    }

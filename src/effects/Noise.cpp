@@ -246,7 +246,7 @@ void EffectNoise::PopulateOrExchange(ShuttleGui & S)
          .AddTextBox(XXO("&Amplitude (0-1):"), wxT(""), 12);
 
       S.AddPrompt(XXO("&Duration:"));
-      mNoiseDurationT = safenew
+      mNoiseDurationT = new
          NumericTextCtrl(S.GetParent(), wxID_ANY,
                          NumericConverter::TIME,
                          GetDurationFormat(),

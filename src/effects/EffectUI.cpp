@@ -115,7 +115,7 @@ EffectRack::EffectRack( TenacityProject &project )
 
    {
       auto bs = std::make_unique<wxBoxSizer>(wxVERTICAL);
-      mPanel = safenew wxPanelWrapper(this, wxID_ANY);
+      mPanel = new wxPanelWrapper(this, wxID_ANY);
       bs->Add(mPanel, 1, wxEXPAND);
       SetSizer(bs.release());
    }
@@ -124,16 +124,16 @@ EffectRack::EffectRack( TenacityProject &project )
       auto bs = std::make_unique<wxBoxSizer>(wxVERTICAL);
       {
          auto hs = std::make_unique<wxBoxSizer>(wxHORIZONTAL);
-         wxASSERT(mPanel); // To justify safenew
-         hs->Add(safenew wxButton(mPanel, wxID_APPLY, _("&Apply")), 0, wxALIGN_LEFT | wxALIGN_CENTER_VERTICAL);
+         wxASSERT(mPanel); // To justify new
+         hs->Add(new wxButton(mPanel, wxID_APPLY, _("&Apply")), 0, wxALIGN_LEFT | wxALIGN_CENTER_VERTICAL);
          hs->AddStretchSpacer();
-         mLatency = safenew wxStaticText(mPanel, wxID_ANY, _("Latency: 0"));
+         mLatency = new wxStaticText(mPanel, wxID_ANY, _("Latency: 0"));
          hs->Add(mLatency, 0, wxALIGN_CENTER);
          hs->AddStretchSpacer();
-         hs->Add(safenew wxToggleButton(mPanel, wxID_CLEAR, _("&Bypass")), 0, wxALIGN_RIGHT | wxALIGN_CENTER_VERTICAL);
+         hs->Add(new wxToggleButton(mPanel, wxID_CLEAR, _("&Bypass")), 0, wxALIGN_RIGHT | wxALIGN_CENTER_VERTICAL);
          bs->Add(hs.release(), 0, wxEXPAND);
       }
-      bs->Add(safenew wxStaticLine(mPanel, wxID_ANY), 0, wxEXPAND);
+      bs->Add(new wxStaticLine(mPanel, wxID_ANY), 0, wxEXPAND);
 
       {
          auto uMainSizer = std::make_unique<wxFlexGridSizer>(7);
@@ -193,8 +193,8 @@ void EffectRack::Add(Effect *effect, bool active, bool favorite)
 
    wxBitmapButton *bb;
  
-   wxASSERT(mPanel); // To justify safenew
-   bb = safenew wxBitmapButton(mPanel, ID_POWER + mNumEffects, mPowerRaised);
+   wxASSERT(mPanel); // To justify new
+   bb = new wxBitmapButton(mPanel, ID_POWER + mNumEffects, mPowerRaised);
    bb->SetBitmapSelected(mPowerRaised);
    bb->SetName(_("Active State"));
    bb->SetToolTip(_("Set effect active state"));
@@ -211,27 +211,27 @@ void EffectRack::Add(Effect *effect, bool active, bool favorite)
    }
    mMainSizer->Add(bb, 0, wxALIGN_LEFT | wxALIGN_CENTER_VERTICAL);
 
-   bb = safenew wxBitmapButton(mPanel, ID_EDITOR + mNumEffects, mSettingsRaised);
+   bb = new wxBitmapButton(mPanel, ID_EDITOR + mNumEffects, mSettingsRaised);
    bb->SetBitmapSelected(mSettingsPushed);
    bb->SetName(_("Show/Hide Editor"));
    bb->SetToolTip(_("Open/close effect editor"));
    mMainSizer->Add(bb, 0, wxALIGN_LEFT | wxALIGN_CENTER_VERTICAL);
 
-   bb = safenew wxBitmapButton(mPanel, ID_UP + mNumEffects, mUpRaised);
+   bb = new wxBitmapButton(mPanel, ID_UP + mNumEffects, mUpRaised);
    bb->SetBitmapSelected(mUpPushed);
    bb->SetBitmapDisabled(mUpDisabled);
    bb->SetName(_("Move Up"));
    bb->SetToolTip(_("Move effect up in the rack"));
    mMainSizer->Add(bb, 0, wxALIGN_LEFT | wxALIGN_CENTER_VERTICAL);
 
-   bb = safenew wxBitmapButton(mPanel, ID_DOWN + mNumEffects, mDownRaised);
+   bb = new wxBitmapButton(mPanel, ID_DOWN + mNumEffects, mDownRaised);
    bb->SetBitmapSelected(mDownPushed);
    bb->SetBitmapDisabled(mDownDisabled);
    bb->SetName(_("Move Down"));
    bb->SetToolTip(_("Move effect down in the rack"));
    mMainSizer->Add(bb, 0, wxALIGN_LEFT | wxALIGN_CENTER_VERTICAL);
 
-   bb = safenew wxBitmapButton(mPanel, ID_FAV + mNumEffects, mFavRaised);
+   bb = new wxBitmapButton(mPanel, ID_FAV + mNumEffects, mFavRaised);
    bb->SetBitmapSelected(mFavPushed);
    bb->SetName(_("Favorite"));
    bb->SetToolTip(_("Mark effect as a favorite"));
@@ -248,13 +248,13 @@ void EffectRack::Add(Effect *effect, bool active, bool favorite)
    }
    mMainSizer->Add(bb, 0, wxALIGN_LEFT | wxALIGN_CENTER_VERTICAL);
 
-   bb = safenew wxBitmapButton(mPanel, ID_REMOVE + mNumEffects, mRemoveRaised);
+   bb = new wxBitmapButton(mPanel, ID_REMOVE + mNumEffects, mRemoveRaised);
    bb->SetBitmapSelected(mRemovePushed);
    bb->SetName(_("Remove"));
    bb->SetToolTip(_("Remove effect from the rack"));
    mMainSizer->Add(bb, 0, wxALIGN_LEFT | wxALIGN_CENTER_VERTICAL);
 
-   wxStaticText *text = safenew wxStaticText(mPanel, ID_NAME + mNumEffects,
+   wxStaticText *text = new wxStaticText(mPanel, ID_NAME + mNumEffects,
       effect->GetName().Translation() );
    text->SetToolTip(_("Name of the effect"));
    mMainSizer->Add(text, 0, wxEXPAND | wxALIGN_LEFT | wxALIGN_CENTER_VERTICAL | wxALL, 5);
@@ -576,7 +576,7 @@ namespace
 {
 TenacityProject::AttachedWindows::RegisteredFactory sKey{
    []( TenacityProject &parent ) -> wxWeakRef< wxWindow > {
-      auto result = safenew EffectRack( parent );
+      auto result = new EffectRack( parent );
       result->CenterOnParent();
       return result;
    }
@@ -833,8 +833,8 @@ int EffectUIHost::ShowModal()
 #if defined(__WXMSW__)
    // Swap the Close and Apply buttons
    wxSizer *sz = mApplyBtn->GetContainingSizer();
-   wxASSERT(mApplyBtn->GetParent()); // To justify safenew
-   wxButton *apply = safenew wxButton(mApplyBtn->GetParent(), wxID_APPLY);
+   wxASSERT(mApplyBtn->GetParent()); // To justify new
+   wxButton *apply = new wxButton(mApplyBtn->GetParent(), wxID_APPLY);
    sz->Replace(mCloseBtn, apply);
    sz->Replace(mApplyBtn, mCloseBtn);
    sz->Layout();
@@ -869,7 +869,7 @@ wxPanel *EffectUIHost::BuildButtonBar(wxWindow *parent)
    margin = 3; // I'm sure it's needed because of the order things are created...
 #endif
 
-   const auto bar = safenew wxPanelWrapper(parent, wxID_ANY);
+   const auto bar = new wxPanelWrapper(parent, wxID_ANY);
 
    // This fools NVDA into not saying "Panel" when the dialog gets focus
    bar->SetName(TranslatableString::Inaudible);
@@ -1010,7 +1010,7 @@ bool EffectUIHost::Initialize()
    {
       S.StartHorizontalLay( wxEXPAND );
       {
-         Destroy_ptr<EffectPanel> uw{ safenew EffectPanel( S.GetParent() ) };
+         Destroy_ptr<EffectPanel> uw{ new EffectPanel( S.GetParent() ) };
          RTL_WORKAROUND(uw.get());
 
          // Try to give the window a sensible default/minimum size
@@ -1832,7 +1832,7 @@ wxDialog *EffectUI::DialogFactory( wxWindow &parent, EffectHostInterface *pHost,
       return nullptr;
 
    Destroy_ptr<EffectUIHost> dlg{
-      safenew EffectUIHost{ &parent, *project, pEffect, client} };
+      new EffectUIHost{ &parent, *project, pEffect, client} };
    
    if (dlg->Initialize())
    {

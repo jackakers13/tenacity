@@ -243,8 +243,8 @@ namespace{
 PrefsPanel::Registration sAttachment{ "Mouse",
    [](wxWindow *parent, wxWindowID winid, TenacityProject *)
    {
-      wxASSERT(parent); // to justify safenew
-      return safenew MousePrefs(parent, winid);
+      wxASSERT(parent); // to justify new
+      return new MousePrefs(parent, winid);
    }
 };
 }

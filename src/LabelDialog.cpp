@@ -163,12 +163,12 @@ void LabelDialog::PopulateLabels()
 
    // Initialize and set the track name column attributes
    wxGridCellAttr *attr;
-   mGrid->SetColAttr(Col_Track, (attr = safenew wxGridCellAttr));
+   mGrid->SetColAttr(Col_Track, (attr = new wxGridCellAttr));
    attr->SetEditor(mChoiceEditor);
    mTrackNames.push_back(_("New..."));
 
    // Initialize and set the time column attributes
-   mGrid->SetColAttr(Col_Stime, (attr = safenew wxGridCellAttr));
+   mGrid->SetColAttr(Col_Stime, (attr = new wxGridCellAttr));
    // Don't need DecRef() after this GetDefaultRendererForType.
    attr->SetRenderer(mGrid->GetDefaultRendererForType(GRID_VALUE_TIME));
    attr->SetEditor(mTimeEditor);
@@ -177,7 +177,7 @@ void LabelDialog::PopulateLabels()
    mGrid->SetColAttr(Col_Etime, attr->Clone());
 
    // Initialize and set the frequency column attributes
-   mGrid->SetColAttr(Col_Lfreq, (attr = safenew wxGridCellAttr));
+   mGrid->SetColAttr(Col_Lfreq, (attr = new wxGridCellAttr));
    // Don't need DecRef() after this GetDefaultRendererForType.
    attr->SetRenderer(mGrid->GetDefaultRendererForType(GRID_VALUE_FREQUENCY));
    attr->SetEditor(mFrequencyEditor);
@@ -262,7 +262,7 @@ void LabelDialog::PopulateOrExchange( ShuttleGui & S )
    {
       S.StartVerticalLay(wxEXPAND,1);
       {
-         mGrid = safenew Grid(S.GetParent(), wxID_ANY);
+         mGrid = new Grid(S.GetParent(), wxID_ANY);
          S.Prop(1).AddWindow( mGrid );
       }
       S.EndVerticalLay();

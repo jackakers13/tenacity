@@ -191,7 +191,7 @@ MixerTrackCluster::MixerTrackCluster(wxWindow* parent,
    wxPoint ctrlPos(kDoubleInset, kDoubleInset);
    wxSize ctrlSize(size.GetWidth() - kQuadrupleInset, TRACK_NAME_HEIGHT);
    mStaticText_TrackName =
-      safenew AuStaticText(this, mTrack->GetName());
+      new AuStaticText(this, mTrack->GetName());
    //v Useful when different tracks are different colors, but not now.
    //    mStaticText_TrackName->SetBackgroundColour(this->GetTrackColor());
    mStaticText_TrackName->SetForegroundColour(theTheme.Colour(clrMedium));
@@ -208,7 +208,7 @@ MixerTrackCluster::MixerTrackCluster(wxWindow* parent,
    ctrlSize.Set(kLeftSideStackWidth - kQuadrupleInset, nGainSliderHeight);
 
    mSlider_Gain =
-      safenew MixerTrackSlider(
+      new MixerTrackSlider(
             this, ID_SLIDER_GAIN,
             /* i18n-hint: title of the Gain slider, used to adjust the volume */
             XO("Gain"),
@@ -220,7 +220,7 @@ MixerTrackCluster::MixerTrackCluster(wxWindow* parent,
 
 #ifdef EXPERIMENTAL_MIDI_OUT
    mSlider_Velocity =
-      safenew MixerTrackSlider(
+      new MixerTrackSlider(
             this, ID_SLIDER_VELOCITY,
             /* i18n-hint: title of the MIDI Velocity slider */
             XO("Velocity"),
@@ -239,7 +239,7 @@ MixerTrackCluster::MixerTrackCluster(wxWindow* parent,
    wxBitmap* bitmap = mMixerBoard->GetMusicalInstrumentBitmap(mTrack.get());
    wxASSERT(bitmap);
    mBitmapButton_MusicalInstrument =
-      safenew wxBitmapButton(this, ID_BITMAPBUTTON_MUSICAL_INSTRUMENT, *bitmap,
+      new wxBitmapButton(this, ID_BITMAPBUTTON_MUSICAL_INSTRUMENT, *bitmap,
                            ctrlPos, ctrlSize,
                            wxBU_AUTODRAW, wxDefaultValidator,
                            _("Musical Instrument"));
@@ -256,7 +256,7 @@ MixerTrackCluster::MixerTrackCluster(wxWindow* parent,
       ctrlSize.x--;
 
    mSlider_Pan =
-      safenew MixerTrackSlider(
+      new MixerTrackSlider(
             this, ID_SLIDER_PAN,
             /* i18n-hint: Title of the Pan slider, used to move the sound left or right */
             XO("Pan"),
@@ -268,7 +268,7 @@ MixerTrackCluster::MixerTrackCluster(wxWindow* parent,
    ctrlPos.y += PAN_HEIGHT + kDoubleInset;
    ctrlSize.Set(mMixerBoard->mMuteSoloWidth, MUTE_SOLO_HEIGHT);
    mToggleButton_Mute =
-      safenew AButton(this, ID_TOGGLEBUTTON_MUTE,
+      new AButton(this, ID_TOGGLEBUTTON_MUTE,
                   ctrlPos, ctrlSize,
                   *(mMixerBoard->mImageMuteUp), *(mMixerBoard->mImageMuteOver),
                   *(mMixerBoard->mImageMuteDown), *(mMixerBoard->mImageMuteDown),
@@ -283,7 +283,7 @@ MixerTrackCluster::MixerTrackCluster(wxWindow* parent,
 
    ctrlPos.y += MUTE_SOLO_HEIGHT;
    mToggleButton_Solo =
-      safenew AButton(this, ID_TOGGLEBUTTON_SOLO,
+      new AButton(this, ID_TOGGLEBUTTON_SOLO,
                   ctrlPos, ctrlSize,
                   *(mMixerBoard->mImageSoloUp), *(mMixerBoard->mImageSoloOver),
                   *(mMixerBoard->mImageSoloDown), *(mMixerBoard->mImageSoloDown),
@@ -306,7 +306,7 @@ MixerTrackCluster::MixerTrackCluster(wxWindow* parent,
    mMeter.Release();
    if (GetWave()) {
       mMeter =
-         safenew MeterPanel(mProject, // TenacityProject* project,
+         new MeterPanel(mProject, // TenacityProject* project,
                    this, -1, // wxWindow* parent, wxWindowID id,
                    false, // bool isInput
                    ctrlPos, ctrlSize, // const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize,
@@ -881,9 +881,9 @@ MixerBoard::MixerBoard(TenacityProject* pProject,
    this->LoadMusicalInstruments(); // Set up mMusicalInstruments.
    mProject = pProject;
 
-   wxASSERT(pProject); // to justify safenew
+   wxASSERT(pProject); // to justify new
    mScrolledWindow =
-      safenew MixerBoardScrolledWindow(
+      new MixerBoardScrolledWindow(
          pProject, // TenacityProject* project,
          this, -1, // wxWindow* parent, wxWindowID id = -1,
          this->GetClientAreaOrigin(), // const wxPoint& pos = wxDefaultPosition,
@@ -1013,7 +1013,7 @@ void MixerBoard::UpdateTrackClusters()
             kInset);
          wxSize clusterSize(kMixerTrackClusterWidth, nClusterHeight);
          pMixerTrackCluster =
-            safenew MixerTrackCluster(mScrolledWindow, this, mProject,
+            new MixerTrackCluster(mScrolledWindow, this, mProject,
                                     spTrack,
                                     clusterPos, clusterSize);
          if (pMixerTrackCluster)
@@ -1420,7 +1420,7 @@ MixerBoardFrame::MixerBoardFrame(TenacityProject* parent)
    };
    wxTheApp->Bind( EVT_PROJECT_TITLE_CHANGE, titleChanged );
 
-   mMixerBoard = safenew MixerBoard(parent, this, wxDefaultPosition, kDefaultSize);
+   mMixerBoard = new MixerBoard(parent, this, wxDefaultPosition, kDefaultSize);
 
    this->SetSizeHints(MIXER_BOARD_MIN_WIDTH, MIXER_BOARD_MIN_HEIGHT);
 
@@ -1487,7 +1487,7 @@ void MixerBoardFrame::Recreate( TenacityProject *pProject )
    //wxLogDebug("Got rid of board %p", mMixerBoard );
    mMixerBoard->Destroy();
    mMixerBoard = NULL;
-   mMixerBoard = safenew MixerBoard(pProject, this, pos, siz);
+   mMixerBoard = new MixerBoard(pProject, this, pos, siz);
    //wxLogDebug("Created NEW board %p", mMixerBoard );
    mMixerBoard->UpdateTrackClusters();
    mMixerBoard->SetSize( siz );
@@ -1515,7 +1515,7 @@ namespace {
 // Mixer board window attached to each project is built on demand by:
 TenacityProject::AttachedWindows::RegisteredFactory sMixerBoardKey{
    []( TenacityProject &parent ) -> wxWeakRef< wxWindow > {
-      return safenew MixerBoardFrame( &parent );
+      return new MixerBoardFrame( &parent );
    }
 };
 

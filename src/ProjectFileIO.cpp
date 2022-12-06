@@ -1442,7 +1442,7 @@ void ProjectFileIO::SetProjectTitle(int number)
       window.SetName(name);       // to make the nvda screen reader read the correct title
 
       project.QueueEvent(
-         safenew wxCommandEvent{ EVT_PROJECT_TITLE_CHANGE } );
+         new wxCommandEvent{ EVT_PROJECT_TITLE_CHANGE } );
    }
 }
 

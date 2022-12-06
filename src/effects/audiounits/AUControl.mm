@@ -219,8 +219,8 @@ bool AUControl::Create(wxWindow *parent, AudioComponent comp, AudioUnit unit, bo
 
    ((AUView *)mAUView)->mView = mView;
 
-   // wxWidgets takes ownership so safenew
-   SetPeer(safenew AUControlImpl(this, mAUView));
+   // wxWidgets takes ownership so new
+   SetPeer(new AUControlImpl(this, mAUView));
 
 #if !defined(_LP64)
    if (mHIView)

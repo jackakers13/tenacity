@@ -1037,7 +1037,7 @@ void ExportPCM::OptionsCreate(ShuttleGui &S, int format)
 #endif
       case FMT_WAV:
       case FMT_OTHER:
-         S.AddWindow(safenew ExportPCMOptions{ S.GetParent(), format });
+         S.AddWindow(new ExportPCMOptions{ S.GetParent(), format });
       break;
 
       default:

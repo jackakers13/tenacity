@@ -1863,7 +1863,7 @@ LV2_Feature *LV2Effect::AddFeature(const char *uri, void *data)
 
    if (uri)
    {
-      mFeatures[ndx].reset(safenew LV2_Feature);
+      mFeatures[ndx].reset(new LV2_Feature);
       mFeatures[ndx]->URI = uri;
       mFeatures[ndx]->data = data;
    }
@@ -2243,7 +2243,7 @@ bool LV2Effect::BuildFancy()
       g_signal_connect(widget, "size-request", G_CALLBACK(LV2Effect::size_request), this);
 #endif
 
-      Destroy_ptr< NativeWindow > uNativeWin{ safenew NativeWindow() };
+      Destroy_ptr< NativeWindow > uNativeWin{ new NativeWindow() };
       if ( !uNativeWin->Create(mParent, widget) )
          return false;
       mNativeWin = uNativeWin.release();
@@ -2317,8 +2317,8 @@ bool LV2Effect::BuildPlain()
    int numCols = 5;
    wxSizer *innerSizer;
 
-   wxASSERT(mParent); // To justify safenew
-   wxScrolledWindow *const w = safenew 
+   wxASSERT(mParent); // To justify new
+   wxScrolledWindow *const w = new 
       wxScrolledWindow(mParent,
                        wxID_ANY,
                        wxDefaultPosition,
@@ -2346,9 +2346,9 @@ bool LV2Effect::BuildPlain()
 
             auto sizer = std::make_unique<wxBoxSizer>(wxHORIZONTAL);
 
-            wxWindow *item = safenew wxStaticText(w, 0, _("&Duration:"));
+            wxWindow *item = new wxStaticText(w, 0, _("&Duration:"));
             sizer->Add(item, 0, wxALIGN_CENTER | wxALL, 5);
-            mDuration = safenew
+            mDuration = new
                NumericTextCtrl(w, ID_Duration,
                                NumericConverter::TIME,
                                mHost->GetDurationFormat(),
@@ -2392,8 +2392,8 @@ bool LV2Effect::BuildPlain()
                {
                   gridSizer->Add(1, 1, 0);
 
-                  wxASSERT(w); // To justify safenew
-                  wxButton *b = safenew wxButton(w, ID_Triggers + p, labelText);
+                  wxASSERT(w); // To justify new
+                  wxButton *b = new wxButton(w, ID_Triggers + p, labelText);
                   gridSizer->Add(b, 0, wxALIGN_CENTER_VERTICAL | wxALIGN_LEFT);
                   port->mCtrl.button = b;
 
@@ -2403,14 +2403,14 @@ bool LV2Effect::BuildPlain()
                   continue;
                }
 
-               wxWindow *item = safenew wxStaticText(w, wxID_ANY, labelText + wxT(":"),
+               wxWindow *item = new wxStaticText(w, wxID_ANY, labelText + wxT(":"),
                                                      wxDefaultPosition, wxDefaultSize,
                                                      wxALIGN_RIGHT);
                gridSizer->Add(item, 0, wxALIGN_CENTER_VERTICAL | wxALIGN_RIGHT);
 
                if (port->mToggle)
                {
-                  wxCheckBox *c = safenew wxCheckBox(w, ID_Toggles + p, wxT(""));
+                  wxCheckBox *c = new wxCheckBox(w, ID_Toggles + p, wxT(""));
                   c->SetName(labelText);
                   c->SetValue(port->mVal > 0);
                   gridSizer->Add(c, 0, wxALIGN_CENTER_VERTICAL | wxALIGN_LEFT);
@@ -2436,7 +2436,7 @@ bool LV2Effect::BuildPlain()
                      s = 0;
                   }
 
-                  wxChoice *c = safenew wxChoice(w, ID_Choices + p);
+                  wxChoice *c = new wxChoice(w, ID_Choices + p);
                   c->SetName(labelText);
                   c->Append(port->mScaleLabels);
                   c->SetSelection(s);
@@ -2452,7 +2452,7 @@ bool LV2Effect::BuildPlain()
                   gridSizer->Add(1, 1, 0);
                   gridSizer->Add(1, 1, 0);
 
-                  LV2EffectMeter *m = safenew LV2EffectMeter(w, port);
+                  LV2EffectMeter *m = new LV2EffectMeter(w, port);
                   gridSizer->Add(m, 0, wxALIGN_CENTER_VERTICAL | wxEXPAND);
                   port->mCtrl.meter = m;
 
@@ -2460,7 +2460,7 @@ bool LV2Effect::BuildPlain()
                }
                else
                {
-                  wxTextCtrl *t = safenew wxTextCtrl(w, ID_Texts + p, wxT(""));
+                  wxTextCtrl *t = new wxTextCtrl(w, ID_Texts + p, wxT(""));
                   t->SetName(labelText);
                   gridSizer->Add(t, 0, wxALIGN_CENTER_VERTICAL | wxALIGN_LEFT);
                   port->mText = t;
@@ -2505,7 +2505,7 @@ bool LV2Effect::BuildPlain()
                      {
                         str = Internat::ToDisplayString(port->mLo);
                      }
-                     item = safenew wxStaticText(w, wxID_ANY, str);
+                     item = new wxStaticText(w, wxID_ANY, str);
                      gridSizer->Add(item, 0, wxALIGN_CENTER_VERTICAL | wxALIGN_RIGHT);
                   }
                   else
@@ -2513,7 +2513,7 @@ bool LV2Effect::BuildPlain()
                      gridSizer->Add(1, 1, 0);
                   }
 
-                  wxSlider *s = safenew wxSliderWrapper(w, ID_Sliders + p,
+                  wxSlider *s = new wxSliderWrapper(w, ID_Sliders + p,
                                                         0, 0, 1000,
                                                         wxDefaultPosition,
                                                         wxSize(150, -1));
@@ -2532,7 +2532,7 @@ bool LV2Effect::BuildPlain()
                      {
                         str = Internat::ToDisplayString(port->mHi);
                      }
-                     item = safenew wxStaticText(w, wxID_ANY, str);
+                     item = new wxStaticText(w, wxID_ANY, str);
                      gridSizer->Add(item, 0, wxALIGN_CENTER_VERTICAL | wxALIGN_LEFT);
                   }
                   else

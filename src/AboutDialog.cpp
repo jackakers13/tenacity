@@ -531,7 +531,7 @@ void AboutDialog::PopulateAudacityPage( ShuttleGui & S )
       wxBitmap RescaledBitmap(RescaledImage);
 
       icon =
-         safenew wxStaticBitmap(S.GetParent(), -1,
+         new wxStaticBitmap(S.GetParent(), -1,
          //*logo, //v
          //v theTheme.Bitmap(bmpAudacityLogo), wxPoint(93, 10), wxSize(215, 190));
          //v theTheme.Bitmap(bmpTenacityLogoWithName),
@@ -541,7 +541,7 @@ void AboutDialog::PopulateAudacityPage( ShuttleGui & S )
    }
    S.Prop(0).AddWindow( icon );
 
-   HtmlWindow *html = safenew LinkingHtmlWindow(S.GetParent(), -1,
+   HtmlWindow *html = new LinkingHtmlWindow(S.GetParent(), -1,
                                          wxDefaultPosition,
                                          wxSize(ABOUT_DIALOG_WIDTH, 359),
                                          wxHW_SCROLLBAR_AUTO | wxSUNKEN_BORDER);
@@ -567,7 +567,7 @@ void AboutDialog::PopulateInformationPage( ShuttleGui & S )
    wxTextOutputStream informationStr( o );   // string to build up list of information in
    S.StartNotebookPage( XO("Build Information") );  // start the tab
    S.StartVerticalLay(2);  // create the window
-   HtmlWindow *html = safenew LinkingHtmlWindow(S.GetParent(), -1, wxDefaultPosition,
+   HtmlWindow *html = new LinkingHtmlWindow(S.GetParent(), -1, wxDefaultPosition,
                            wxSize(ABOUT_DIALOG_WIDTH, 264),
                            wxHW_SCROLLBAR_AUTO | wxSUNKEN_BORDER);
    // create a html pane in it to put the content in.
@@ -828,7 +828,7 @@ void AboutDialog::PopulateLicensePage( ShuttleGui & S )
    S.StartNotebookPage(XO("GPL License"));
    S.Prop(1).StartPanel();
    {
-      HtmlWindow* html = safenew LinkingHtmlWindow(
+      HtmlWindow* html = new LinkingHtmlWindow(
          S.GetParent(), -1, wxDefaultPosition, wxSize(ABOUT_DIALOG_WIDTH, 264),
          wxHW_SCROLLBAR_AUTO | wxSUNKEN_BORDER);
 

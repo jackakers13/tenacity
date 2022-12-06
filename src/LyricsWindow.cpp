@@ -96,9 +96,9 @@ LyricsWindow::LyricsWindow(TenacityProject *parent)
    //
    //wxToolBar* pToolBar = this->CreateToolBar();
    //const int kHorizMargin = 8;
-   //wxASSERT(pToolBar); // To justify safenew
+   //wxASSERT(pToolBar); // To justify new
    //wxRadioButton* pRadioButton_BouncingBall =
-   //   safenew wxRadioButton(pToolBar, kID_RadioButton_BouncingBall, _("Bouncing Ball"), wxPoint(kHorizMargin, 4),
+   //   new wxRadioButton(pToolBar, kID_RadioButton_BouncingBall, _("Bouncing Ball"), wxPoint(kHorizMargin, 4),
    //       wxDefaultSize, wxRB_GROUP);
    //// Reposition to center vertically.
    //wxSize tbSize = pToolBar->GetSize();
@@ -109,7 +109,7 @@ LyricsWindow::LyricsWindow(TenacityProject *parent)
    //
    //int left = kHorizMargin + btnSize.GetWidth() + kHorizMargin; //vvv Doesn't actually work. Probably need sizers.
    //wxRadioButton* pRadioButton_Highlight =
-   //   safenew wxRadioButton(pToolBar, kID_RadioButton_Highlight, _("Highlight"), wxPoint(left, top));
+   //   new wxRadioButton(pToolBar, kID_RadioButton_Highlight, _("Highlight"), wxPoint(left, top));
    //pToolBar->AddControl(pRadioButton_Highlight);
    //
    //panelPos.x += tbSize.GetHeight();
@@ -123,7 +123,7 @@ LyricsWindow::LyricsWindow(TenacityProject *parent)
    //
    //pToolBar->Realize();
 
-   mLyricsPanel = safenew LyricsPanel(this, -1, parent, panelPos, panelSize);
+   mLyricsPanel = new LyricsPanel(this, -1, parent, panelPos, panelSize);
    RTL_WORKAROUND(mLyricsPanel);
 
    //vvv Highlight style is broken in ported version.
@@ -204,7 +204,7 @@ namespace {
 // Lyrics window attached to each project is built on demand by:
 TenacityProject::AttachedWindows::RegisteredFactory sLyricsWindowKey{
    []( TenacityProject &parent ) -> wxWeakRef< wxWindow > {
-      return safenew LyricsWindow( &parent );
+      return new LyricsWindow( &parent );
    }
 };
 

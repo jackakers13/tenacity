@@ -249,7 +249,7 @@ ContrastDialog::ContrastDialog(wxWindow * parent, wxWindowID id,
          S.AddFixedText(XO("&Foreground:"), false);
          if (S.GetMode() == eIsCreating)
          {
-            mForegroundStartT = safenew
+            mForegroundStartT = new
                NumericTextCtrl(S.GetParent(), ID_FOREGROUNDSTART_T,
                          NumericConverter::TIME,
                          NumericConverter::HundredthsFormat(),
@@ -262,7 +262,7 @@ ContrastDialog::ContrastDialog(wxWindow * parent, wxWindowID id,
 
          if (S.GetMode() == eIsCreating)
          {
-            mForegroundEndT = safenew
+            mForegroundEndT = new
                NumericTextCtrl(S.GetParent(), ID_FOREGROUNDEND_T,
                          NumericConverter::TIME,
                          NumericConverter::HundredthsFormat(),
@@ -283,7 +283,7 @@ ContrastDialog::ContrastDialog(wxWindow * parent, wxWindowID id,
          S.AddFixedText(XO("&Background:"));
          if (S.GetMode() == eIsCreating)
          {
-            mBackgroundStartT = safenew
+            mBackgroundStartT = new
                NumericTextCtrl(S.GetParent(), ID_BACKGROUNDSTART_T,
                          NumericConverter::TIME,
                          NumericConverter::HundredthsFormat(),
@@ -296,7 +296,7 @@ ContrastDialog::ContrastDialog(wxWindow * parent, wxWindowID id,
 
          if (S.GetMode() == eIsCreating)
          {
-            mBackgroundEndT = safenew
+            mBackgroundEndT = new
                NumericTextCtrl(S.GetParent(), ID_BACKGROUNDEND_T,
                          NumericConverter::TIME,
                          NumericConverter::HundredthsFormat(),
@@ -663,7 +663,7 @@ namespace {
 TenacityProject::AttachedWindows::RegisteredFactory sContrastDialogKey{
    []( TenacityProject &parent ) -> wxWeakRef< wxWindow > {
       auto &window = ProjectWindow::Get( parent );
-      return safenew ContrastDialog(
+      return new ContrastDialog(
          &window, -1, XO("Contrast Analysis (WCAG 2 compliance)"),
          wxPoint{ 150, 150 }
       );

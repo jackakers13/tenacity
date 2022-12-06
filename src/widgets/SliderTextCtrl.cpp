@@ -71,13 +71,13 @@ SliderTextCtrl::SliderTextCtrl(wxWindow *parent, wxWindowID winid,
       max = log10(max + m_offset);
    }
 
-   m_sizer = safenew wxBoxSizer(
+   m_sizer = new wxBoxSizer(
       style & HORIZONTAL ? wxHORIZONTAL : wxVERTICAL);
-   m_slider = safenew wxSlider(this, ID_SLIDER,
+   m_slider = new wxSlider(this, ID_SLIDER,
       round(value * m_scale), floor(min * m_scale), ceil(max * m_scale),
       wxDefaultPosition, wxDefaultSize,
       style & HORIZONTAL ? wxSL_HORIZONTAL : wxSL_VERTICAL);
-   m_textbox = safenew wxTextCtrl(this, ID_TEXTBOX, wxEmptyString,
+   m_textbox = new wxTextCtrl(this, ID_TEXTBOX, wxEmptyString,
       wxDefaultPosition, wxDefaultSize, 0, validator);
 
    m_textbox->ChangeValue(FormatValue());

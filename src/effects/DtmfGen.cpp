@@ -354,7 +354,7 @@ void EffectDtmf::PopulateOrExchange(ShuttleGui & S)
          .AddTextBox(XXO("&Amplitude (0-1):"), wxT(""), 10);
 
       S.AddPrompt(XXO("&Duration:"));
-      mDtmfDurationT = safenew
+      mDtmfDurationT = new
          NumericTextCtrl(S.GetParent(), ID_Duration,
                          NumericConverter::TIME,
                          GetDurationFormat(),

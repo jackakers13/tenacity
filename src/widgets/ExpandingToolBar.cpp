@@ -128,9 +128,9 @@ ExpandingToolBar::ExpandingToolBar(wxWindow* parent,
    mSavedArrangement{},
    mTopLevelParent(NULL)
 {
-   mMainPanel = safenew wxPanelWrapper(this, -1,
+   mMainPanel = new wxPanelWrapper(this, -1,
                             wxDefaultPosition, wxSize(1, 1));
-   mExtraPanel = safenew wxPanelWrapper(this, -1,
+   mExtraPanel = new wxPanelWrapper(this, -1,
                              wxDefaultPosition, wxSize(1, 1));
 
    mGrabber = NULL;
@@ -138,14 +138,14 @@ ExpandingToolBar::ExpandingToolBar(wxWindow* parent,
    ToolBarArea *toolBarParent =
       dynamic_cast<ToolBarArea *>(GetParent());
    if (toolBarParent)
-      mGrabber = safenew ToolBarGrabber(this, -1, this);
+      mGrabber = new ToolBarGrabber(this, -1, this);
 
    /// \todo check whether this is a memory leak (and check similar code)
    //wxImage hbar = theTheme.Image(bmpToolBarToggle);
    //wxColour magicColor = wxColour(0, 255, 255);
    //ImageArray fourStates = ImageRoll::SplitV(hbar, magicColor);
 /*
-   mToggleButton = safenew AButton(this, kToggleButtonID,
+   mToggleButton = new AButton(this, kToggleButtonID,
                                wxDefaultPosition, wxDefaultSize,
                                ImageRoll(ImageRoll::HorizontalRoll,
                                          fourStates[0], magicColor),
@@ -544,7 +544,7 @@ void ExpandingToolBar::StartMoving()
 //   ImageRoll tgtImageRoll = ImageRoll(ImageRoll::VerticalRoll,
 //                                      tgtImage,
 //                                      magicColor);
-   mTargetPanel = safenew ImageRollPanel(mAreaParent, -1, //tgtImageRoll,
+   mTargetPanel = new ImageRollPanel(mAreaParent, -1, //tgtImageRoll,
                                      wxDefaultPosition,
                                      wxDefaultSize,
                                      wxTRANSPARENT_WINDOW);

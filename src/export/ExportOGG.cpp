@@ -373,7 +373,7 @@ ProgressResult ExportOGG::Export(TenacityProject *project,
 
 void ExportOGG::OptionsCreate(ShuttleGui &S, int format)
 {
-   S.AddWindow( safenew ExportOGGOptions{ S.GetParent(), format } );
+   S.AddWindow( new ExportOGGOptions{ S.GetParent(), format } );
 }
 
 bool ExportOGG::FillComment(TenacityProject *project, vorbis_comment *comment, const Tags *metadata)

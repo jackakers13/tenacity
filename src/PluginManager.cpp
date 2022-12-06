@@ -697,7 +697,7 @@ PluginManager & PluginManager::Get()
 {
    if (!mInstance)
    {
-      mInstance.reset(safenew PluginManager);
+      mInstance.reset(new PluginManager);
    }
 
    return *mInstance;

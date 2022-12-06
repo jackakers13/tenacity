@@ -421,8 +421,8 @@ namespace{
 PrefsPanel::Registration sAttachment{ "Device",
    [](wxWindow *parent, wxWindowID winid, TenacityProject *)
    {
-      wxASSERT(parent); // to justify safenew
-      return safenew DevicePrefs(parent, winid);
+      wxASSERT(parent); // to justify new
+      return new DevicePrefs(parent, winid);
    }
 };
 }

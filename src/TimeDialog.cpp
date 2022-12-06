@@ -53,7 +53,7 @@ void TimeDialog::PopulateOrExchange(ShuttleGui &S)
    {
       S.StartStatic(mPrompt, true);
       {
-         mTimeCtrl = safenew
+         mTimeCtrl = new
             NumericTextCtrl(
                S.GetParent(), wxID_ANY,
                          NumericConverter::TIME,

@@ -55,7 +55,7 @@ void ShowDiagnostics(
          .Style(wxTE_MULTILINE | wxTE_READONLY | wxTE_RICH)
          .AddTextWindow("");
 
-      wxButton *save = safenew wxButton(S.GetParent(), wxID_OK, _("&Save"));
+      wxButton *save = new wxButton(S.GetParent(), wxID_OK, _("&Save"));
       S.AddStandardButtons(eCancelButton, save);
    }
    S.EndVerticalLay();
@@ -183,8 +183,8 @@ void QuickFixDialog::AddStuck( ShuttleGui & S, bool & bBool,
 
    {
      // Replace standard Help button with smaller icon button.
-      // bs->AddButton(safenew wxButton(parent, wxID_HELP));
-      auto b = safenew wxBitmapButton(S.GetParent(), HelpButtonID+mItem, theTheme.Bitmap( bmpHelpIcon ));
+      // bs->AddButton(new wxButton(parent, wxID_HELP));
+      auto b = new wxBitmapButton(S.GetParent(), HelpButtonID+mItem, theTheme.Bitmap( bmpHelpIcon ));
       b->SetToolTip( _("Help") );
       b->SetLabel(_("Help"));       // for screen readers
       b->Bind( wxEVT_BUTTON, [this, Help](const wxCommandEvent&){

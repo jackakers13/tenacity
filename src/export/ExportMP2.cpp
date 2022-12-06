@@ -382,7 +382,7 @@ ProgressResult ExportMP2::Export(TenacityProject *project,
 
 void ExportMP2::OptionsCreate(ShuttleGui &S, int format)
 {
-   S.AddWindow( safenew ExportMP2Options{ S.GetParent(), format } );
+   S.AddWindow( new ExportMP2Options{ S.GetParent(), format } );
 }
 
 

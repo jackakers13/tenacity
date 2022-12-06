@@ -94,6 +94,6 @@ void CommandDirectory::AddCommand(std::unique_ptr<OldStyleCommandType> type)
 CommandDirectory *CommandDirectory::Get()
 {
    if (!mInstance)
-      mInstance.reset(safenew CommandDirectory());
+      mInstance.reset(new CommandDirectory());
    return mInstance.get();
 }

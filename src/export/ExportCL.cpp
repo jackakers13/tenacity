@@ -714,7 +714,7 @@ std::vector<char> ExportCL::GetMetaChunk(const Tags *tags)
 
 void ExportCL::OptionsCreate(ShuttleGui &S, int format)
 {
-   S.AddWindow( safenew ExportCLOptions{ S.GetParent(), format } );
+   S.AddWindow( new ExportCLOptions{ S.GetParent(), format } );
 }
 
 bool ExportCL::CheckFileName(wxFileName &filename, int WXUNUSED(format))

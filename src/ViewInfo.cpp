@@ -31,7 +31,7 @@ SelectedRegionEvent::SelectedRegionEvent(
 
 wxEvent *SelectedRegionEvent::Clone() const
 {
-   return safenew SelectedRegionEvent{ *this };
+   return new SelectedRegionEvent{ *this };
 }
 
 bool NotifyingSelectedRegion::HandleXMLAttribute

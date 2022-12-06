@@ -185,8 +185,8 @@ namespace{
 PrefsPanel::Registration sAttachment{ "ImportExport",
    [](wxWindow *parent, wxWindowID winid, TenacityProject *)
    {
-      wxASSERT(parent); // to justify safenew
-      return safenew ImportExportPrefs(parent, winid);
+      wxASSERT(parent); // to justify new
+      return new ImportExportPrefs(parent, winid);
    }
 };
 }

@@ -295,7 +295,7 @@ void ScrubbingToolBar::OnIdle( wxIdleEvent &evt )
 
 static RegisteredToolbarFactory factory{ ScrubbingBarID,
    []( TenacityProject &project ){
-      return ToolBar::Holder{ safenew ScrubbingToolBar{ project } }; }
+      return ToolBar::Holder{ new ScrubbingToolBar{ project } }; }
 };
 
 namespace {

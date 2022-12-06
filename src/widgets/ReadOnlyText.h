@@ -65,7 +65,7 @@ public:
    :  wxControl(parent, id, pos, size, style)
    {
 #if wxUSE_ACCESSIBILITY
-      SetAccessible(safenew ReadOnlyTextAx(this));
+      SetAccessible(new ReadOnlyTextAx(this));
 #endif
       SetInitialSize(size);
 

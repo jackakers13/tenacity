@@ -589,14 +589,14 @@ void TrackList::SelectionEvent( const std::shared_ptr<Track> &pTrack )
 {
    // wxWidgets will own the event object
    QueueEvent(
-      safenew TrackListEvent{ EVT_TRACKLIST_SELECTION_CHANGE, pTrack } );
+      new TrackListEvent{ EVT_TRACKLIST_SELECTION_CHANGE, pTrack } );
 }
 
 void TrackList::DataEvent( const std::shared_ptr<Track> &pTrack, int code )
 {
    // wxWidgets will own the event object
    QueueEvent(
-      safenew TrackListEvent{ EVT_TRACKLIST_TRACK_DATA_CHANGE, pTrack, code } );
+      new TrackListEvent{ EVT_TRACKLIST_TRACK_DATA_CHANGE, pTrack, code } );
 }
 
 void TrackList::EnsureVisibleEvent(
@@ -612,13 +612,13 @@ void TrackList::EnsureVisibleEvent(
 void TrackList::PermutationEvent(TrackNodePointer node)
 {
    // wxWidgets will own the event object
-   QueueEvent( safenew TrackListEvent{ EVT_TRACKLIST_PERMUTED, *node.first } );
+   QueueEvent( new TrackListEvent{ EVT_TRACKLIST_PERMUTED, *node.first } );
 }
 
 void TrackList::DeletionEvent(TrackNodePointer node)
 {
    // wxWidgets will own the event object
-   QueueEvent( safenew TrackListEvent{
+   QueueEvent( new TrackListEvent{
       EVT_TRACKLIST_DELETION,
       node.second && node.first != node.second->end()
          ? *node.first
@@ -629,13 +629,13 @@ void TrackList::DeletionEvent(TrackNodePointer node)
 void TrackList::AdditionEvent(TrackNodePointer node)
 {
    // wxWidgets will own the event object
-   QueueEvent( safenew TrackListEvent{ EVT_TRACKLIST_ADDITION, *node.first } );
+   QueueEvent( new TrackListEvent{ EVT_TRACKLIST_ADDITION, *node.first } );
 }
 
 void TrackList::ResizingEvent(TrackNodePointer node)
 {
    // wxWidgets will own the event object
-   QueueEvent( safenew TrackListEvent{ EVT_TRACKLIST_RESIZING, *node.first } );
+   QueueEvent( new TrackListEvent{ EVT_TRACKLIST_RESIZING, *node.first } );
 }
 
 auto TrackList::EmptyRange() const

@@ -330,7 +330,7 @@ MeterPanel::MeterPanel(TenacityProject *project,
    mIsFocused = false;
 
 #if wxUSE_ACCESSIBILITY
-   SetAccessible(safenew MeterAx(this));
+   SetAccessible(new MeterAx(this));
 #endif
 
    // Do this BEFORE UpdatePrefs()!

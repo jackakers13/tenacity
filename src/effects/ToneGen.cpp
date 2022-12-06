@@ -453,7 +453,7 @@ void EffectToneGen::PopulateOrExchange(ShuttleGui & S)
       }
 
       S.AddPrompt(XXO("&Duration:"));
-      mToneDurationT = safenew
+      mToneDurationT = new
          NumericTextCtrl(S.GetParent(), wxID_ANY,
                          NumericConverter::TIME,
                          GetDurationFormat(),

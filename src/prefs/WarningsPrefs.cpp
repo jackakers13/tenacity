@@ -108,8 +108,8 @@ namespace{
 PrefsPanel::Registration sAttachment{ "Warnings",
    [](wxWindow *parent, wxWindowID winid, TenacityProject *)
    {
-      wxASSERT(parent); // to justify safenew
-      return safenew WarningsPrefs(parent, winid);
+      wxASSERT(parent); // to justify new
+      return new WarningsPrefs(parent, winid);
    }
 };
 }

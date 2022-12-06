@@ -137,8 +137,8 @@ NumericEditor::~NumericEditor()
 
 void NumericEditor::Create(wxWindow *parent, wxWindowID id, wxEvtHandler *handler)
 {
-   wxASSERT(parent); // to justify safenew
-   auto control = safenew NumericTextCtrl(
+   wxASSERT(parent); // to justify new
+   auto control = new NumericTextCtrl(
       parent, wxID_ANY,
       mType,
       mFormat,
@@ -217,7 +217,7 @@ bool NumericEditor::IsAcceptedKey(wxKeyEvent &event)
 // Clone is required by wxwidgets; implemented via copy constructor
 wxGridCellEditor *NumericEditor::Clone() const
 {
-   return safenew NumericEditor{ mType, mFormat, mRate };
+   return new NumericEditor{ mType, mFormat, mRate };
 }
 
 wxString NumericEditor::GetValue() const
@@ -343,7 +343,7 @@ wxSize NumericRenderer::GetBestSize(wxGrid &grid,
 // Clone is required by wxwidgets; implemented via copy constructor
 wxGridCellRenderer *NumericRenderer::Clone() const
 {
-   return safenew NumericRenderer{ mType };
+   return new NumericRenderer{ mType };
 }
 
 ChoiceEditor::ChoiceEditor(size_t count, const wxString choices[])
@@ -370,12 +370,12 @@ ChoiceEditor::~ChoiceEditor()
 // Clone is required by wxwidgets; implemented via copy constructor
 wxGridCellEditor *ChoiceEditor::Clone() const
 {
-   return safenew ChoiceEditor(mChoices);
+   return new ChoiceEditor(mChoices);
 }
 
 void ChoiceEditor::Create(wxWindow* parent, wxWindowID id, wxEvtHandler* evtHandler)
 {
-   m_control = safenew wxChoice(parent,
+   m_control = new wxChoice(parent,
                             id,
                             wxDefaultPosition,
                             wxDefaultSize,
@@ -483,26 +483,26 @@ Grid::Grid(wxWindow *parent,
 : wxGrid(parent, id, pos, size, style | wxWANTS_CHARS, name)
 {
 #if wxUSE_ACCESSIBILITY
-   GetGridWindow()->SetAccessible(mAx = safenew GridAx(this));
+   GetGridWindow()->SetAccessible(mAx = new GridAx(this));
 #endif
 
    // RegisterDataType takes ownership of renderer and editor
 
    RegisterDataType(GRID_VALUE_TIME,
-                    safenew NumericRenderer{ NumericConverter::TIME },
-                    safenew NumericEditor
+                    new NumericRenderer{ NumericConverter::TIME },
+                    new NumericEditor
                       { NumericTextCtrl::TIME,
                         NumericConverter::SecondsFormat(), 44100.0 });
 
    RegisterDataType(GRID_VALUE_FREQUENCY,
-                    safenew NumericRenderer{ NumericConverter::FREQUENCY },
-                    safenew NumericEditor
+                    new NumericRenderer{ NumericConverter::FREQUENCY },
+                    new NumericEditor
                     { NumericTextCtrl::FREQUENCY,
                       NumericConverter::HertzFormat(), 44100.0 });
 
    RegisterDataType(GRID_VALUE_CHOICE,
-                    safenew wxGridCellStringRenderer,
-                    safenew ChoiceEditor);
+                    new wxGridCellStringRenderer,
+                    new ChoiceEditor);
 
    // Bug #2803:
    // Ensure selection doesn't show up.
@@ -565,7 +565,7 @@ void Grid::OnKeyDown(wxKeyEvent &event)
       {
          case 'C': // Copy
          {
-            wxTextDataObject *data = safenew wxTextDataObject(GetCellValue(crow, ccol));
+            wxTextDataObject *data = new wxTextDataObject(GetCellValue(crow, ccol));
             wxClipboard::Get()->SetData(data);
             return;
          }
@@ -573,7 +573,7 @@ void Grid::OnKeyDown(wxKeyEvent &event)
 
          case 'X': // Cut
          {
-            wxTextDataObject *data = safenew wxTextDataObject(GetCellValue(crow, ccol));
+            wxTextDataObject *data = new wxTextDataObject(GetCellValue(crow, ccol));
             wxClipboard::Get()->SetData(data);
             SetCellValue(crow, ccol, "" );
             return;

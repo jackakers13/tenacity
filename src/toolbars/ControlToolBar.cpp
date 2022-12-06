@@ -364,7 +364,7 @@ void ControlToolBar::ArrangeButtons()
       std::unique_ptr < wxSizer > {mSizer}; // DELETE it
    }
 
-   Add((mSizer = safenew wxBoxSizer(wxHORIZONTAL)), 1, wxEXPAND);
+   Add((mSizer = new wxBoxSizer(wxHORIZONTAL)), 1, wxEXPAND);
 
    // Start with a little extra space
    mSizer->Add( 5, 55 );
@@ -844,7 +844,7 @@ void ControlToolBar::StopScrolling()
 
 static RegisteredToolbarFactory factory{ TransportBarID,
    []( TenacityProject &project ){
-      return ToolBar::Holder{ safenew ControlToolBar{ project } }; }
+      return ToolBar::Holder{ new ControlToolBar{ project } }; }
 };
 
 namespace {

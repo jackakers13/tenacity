@@ -735,8 +735,8 @@ wxTextCtrlWrapper * TimerRecordDialog::NewPathControl(
    const TranslatableString &sCaption, const TranslatableString &sValue)
 {
    wxTextCtrlWrapper * pTextCtrl;
-   wxASSERT(wParent); // to justify safenew
-   pTextCtrl = safenew wxTextCtrlWrapper(wParent, iID, sValue.Translation());
+   wxASSERT(wParent); // to justify new
+   pTextCtrl = new wxTextCtrlWrapper(wParent, iID, sValue.Translation());
    pTextCtrl->SetName(sCaption.Translation());
    return pTextCtrl;
 }
@@ -767,18 +767,18 @@ void TimerRecordDialog::PopulateOrExchange(ShuttleGui& S)
          S.StartStatic(XO("Start Date and Time"), true);
          {
             m_pDatePickerCtrl_Start =
-               safenew wxDatePickerCtrl(S.GetParent(), // wxWindow *parent,
+               new wxDatePickerCtrl(S.GetParent(), // wxWindow *parent,
                ID_DATEPICKER_START, // wxWindowID id,
                m_DateTime_Start); // const wxDateTime& dt = wxDefaultDateTime,
             // const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDP_DEFAULT | wxDP_SHOWCENTURY, const wxValidator& validator = wxDefaultValidator, const wxString& name = "datectrl")
             m_pDatePickerCtrl_Start->SetRange(wxDateTime::Today(), wxInvalidDateTime); // No backdating.
 #if wxUSE_ACCESSIBILITY
-            m_pDatePickerCtrl_Start->SetAccessible( safenew DatePickerCtrlAx(m_pDatePickerCtrl_Start));
+            m_pDatePickerCtrl_Start->SetAccessible( new DatePickerCtrlAx(m_pDatePickerCtrl_Start));
 #endif
             S.Name(XO("Start Date"))
                .AddWindow(m_pDatePickerCtrl_Start);
 
-            m_pTimeTextCtrl_Start = safenew NumericTextCtrl(
+            m_pTimeTextCtrl_Start = new NumericTextCtrl(
                S.GetParent(), ID_TIMETEXT_START, NumericConverter::TIME,
                {}, 0, 44100,
                Options{}
@@ -793,7 +793,7 @@ void TimerRecordDialog::PopulateOrExchange(ShuttleGui& S)
          S.StartStatic(XO("End Date and Time"), true);
          {
             m_pDatePickerCtrl_End =
-               safenew wxDatePickerCtrl(S.GetParent(), // wxWindow *parent,
+               new wxDatePickerCtrl(S.GetParent(), // wxWindow *parent,
                ID_DATEPICKER_END, // wxWindowID id,
                m_DateTime_End); // const wxDateTime& dt = wxDefaultDateTime,
             // const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize,
@@ -802,12 +802,12 @@ void TimerRecordDialog::PopulateOrExchange(ShuttleGui& S)
             //                            const wxString& name = "datectrl")
             m_pDatePickerCtrl_End->SetRange(m_DateTime_Start, wxInvalidDateTime); // No backdating.
 #if wxUSE_ACCESSIBILITY
-            m_pDatePickerCtrl_End->SetAccessible( safenew DatePickerCtrlAx(m_pDatePickerCtrl_End));
+            m_pDatePickerCtrl_End->SetAccessible( new DatePickerCtrlAx(m_pDatePickerCtrl_End));
 #endif
             S.Name(XO("End Date"))
                .AddWindow(m_pDatePickerCtrl_End);
 
-            m_pTimeTextCtrl_End = safenew NumericTextCtrl(
+            m_pTimeTextCtrl_End = new NumericTextCtrl(
                S.GetParent(), ID_TIMETEXT_END, NumericConverter::TIME,
                {}, 0, 44100,
                Options{}
@@ -821,7 +821,7 @@ void TimerRecordDialog::PopulateOrExchange(ShuttleGui& S)
 
          S.StartStatic(XO("Duration"), true);
          {
-            m_pTimeTextCtrl_Duration = safenew NumericTextCtrl(
+            m_pTimeTextCtrl_Duration = new NumericTextCtrl(
                S.GetParent(), ID_TIMETEXT_DURATION, NumericConverter::TIME,
                {}, 0, 44100,
                Options{}

@@ -508,7 +508,7 @@ public:
 //--Some Additions since June 2007 that don't fit in elsewhere...
    wxWindow * GetParent()
    {
-      // This assertion justifies the use of safenew in many places where GetParent()
+      // This assertion justifies the use of new in many places where GetParent()
       // is used to construct a window
       wxASSERT(mpParent != NULL);
       return mpParent;

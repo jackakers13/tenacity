@@ -72,7 +72,7 @@ void wxWidgetsBasicUI::DoShowErrorDialog(
       default:
          break;
    }
-   auto pDlog = Destroy_ptr<ErrorDialog>( safenew ErrorDialog{ parent,
+   auto pDlog = Destroy_ptr<ErrorDialog>( new ErrorDialog{ parent,
       dlogTitle, message, helpPage, options.log,
       options.modalHelp, modal } );
    pDlog->CentreOnParent();
@@ -193,7 +193,7 @@ wxWidgetsBasicUI::DoMakeProgress(const TranslatableString & title,
    // So there is an extra indirection:  return a deletable object that holds
    // the proper kind of smart pointer to a wxWindow.
    return std::make_unique<MyProgressDialog>(
-      safenew ::ProgressDialog(
+      new ::ProgressDialog(
          title, message, options, remainingLabelText));
 }
 
@@ -204,7 +204,7 @@ struct MyGenericProgress : GenericProgressDialog {
    MyGenericProgress(const TranslatableString &title,
       const TranslatableString &message,
       wxWindow *parent = nullptr)
-      : mpDialog{ safenew wxGenericProgressDialog(
+      : mpDialog{ new wxGenericProgressDialog(
          title.Translation(), message.Translation(),
          300000,     // range
          parent,
