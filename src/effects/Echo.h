@@ -16,6 +16,16 @@
 
 class ShuttleGui;
 
+struct EffectEchoState
+{
+   double sampleRate;
+   double delay;
+   double decay;
+   Floats history;
+   size_t histPos;
+   size_t histLen;
+};
+
 class EffectEcho final : public Effect
 {
 public:
@@ -33,6 +43,7 @@ public:
    // EffectDefinitionInterface implementation
 
    EffectType GetType() override;
+   bool SupportsRealtime() override { return false; };
 
    // EffectClientInterface implementation
 
@@ -52,13 +63,12 @@ public:
 
 private:
    // EffectEcho implementation
+   void InstanceInit(EffectEchoState& state, double sampleRate);
 
 private:
-   double delay;
-   double decay;
-   Floats history;
-   size_t histPos;
-   size_t histLen;
+   EffectEchoState mMainState;
+   // not used (yet)
+   //std::vector<EffectEchoState> mSecondaryStates;
 };
 
 #endif // __AUDACITY_EFFECT_ECHO__

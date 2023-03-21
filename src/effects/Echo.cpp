@@ -45,9 +45,7 @@ namespace{ BuiltinEffectsModule::Registration< EffectEcho > reg; }
 
 EffectEcho::EffectEcho()
 {
-   delay = DEF_Delay;
-   decay = DEF_Decay;
-
+   InstanceInit(mMainState, mSampleRate);
    SetLinearEffectFlag(true);
 }
 
@@ -93,34 +91,34 @@ unsigned EffectEcho::GetAudioOutCount()
 
 bool EffectEcho::ProcessInitialize(sampleCount WXUNUSED(totalLen), ChannelNames WXUNUSED(chanMap))
 {
-   if (delay == 0.0)
+   InstanceInit(mMainState, mSampleRate);
+   if (mMainState.delay == 0.0)
    {
       return false;
    }
 
-   histPos = 0;
-   auto requestedHistLen = (sampleCount) (mSampleRate * delay);
+   auto requestedHistLen = (sampleCount) (mSampleRate * mMainState.delay);
 
    // Guard against extreme delay values input by the user
    try {
       // Guard against huge delay values from the user.
       // Don't violate the assertion in as_size_t
       if (requestedHistLen !=
-            (histLen = static_cast<size_t>(requestedHistLen.as_long_long())))
+            (mMainState.histLen = static_cast<size_t>(requestedHistLen.as_long_long())))
          throw std::bad_alloc{};
-      history.reinit(histLen, true);
+      mMainState.history.reinit(mMainState.histLen, true);
    }
    catch ( const std::bad_alloc& ) {
       Effect::MessageBox( XO("Requested value exceeds memory capacity.") );
       return false;
    }
 
-   return history != NULL;
+   return mMainState.history != NULL;
 }
 
 bool EffectEcho::ProcessFinalize()
 {
-   history.reset();
+   mMainState.history.reset();
    return true;
 }
 
@@ -129,29 +127,30 @@ size_t EffectEcho::ProcessBlock(float **inBlock, float **outBlock, size_t blockL
    float *ibuf = inBlock[0];
    float *obuf = outBlock[0];
 
-   for (decltype(blockLen) i = 0; i < blockLen; i++, histPos++)
+   for (size_t i = 0; i < blockLen; i++, mMainState.histPos++)
    {
-      if (histPos == histLen)
+      if (mMainState.histPos == mMainState.histLen)
       {
-         histPos = 0;
+         mMainState.histPos = 0;
       }
-      history[histPos] = obuf[i] = ibuf[i] + history[histPos] * decay;
+
+      mMainState.history[mMainState.histPos] = obuf[i] = ibuf[i] + mMainState.history[mMainState.histPos] * mMainState.decay;
    }
 
    return blockLen;
 }
 
 bool EffectEcho::DefineParams( ShuttleParams & S ){
-   S.SHUTTLE_PARAM( delay, Delay );
-   S.SHUTTLE_PARAM( decay, Decay );
+   S.SHUTTLE_PARAM( mMainState.delay, Delay );
+   S.SHUTTLE_PARAM( mMainState.decay, Decay );
    return true;
 }
 
 
 bool EffectEcho::GetAutomationParameters(CommandParameters & parms)
 {
-   parms.WriteFloat(KEY_Delay, delay);
-   parms.WriteFloat(KEY_Decay, decay);
+   parms.WriteFloat(KEY_Delay, mMainState.delay);
+   parms.WriteFloat(KEY_Decay, mMainState.decay);
 
    return true;
 }
@@ -161,8 +160,8 @@ bool EffectEcho::SetAutomationParameters(CommandParameters & parms)
    ReadAndVerifyFloat(Delay);
    ReadAndVerifyFloat(Decay);
 
-   delay = Delay;
-   decay = Decay;
+   mMainState.delay = Delay;
+   mMainState.decay = Decay;
 
    return true;
 }
@@ -174,13 +173,13 @@ void EffectEcho::PopulateOrExchange(ShuttleGui & S)
    S.StartMultiColumn(2, wxALIGN_CENTER);
    {
       S.Validator<FloatingPointValidator<double>>(
-            3, &delay, NumValidatorStyle::NO_TRAILING_ZEROES,
+            3, &mMainState.delay, NumValidatorStyle::NO_TRAILING_ZEROES,
             MIN_Delay, MAX_Delay
          )
          .AddTextBox(XXO("&Delay time (seconds):"), wxT(""), 10);
 
       S.Validator<FloatingPointValidator<double>>(
-            3, &decay, NumValidatorStyle::NO_TRAILING_ZEROES,
+            3, &mMainState.decay, NumValidatorStyle::NO_TRAILING_ZEROES,
             MIN_Decay, MAX_Decay)
          .AddTextBox(XXO("D&ecay factor:"), wxT(""), 10);
    }
@@ -207,3 +206,12 @@ bool EffectEcho::TransferDataFromWindow()
    return true;
 }
 
+void EffectEcho::InstanceInit(EffectEchoState& state, double sampleRate)
+{
+   state.sampleRate = sampleRate;
+   state.delay      = DEF_Delay;
+   state.decay      = DEF_Decay;
+   state.history.reset();
+   state.histPos    = 0;
+   state.histLen    = 0;
+}
