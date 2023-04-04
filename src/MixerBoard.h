@@ -14,11 +14,13 @@
 #include <wx/frame.h> // to inherit
 #include <wx/scrolwin.h> // to inherit
 
+#include "AudioIO.h"
 #include "widgets/ASlider.h" // to inherit
 #include "commands/CommandManagerWindowClasses.h"
 
 // Tenacity library
 #include <lib-preferences/Prefs.h>
+#include <lib-utility/Observer.h>
 
 class wxArrayString;
 class wxBitmapButton;
@@ -234,7 +236,7 @@ private:
    void OnTimer(wxCommandEvent &event);
    void OnTrackSetChanged(wxEvent &event);
    void OnTrackChanged(TrackListEvent &event);
-   void OnStartStop(wxCommandEvent &event);
+   void OnStartStop(AudioMessage msg);
 
 public:
    // mute & solo button images: Create once and store on MixerBoard for use in all MixerTrackClusters.
@@ -250,6 +252,7 @@ private:
 
    MusicalInstrumentArray     mMusicalInstruments;
    TenacityProject*           mProject;
+   Observer::Subscription     mAudioIOSubscription;
    MixerBoardScrolledWindow*  mScrolledWindow; // Holds the MixerTrackClusters and handles scrolling.
    double                     mPrevT1;
    TrackList*                 mTracks;

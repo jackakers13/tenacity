@@ -348,14 +348,10 @@ MeterPanel::MeterPanel(TenacityProject *project,
    mPeakPeakPen = wxPen(theTheme.Colour( clrMeterPeak),        1, wxPENSTYLE_SOLID);
    mDisabledPen = wxPen(theTheme.Colour( clrMeterDisabledPen), 1, wxPENSTYLE_SOLID);
 
-   if (mIsInput) {
-      wxTheApp->Bind(EVT_AUDIOIO_MONITOR,
-                        &MeterPanel::OnAudioIOStatus,
-                        this);
-      wxTheApp->Bind(EVT_AUDIOIO_CAPTURE,
-                        &MeterPanel::OnAudioIOStatus,
-                        this);
+   mAudioIOSubscription = AudioIO::Get()->Subscribe(*this, &MeterPanel::OnAudioIOStatus);
 
+   if (mIsInput)
+   {
       mPen       = wxPen(   theTheme.Colour( clrMeterInputPen         ), 1, wxPENSTYLE_SOLID);
       mBrush     = wxBrush( theTheme.Colour( clrMeterInputBrush       ), wxBRUSHSTYLE_SOLID);
       mRMSBrush  = wxBrush( theTheme.Colour( clrMeterInputRMSBrush    ), wxBRUSHSTYLE_SOLID);
@@ -363,11 +359,8 @@ MeterPanel::MeterPanel(TenacityProject *project,
 //      mLightPen  = wxPen(   theTheme.Colour( clrMeterInputLightPen    ), 1, wxSOLID);
 //      mDarkPen   = wxPen(   theTheme.Colour( clrMeterInputDarkPen     ), 1, wxSOLID);
    }
-   else {
-      // Register for AudioIO events
-      wxTheApp->Bind(EVT_AUDIOIO_PLAYBACK,
-                        &MeterPanel::OnAudioIOStatus,
-                        this);
+   else
+   {
 
       mPen       = wxPen(   theTheme.Colour( clrMeterOutputPen        ), 1, wxPENSTYLE_SOLID);
       mBrush     = wxBrush( theTheme.Colour( clrMeterOutputBrush      ), wxBRUSHSTYLE_SOLID);
@@ -1890,18 +1883,21 @@ void MeterPanel::StopMonitoring(){
    } 
 }
 
-void MeterPanel::OnAudioIOStatus(wxCommandEvent &evt)
+void MeterPanel::OnAudioIOStatus(AudioMessage msg)
 {
-   evt.Skip();
-   TenacityProject *p = (TenacityProject *) evt.GetEventObject();
+   TenacityProject* project = msg.project;
 
-   mActive = (evt.GetInt() != 0) && (p == mProject);
+   mActive = (msg.isActive) && (project == mProject);
 
-   if( mActive ){
+   if (mActive)
+   {
       mTimer.Start(1000 / mMeterRefreshRate);
-      if (evt.GetEventType() == EVT_AUDIOIO_MONITOR)
+      if (msg.type == AudioMessage::Type::Monitor)
+      {
          mMonitoring = mActive;
-   } else {
+      }
+   } else
+   {
       mTimer.Stop();
       mMonitoring = false;
    }

@@ -589,10 +589,6 @@ AudioIO *AudioIO::Get()
    return static_cast< AudioIO* >( AudioIOBase::Get() );
 }
 
-wxDEFINE_EVENT(EVT_AUDIOIO_PLAYBACK, wxCommandEvent);
-wxDEFINE_EVENT(EVT_AUDIOIO_CAPTURE, wxCommandEvent);
-wxDEFINE_EVENT(EVT_AUDIOIO_MONITOR, wxCommandEvent);
-
 // static
 int AudioIoCallback::mNextStreamToken = 0;
 double AudioIoCallback::mCachedBestRateOut;
@@ -1378,10 +1374,8 @@ void AudioIO::StartMonitoring( const AudioIOStartStreamOptions &options )
       return;
    }
 
-   wxCommandEvent e(EVT_AUDIOIO_MONITOR);
-   e.SetEventObject(mOwningProject);
-   e.SetInt(true);
-   wxTheApp->ProcessEvent(e);
+   AudioMessage msg {AudioMessage::Type::Monitor, mOwningProject, true};
+   Publish(msg);
 
    // FIXME: TRAP_ERR PaErrorCode 'noted' but not reported in StartMonitoring.
    // Now start the PortAudio stream!
@@ -1710,18 +1704,14 @@ int AudioIO::StartStream(const TransportTracks &tracks,
 
    if (mNumPlaybackChannels > 0)
    {
-      wxCommandEvent e(EVT_AUDIOIO_PLAYBACK);
-      e.SetEventObject(mOwningProject);
-      e.SetInt(true);
-      wxTheApp->ProcessEvent(e);
+      AudioMessage msg {AudioMessage::Type::Playback, mOwningProject, true};
+      Publish(msg);
    }
 
    if (mNumCaptureChannels > 0)
    {
-      wxCommandEvent e(EVT_AUDIOIO_CAPTURE);
-      e.SetEventObject(mOwningProject);
-      e.SetInt(true);
-      wxTheApp->ProcessEvent(e);
+      AudioMessage msg {AudioMessage::Type::Capture, mOwningProject, true};
+      Publish(msg);
    }
 
    commit = true;
@@ -2368,18 +2358,19 @@ void AudioIO::StopStream()
 
    if (mNumPlaybackChannels > 0)
    {
-      wxCommandEvent e(EVT_AUDIOIO_PLAYBACK);
-      e.SetEventObject(mOwningProject);
-      e.SetInt(false);
-      wxTheApp->ProcessEvent(e);
+      AudioMessage msg {AudioMessage::Type::Playback, mOwningProject, false};
+      Publish(msg);
    }
    
    if (mNumCaptureChannels > 0)
    {
-      wxCommandEvent e(wasMonitoring ? EVT_AUDIOIO_MONITOR : EVT_AUDIOIO_CAPTURE);
-      e.SetEventObject(mOwningProject);
-      e.SetInt(false);
-      wxTheApp->ProcessEvent(e);
+      AudioMessage msg {
+         wasMonitoring ? AudioMessage::Type::Monitor : 
+                         AudioMessage::Type::Capture,
+         mOwningProject,
+         false
+      };
+      Publish(msg);
    }
 
    mNumCaptureChannels = 0;

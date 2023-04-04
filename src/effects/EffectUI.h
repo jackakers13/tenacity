@@ -106,6 +106,7 @@ private:
 
 #endif
 
+#include "AudioIO.h"
 #include "EffectInterface.h"
 #include "widgets/wxPanelWrapper.h" // to inherit
 
@@ -157,8 +158,7 @@ private:
    void OnPlay(wxCommandEvent & evt);
    void OnRewind(wxCommandEvent & evt);
    void OnFFwd(wxCommandEvent & evt);
-   void OnPlayback(wxCommandEvent & evt);
-   void OnCapture(wxCommandEvent & evt);
+   void OnAudioIO(AudioMessage msg);
    void OnUserPreset(wxCommandEvent & evt);
    void OnFactoryPreset(wxCommandEvent & evt);
    void OnDeletePreset(wxCommandEvent & evt);
@@ -182,6 +182,7 @@ private:
    Effect *mEffect;
    AudacityCommand * mCommand;
    EffectUIClientInterface *mClient;
+   Observer::Subscription mAudioIOSubscription;
 
    RegistryPaths mUserPresets;
    bool mInitialized;

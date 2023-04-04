@@ -44,6 +44,7 @@ using NoteTrackConstArray = std::vector < std::shared_ptr< const NoteTrack > >;
 #include <lib-math/SampleCount.h>
 #include <lib-math/SampleFormat.h>
 #include <lib-utility/MessageBuffer.h>
+#include <lib-utility/Observer.h>
 
 class AudioIOBase;
 class AudioIO;
@@ -67,12 +68,18 @@ bool ValidateDeviceNames();
 constexpr int MAX_MIDI_BUFFER_SIZE = 5000;
 constexpr int DEFAULT_SYNTH_LATENCY = 5;
 
-wxDECLARE_EXPORTED_EVENT(TENACITY_DLL_API,
-                         EVT_AUDIOIO_PLAYBACK, wxCommandEvent);
-wxDECLARE_EXPORTED_EVENT(TENACITY_DLL_API,
-                         EVT_AUDIOIO_CAPTURE, wxCommandEvent);
-wxDECLARE_EXPORTED_EVENT(TENACITY_DLL_API,
-                         EVT_AUDIOIO_MONITOR, wxCommandEvent);
+struct AudioMessage
+{
+   enum class Type
+   {
+      Playback,
+      Capture,
+      Monitor
+   } type;
+
+   TenacityProject* project;
+   bool isActive; /// If playback, capture, or monitoring is active.
+};
 
 // PRL:
 // If we always run a portaudio output stream (even just to produce silence)
@@ -460,7 +467,8 @@ protected:
 };
 
 class TENACITY_DLL_API AudioIO final
-   : public AudioIoCallback
+   : public AudioIoCallback,
+     public Observer::Publisher<AudioMessage>
 {
 
    AudioIO();

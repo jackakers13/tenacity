@@ -315,12 +315,8 @@ TrackPanel::TrackPanel(wxWindow * parent, wxWindowID id,
 
    theProject->Bind(EVT_UNDO_RESET, &TrackPanel::OnUndoReset, this);
 
-   wxTheApp->Bind(EVT_AUDIOIO_PLAYBACK,
-                     &TrackPanel::OnAudioIO,
-                     this);
-   wxTheApp->Bind(EVT_AUDIOIO_CAPTURE,
-                     &TrackPanel::OnAudioIO,
-                     this);
+   mAudioIOSubscription = AudioIO::Get()->Subscribe(*this, &TrackPanel::OnAudioIO);
+
    UpdatePrefs();
 }
 
@@ -805,9 +801,14 @@ void TrackPanel::Refresh(bool eraseBackground /* = TRUE */,
    CallAfter([this]{ CellularPanel::HandleCursorForPresentMouseState(); } );
 }
 
-void TrackPanel::OnAudioIO(wxCommandEvent & evt)
+void TrackPanel::OnAudioIO(AudioMessage msg)
 {
-   evt.Skip();
+   if (msg.type == AudioMessage::Type::Monitor)
+   {
+      // Dont' handle monitoring events.
+      return;
+   }
+
    // Some hit tests want to change their cursor to and from the ban symbol
    CallAfter( [this]{ CellularPanel::HandleCursorForPresentMouseState(); } );
 }

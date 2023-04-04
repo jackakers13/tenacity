@@ -24,7 +24,9 @@
 // Tenacity libraries
 #include <lib-math/SampleFormat.h>
 #include <lib-preferences/Prefs.h>
+#include <lib-utility/Observer.h>
 
+#include "AudioIO.h"
 #include "MeterPanelBase.h" // to inherit
 #include "Ruler.h" // member variable
 
@@ -207,7 +209,7 @@ class TENACITY_DLL_API MeterPanel final
    void OnSetFocus(wxFocusEvent &evt);
    void OnKillFocus(wxFocusEvent &evt);
 
-   void OnAudioIOStatus(wxCommandEvent &evt);
+   void OnAudioIOStatus(AudioMessage msg);
 
    void OnMeterUpdate(wxTimerEvent &evt);
 
@@ -231,6 +233,7 @@ class TENACITY_DLL_API MeterPanel final
    TenacityProject *mProject;
    MeterUpdateQueue mQueue;
    wxTimer          mTimer;
+   Observer::Subscription mAudioIOSubscription;
 
    int       mWidth;
    int       mHeight;

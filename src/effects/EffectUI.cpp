@@ -1470,57 +1470,35 @@ void EffectUIHost::OnFFwd(wxCommandEvent & WXUNUSED(evt))
    }
 }
 
-void EffectUIHost::OnPlayback(wxCommandEvent & evt)
+void EffectUIHost::OnAudioIO(AudioMessage msg)
 {
-   evt.Skip();
-   
-   if (evt.GetInt() != 0)
+   if (msg.isActive)
    {
-      if (evt.GetEventObject() != mProject)
+      if (msg.project != mProject)
       {
          mDisableTransport = true;
-      }
-      else
+      } else
       {
-         mPlaying = true;
+         if (msg.type == AudioMessage::Type::Playback)
+         {
+            mPlaying = true;
+         } else
+         {
+            mCapturing = true;
+         }
       }
-   }
-   else
+   } else
    {
       mDisableTransport = false;
-      mPlaying = false;
+      mCapturing = mPlaying = false;
    }
-   
+
    if (mPlaying)
    {
       mRegion = ViewInfo::Get( *mProject ).selectedRegion;
       mPlayPos = mRegion.t0();
    }
-   
-   UpdateControls();
-}
 
-void EffectUIHost::OnCapture(wxCommandEvent & evt)
-{
-   evt.Skip();
-   
-   if (evt.GetInt() != 0)
-   {
-      if (evt.GetEventObject() != mProject)
-      {
-         mDisableTransport = true;
-      }
-      else
-      {
-         mCapturing = true;
-      }
-   }
-   else
-   {
-      mDisableTransport = false;
-      mCapturing = false;
-   }
-   
    UpdateControls();
 }
 
@@ -1796,14 +1774,8 @@ void EffectUIHost::InitializeRealtime()
    if (mSupportsRealtime && !mInitialized)
    {
       RealtimeEffectManager::Get().RealtimeAddEffect(mEffect);
-      
-      wxTheApp->Bind(EVT_AUDIOIO_PLAYBACK,
-                     &EffectUIHost::OnPlayback,
-                     this);
-      
-      wxTheApp->Bind(EVT_AUDIOIO_CAPTURE,
-                     &EffectUIHost::OnCapture,
-                     this);
+
+      mAudioIOSubscription = AudioIO::Get()->Subscribe(*this, &EffectUIHost::OnAudioIO);
       
       mInitialized = true;
    }

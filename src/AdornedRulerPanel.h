@@ -11,12 +11,14 @@
 #ifndef __AUDACITY_ADORNED_RULER_PANEL__
 #define __AUDACITY_ADORNED_RULER_PANEL__
 
+#include "AudioIO.h"
 #include "CellularPanel.h"
 #include "widgets/Ruler.h" // member variable
 #include "ViewInfo.h" // for PlayRegion
 
 // Tenacity preferences
 #include <lib-preferences/Prefs.h>
+#include <lib-utility/Observer.h>
 
 class TenacityProject;
 struct SelectedRegionEvent;
@@ -84,7 +86,7 @@ public:
 private:
    void DoIdle();
    void OnIdle( wxIdleEvent &evt );
-   void OnAudioStartStop(wxCommandEvent & evt);
+   void OnAudioStartStop(AudioMessage msg);
    void OnPaint(wxPaintEvent &evt);
    void OnSize(wxSizeEvent &evt);
    void OnThemeChange(wxCommandEvent& evt);
@@ -131,6 +133,7 @@ private:
    Ruler mRuler;
    TenacityProject *const mProject;
    TrackList *mTracks;
+   Observer::Subscription mAudioIOSubscription;
 
    wxRect mOuter;
    wxRect mScrubZone;

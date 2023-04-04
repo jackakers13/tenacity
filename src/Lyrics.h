@@ -18,6 +18,11 @@
 #include "commands/CommandManagerWindowClasses.h"
 #include "widgets/wxPanelWrapper.h" // to inherit
 
+#include "AudioIO.h"
+
+// Tenacity libraries
+#include <lib-utility/Observer.h>
+
 class TenacityProject;
 class LabelTrack;
 
@@ -101,7 +106,7 @@ class LyricsPanel final
    void Update(double t);
    void UpdateLyrics(wxEvent &e);
    void OnShow(wxShowEvent& e);
-   void OnStartStop(wxCommandEvent &e);
+   void OnStartStop(AudioMessage msg);
 
    //
    // Event handlers
@@ -157,6 +162,8 @@ private:
 
    wxWeakRef<TenacityProject> mProject;
    bool           mDelayedUpdate{ false };
+
+   Observer::Subscription mAudioIOSubscription;
 
    DECLARE_EVENT_TABLE()
 };

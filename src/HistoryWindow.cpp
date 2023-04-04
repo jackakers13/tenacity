@@ -87,13 +87,7 @@ HistoryDialog::HistoryDialog(TenacityProject *parent, UndoManager *manager):
    ShuttleGui S(this, eIsCreating);
    Populate(S);
 
-   wxTheApp->Bind(EVT_AUDIOIO_PLAYBACK,
-                     &HistoryDialog::OnAudioIO,
-                     this);
-
-   wxTheApp->Bind(EVT_AUDIOIO_CAPTURE,
-                     &HistoryDialog::OnAudioIO,
-                     this);
+   mAudioIOSubscription = AudioIO::Get()->Subscribe(*this, &HistoryDialog::OnAudioIO);
 
    Clipboard::Get().Bind(
       EVT_CLIPBOARD_CHANGE, &HistoryDialog::UpdateDisplay, this);
@@ -180,14 +174,15 @@ void HistoryDialog::Populate(ShuttleGui & S)
    mList->SetTextColour(wxSystemSettings::GetColour(wxSYS_COLOUR_WINDOWTEXT));
 }
 
-void HistoryDialog::OnAudioIO(wxCommandEvent& evt)
+void HistoryDialog::OnAudioIO(AudioMessage msg)
 {
-   evt.Skip();
+   if (msg.type == AudioMessage::Type::Monitor)
+   {
+      // Don't handle monitoring
+      return;
+   }
 
-   if (evt.GetInt() != 0)
-      mAudioIOBusy = true;
-   else
-      mAudioIOBusy = false;
+   mAudioIOBusy = msg.isActive;
 
 #if defined(ALLOW_DISCARD)
    mDiscard->Enable(!mAudioIOBusy);

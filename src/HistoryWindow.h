@@ -13,7 +13,9 @@
 
 // Tenacity libraries
 #include <lib-preferences/Prefs.h>
+#include <lib-utility/Observer.h>
 
+#include "AudioIO.h"
 #include "widgets/wxPanelWrapper.h" // to inherit
 
 class wxButton;
@@ -39,7 +41,7 @@ class HistoryDialog final : public wxDialogWrapper,
  private:
    void Populate(ShuttleGui & S);
 
-   void OnAudioIO(wxCommandEvent & evt);
+   void OnAudioIO(AudioMessage msg);
    void DoUpdate();
    void UpdateLevels();
 
@@ -65,6 +67,8 @@ class HistoryDialog final : public wxDialogWrapper,
    wxSpinCtrl        *mLevels;
    wxButton          *mDiscard;
    wxButton          *mCompact;
+
+   Observer::Subscription mAudioIOSubscription;
 
    int               mSelected;
    bool              mAudioIOBusy;

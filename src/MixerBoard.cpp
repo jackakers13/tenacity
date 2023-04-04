@@ -940,10 +940,7 @@ MixerBoard::MixerBoard(TenacityProject* pProject,
       &MixerBoard::OnTrackChanged,
       this);
 
-   wxTheApp->Connect(EVT_AUDIOIO_PLAYBACK,
-      wxCommandEventHandler(MixerBoard::OnStartStop),
-      NULL,
-      this);
+   mAudioIOSubscription = AudioIO::Get()->Subscribe(*this, &MixerBoard::OnStartStop);
 }
 
 
@@ -1387,10 +1384,9 @@ void MixerBoard::OnTrackSetChanged(wxEvent &evt)
    Refresh();
 }
 
-void MixerBoard::OnStartStop(wxCommandEvent &evt)
+void MixerBoard::OnStartStop(AudioMessage msg)
 {
-   evt.Skip();
-   bool start = evt.GetInt();
+   bool start = msg.isActive;
    ResetMeters( start );
 }
 

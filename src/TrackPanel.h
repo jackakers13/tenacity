@@ -19,6 +19,9 @@
 
 // Tenacity libraries
 #include <lib-preferences/Prefs.h>
+#include <lib-utility/Observer.h>
+
+#include "AudioIO.h"
 
 #include "HitTestResult.h"
 
@@ -80,7 +83,7 @@ class TENACITY_DLL_API TrackPanel final
 
    void UpdatePrefs() override;
 
-   void OnAudioIO(wxCommandEvent & evt);
+   void OnAudioIO(AudioMessage msg);
 
    void OnPaint(wxPaintEvent & event);
    void OnMouseEvent(wxMouseEvent & event);
@@ -211,6 +214,7 @@ protected:
 
    bool mRefreshBacking;
 
+   Observer::Subscription mAudioIOSubscription;
 
 protected:
 

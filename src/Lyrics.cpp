@@ -127,8 +127,7 @@ LyricsPanel::LyricsPanel(wxWindow* parent, wxWindowID id,
    project->Bind(EVT_UNDO_OR_REDO, &LyricsPanel::UpdateLyrics, this);
    project->Bind(EVT_UNDO_RESET, &LyricsPanel::UpdateLyrics, this);
 
-   wxTheApp->Bind(EVT_AUDIOIO_PLAYBACK, &LyricsPanel::OnStartStop, this);
-   wxTheApp->Bind(EVT_AUDIOIO_CAPTURE, &LyricsPanel::OnStartStop, this);
+   mAudioIOSubscription = AudioIO::Get()->Subscribe(*this, &LyricsPanel::OnStartStop);
 }
 
 LyricsPanel::~LyricsPanel()
@@ -513,12 +512,13 @@ void LyricsPanel::UpdateLyrics(wxEvent &e)
    Update(selectedRegion.t0());
 }
 
-void LyricsPanel::OnStartStop(wxCommandEvent &e)
+void LyricsPanel::OnStartStop(AudioMessage msg)
 {
-   e.Skip();
-   if ( !e.GetInt() && mDelayedUpdate ) {
+   if ( !msg.isActive && mDelayedUpdate )
+   {
       mDelayedUpdate = false;
-      UpdateLyrics( e );
+      wxCommandEvent dummyEvent;
+      UpdateLyrics( dummyEvent );
    }
 }
 
