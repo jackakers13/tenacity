@@ -671,7 +671,7 @@ void OnUnlockPlayRegion(const CommandContext &context)
 
 void OnRescanDevices(const CommandContext &WXUNUSED(context) )
 {
-   DeviceManager::Instance()->Rescan();
+   DeviceManager::Instance().Rescan();
 }
 
 void OnSoundActivated(const CommandContext &context)

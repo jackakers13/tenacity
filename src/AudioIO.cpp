@@ -1317,7 +1317,7 @@ bool AudioIO::StartPortAudioStream(const AudioIOStartStreamOptions &options,
    // On my test machine, no more than 3 attempts are required.
    unsigned int maxTries = 1;
 #ifdef __WXGTK__
-   if (DeviceManager::Instance()->GetTimeSinceRescan() < 10)
+   if (DeviceManager::Instance().GetTimeSinceRescan() < 10)
       maxTries = 5;
 #endif
 

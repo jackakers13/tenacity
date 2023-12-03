@@ -27,9 +27,9 @@ wxDEFINE_EVENT(EVT_RESCANNED_DEVICES, wxEvent);
 DeviceManager DeviceManager::dm;
 
 /// Gets the singleton instance
-DeviceManager* DeviceManager::Instance()
+DeviceManager& DeviceManager::Instance()
 {
-   return &dm;
+   return dm;
 }
 
 const std::vector<Device> &DeviceManager::GetInputDevices()
@@ -80,20 +80,20 @@ Device* DeviceManager::GetDefaultInputDevice(int hostIndex)
 //--------------- Device Enumeration --------------------------
 
 
-static void FillHostDeviceInfo(Device* device, const PaDeviceInfo* info, int deviceIndex, bool isInput)
+static void FillHostDeviceInfo(Device& device, const PaDeviceInfo& info, int deviceIndex, bool isInput)
 {
-   std::string hostapiName = Pa_GetHostApiInfo(info->hostApi)->name;
-   std::string infoName = info->name;
+   std::string hostapiName = Pa_GetHostApiInfo(info.hostApi)->name;
+   std::string infoName = info.name;
 
-   device->SetDeviceIndex(deviceIndex);
-   device->SetHostIndex(info->hostApi);
-   device->SetName(infoName);
-   device->SetHostName(hostapiName);
-   device->SetNumChannels(isInput ? info->maxInputChannels : info->maxOutputChannels);
-   device->SetDeviceType(isInput ? Device::Type::Input : Device::Type::Output);
+   device.SetDeviceIndex(deviceIndex);
+   device.SetHostIndex(info.hostApi);
+   device.SetName(infoName);
+   device.SetHostName(hostapiName);
+   device.SetNumChannels(isInput ? info.maxInputChannels : info.maxOutputChannels);
+   device.SetDeviceType(isInput ? Device::Type::Input : Device::Type::Output);
 }
 
-static bool IsInputDeviceAMapperDevice(const PaDeviceInfo *info)
+static bool IsInputDeviceAMapperDevice(const PaDeviceInfo& info)
 {
    // For Windows only, portaudio returns the default mapper object
    // as the first index after a NEW hostApi index is detected (true for MME and DS)
@@ -101,7 +101,7 @@ static bool IsInputDeviceAMapperDevice(const PaDeviceInfo *info)
    // I've looked at string comparisons, but if the system is in a different language this breaks.
 #ifdef __WXMSW__
    static int lastHostApiTypeId = -1;
-   int hostApiTypeId = Pa_GetHostApiInfo(info->hostApi)->type;
+   int hostApiTypeId = Pa_GetHostApiInfo(info.hostApi)->type;
    if(hostApiTypeId != lastHostApiTypeId &&
       (hostApiTypeId == paMME || hostApiTypeId == paDirectSound)) {
       lastHostApiTypeId = hostApiTypeId;
@@ -118,7 +118,7 @@ static void AddSources(int deviceIndex, int rate, std::vector<Device>& devices, 
    const PaDeviceInfo *info = Pa_GetDeviceInfo(deviceIndex);
 
    // Only inputs have sources, so we call FillHostDeviceInfo with a 1 to indicate this
-   FillHostDeviceInfo(&device, info, deviceIndex, true);
+   FillHostDeviceInfo(device, *info, deviceIndex, true);
 
    devices.push_back(device);
 }

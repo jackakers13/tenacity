@@ -240,8 +240,8 @@ void DevicePrefs::OnHost(wxCommandEvent & e)
       mHost->SetSelection(0);
    }
 
-   const std::vector<Device> &inDevices  = DeviceManager::Instance()->GetInputDevices();
-   const std::vector<Device> &outDevices = DeviceManager::Instance()->GetOutputDevices();
+   const std::vector<Device> &inDevices  = DeviceManager::Instance().GetInputDevices();
+   const std::vector<Device> &outDevices = DeviceManager::Instance().GetOutputDevices();
 
    wxArrayString playnames;
    wxArrayString recordnames;
@@ -294,7 +294,7 @@ void DevicePrefs::OnHost(wxCommandEvent & e)
     * this API, as defined by PortAudio. We then fall back to using 0 only if
     * that fails */
    if (mPlay->GetCount() && mPlay->GetSelection() == wxNOT_FOUND) {
-      Device* defaultDevice = DeviceManager::Instance()->GetDefaultOutputDevice(index);
+      Device* defaultDevice = DeviceManager::Instance().GetDefaultOutputDevice(index);
       if (defaultDevice)
       {
          mPlay->SetStringSelection(defaultDevice->GetName());
@@ -306,7 +306,7 @@ void DevicePrefs::OnHost(wxCommandEvent & e)
    }
 
    if (mRecord->GetCount() && mRecord->GetSelection() == wxNOT_FOUND) {
-      Device* defaultDevice = DeviceManager::Instance()->GetDefaultInputDevice(index);
+      Device* defaultDevice = DeviceManager::Instance().GetDefaultInputDevice(index);
       if (defaultDevice)
       {
          mRecord->SetStringSelection(defaultDevice->GetName());

@@ -22,7 +22,6 @@
 #include <vector>
 
 #include <wx/event.h> // to declare a custom event type
-#include <wx/string.h> // member variables
 
 #if defined(EXPERIMENTAL_DEVICE_CHANGE_HANDLER)
 #include "DeviceChange.h"
@@ -43,7 +42,7 @@ class AUDIO_DEVICES_API DeviceManager final
 {
  public:
    /// Gets the singleton instance
-   static DeviceManager* Instance();
+   static DeviceManager& Instance();
 
    /// Gets a NEW list of devices by terminating and restarting portaudio
    /// Assumes that DeviceManager is only used on the main thread.

@@ -76,7 +76,7 @@ static int DeviceToolbarPrefsID()
 DeviceToolBar::DeviceToolBar( TenacityProject &project )
 : ToolBar( project, DeviceBarID, XO("Device"), wxT("Device"), true )
 {
-   DeviceManager::Instance()->Bind( EVT_RESCANNED_DEVICES,
+   DeviceManager::Instance().Bind( EVT_RESCANNED_DEVICES,
       &DeviceToolBar::OnRescannedDevices, this );
 }
 
@@ -226,8 +226,8 @@ void DeviceToolBar::OnCaptureKey(wxCommandEvent &event)
 void DeviceToolBar::UpdatePrefs()
 {
    wxString desc;
-   const std::vector<Device> &inDevices  = DeviceManager::Instance()->GetInputDevices();
-   const std::vector<Device> &outDevices = DeviceManager::Instance()->GetOutputDevices();
+   const std::vector<Device> &inDevices  = DeviceManager::Instance().GetInputDevices();
+   const std::vector<Device> &outDevices = DeviceManager::Instance().GetOutputDevices();
 
 
    int hostSelectionIndex = mHost->GetSelection();
@@ -253,7 +253,7 @@ void DeviceToolBar::UpdatePrefs()
              inDevices[i].GetName()     == mInput->GetString(0))
          {
             // use the default.  It should exist but check just in case, falling back on the 0 index.
-            Device* defaultDevice = DeviceManager::Instance()->GetDefaultInputDevice(inDevices[i].GetHostIndex());
+            Device* defaultDevice = DeviceManager::Instance().GetDefaultInputDevice(inDevices[i].GetHostIndex());
             if (defaultDevice)
             {
                mInput->SetStringSelection(defaultDevice->GetName());
@@ -280,7 +280,7 @@ void DeviceToolBar::UpdatePrefs()
          if (outDevices[i].GetHostName()   == hostName &&
              outDevices[i].GetName() == mOutput->GetString(0)) {
             // use the default.  It should exist but check just in case, falling back on the 0 index.
-            Device* defaultMap = DeviceManager::Instance()->GetDefaultOutputDevice(outDevices[i].GetHostIndex());
+            Device* defaultMap = DeviceManager::Instance().GetDefaultOutputDevice(outDevices[i].GetHostIndex());
             if (defaultMap) {
                mOutput->SetStringSelection(defaultMap->GetName());
                SetDevices(NULL, defaultMap);
@@ -376,8 +376,8 @@ void DeviceToolBar::RefillCombos()
 
 void DeviceToolBar::FillHosts()
 {
-   const std::vector<Device> &inDevices = DeviceManager::Instance()->GetInputDevices();
-   const std::vector<Device> &outDevices = DeviceManager::Instance()->GetOutputDevices();
+   const std::vector<Device> &inDevices = DeviceManager::Instance().GetInputDevices();
+   const std::vector<Device> &outDevices = DeviceManager::Instance().GetOutputDevices();
 
    wxArrayString hosts;
 
@@ -407,8 +407,8 @@ void DeviceToolBar::FillHosts()
 
 void DeviceToolBar::FillHostDevices()
 {
-   const std::vector<Device> &inDevices  = DeviceManager::Instance()->GetInputDevices();
-   const std::vector<Device> &outDevices = DeviceManager::Instance()->GetOutputDevices();
+   const std::vector<Device> &inDevices  = DeviceManager::Instance().GetInputDevices();
+   const std::vector<Device> &outDevices = DeviceManager::Instance().GetOutputDevices();
 
    //read what is in the prefs
    auto host = AudioIOHost.Read();
@@ -490,7 +490,7 @@ void DeviceToolBar::FillHostDevices()
 
 void DeviceToolBar::FillInputChannels()
 {
-   const std::vector<Device> &inDevices = DeviceManager::Instance()->GetInputDevices();
+   const std::vector<Device> &inDevices = DeviceManager::Instance().GetInputDevices();
    auto host = AudioIOHost.Read();
    auto device = AudioIORecordingDevice.Read();
    long newChannels;
@@ -587,8 +587,8 @@ void DeviceToolBar::ChangeDevice(bool isInput)
 
    int selectionIndex  = combo->GetSelection();
    auto host = AudioIOHost.Read();
-   const std::vector<Device>& devices = isInput ? DeviceManager::Instance()->GetInputDevices()
-                                                : DeviceManager::Instance()->GetOutputDevices();
+   const std::vector<Device>& devices = isInput ? DeviceManager::Instance().GetInputDevices()
+                                                : DeviceManager::Instance().GetOutputDevices();
 
    // Find device indices for input and output
    if (selectionIndex >= 0 ) {
