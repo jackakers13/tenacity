@@ -395,9 +395,7 @@ bool AudioIO::StartPortAudioStream(const AudioIOStartStreamOptions &options,
       playbackParameters.hostApiSpecificStreamInfo = NULL;
       playbackParameters.channelCount = mNumPlaybackChannels;
 
-      playbackParameters.suggestedLatency = mSoftwarePlaythrough ?
-         playbackDeviceInfo->defaultLowOutputLatency :
-         0.0;
+      playbackParameters.suggestedLatency = playbackDeviceInfo->defaultLowOutputLatency;
 
       mOutputMeter = options.playbackMeter;
    }
@@ -422,9 +420,7 @@ bool AudioIO::StartPortAudioStream(const AudioIOStartStreamOptions &options,
 
       captureParameters.hostApiSpecificStreamInfo = NULL;
       captureParameters.channelCount = mNumCaptureChannels;
-      captureParameters.suggestedLatency = mSoftwarePlaythrough ?
-         captureDeviceInfo->defaultHighInputLatency :
-         0.0;
+      captureParameters.suggestedLatency = captureDeviceInfo->defaultHighInputLatency;
 
       SetCaptureMeter( mOwningProject.lock(), options.captureMeter );
    }
